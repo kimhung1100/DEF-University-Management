@@ -1,4 +1,4 @@
-package org.defuni;
+package org.defuni.course;
 
 public interface StudentObserver {
     public void displayGrade();

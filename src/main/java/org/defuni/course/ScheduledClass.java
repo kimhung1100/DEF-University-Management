@@ -1,19 +1,24 @@
-package org.defuni;
+package org.defuni.course;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScheduledClass implements Subject{
+public class ScheduledClass implements Subject {
     private List<StudentObserver> studentObservers;
+
+    private List<LecturerObserver> lectureObservers;
 
     public String classID;
 //    public Course course;
     private String room;
     private String hall;
     private String time;
+
+    private ScheduledClassType type;
     private String content;
     public ScheduledClass() {
         studentObservers = new ArrayList<StudentObserver>();
+        lectureObservers = new ArrayList<LecturerObserver>();
         classID = "";
         room = "";
         hall = "";
