@@ -2,10 +2,10 @@
 
 Work list:
 
--[ ] Create user by Factory Method pattern.
--[ ] Management course for Lecturer (implementing)
--[ ] Course listener by Student (doing).
--[ ] Login feature by Singleton Pattern (not CLass diagram yet.)
+- [x] Create user by Factory Method pattern.
+- [ ] Management course for Lecturer (implementing)
+- [ ] Course listener by Student (doing).
+- [ ] Login feature by Singleton Pattern (not CLass diagram yet.)
 - [ ] Connect to Firebase.
 - [ ] Complete Logic for 3 actor (Student, Lecturer, )
 - [ ] Report
