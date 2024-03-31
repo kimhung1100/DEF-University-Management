@@ -12,6 +12,13 @@ public class Course {
     private List<Double> componentGrades;
     private List<CourseContent> courseContent;
     private List<String> courseMaterials;
+    private CourseState courseState;
+
+    public Course(){
+        courseState = CourseState.EDITING;
+    }
+
+
 
 
     public double getComponentGrade(int index) {

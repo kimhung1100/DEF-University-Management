@@ -15,7 +15,7 @@ public abstract class UserAccount {
     private LocalDate dob;
 
     public boolean login(String username, String password) {
-        LoginManager loginManager = LoginManager.getInstance();
+        Manager loginManager = Manager.getInstance();
         return loginManager.login(username, password);
     }
 

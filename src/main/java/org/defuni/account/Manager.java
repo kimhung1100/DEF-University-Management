@@ -1,17 +1,23 @@
 package org.defuni.account;
 
-public class LoginManager {
-    private static LoginManager instance;
+import org.defuni.course.Course;
 
-    private LoginManager() {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Manager {
+    private static Manager instance;
+    private static List<Course> courseList = new ArrayList<Course>();
+
+    private Manager() {
         // Prevent instantiation via reflection
         if (instance != null) {
             throw new IllegalStateException("Cannot instantiate singleton class using reflection");
         }
     }
-    public static synchronized LoginManager getInstance() {
+    public static synchronized Manager getInstance() {
         if (instance == null) {
-            instance = new LoginManager();
+            instance = new Manager();
         }
         return instance;
     }
@@ -25,6 +31,13 @@ public class LoginManager {
             return false;
         }
     }
+
+    public static boolean addCourse(Course course){
+        courseList.add(course);
+        return true;
+    }
+
+
 
 
 }
