@@ -6,10 +6,6 @@ import org.defuni.account.UserAccountType;
 import java.time.LocalDate;
 
 public abstract class UserAccountFactory {
-    private String firstName;
-    private String lastName;
-    private String address;
-    private LocalDate dob;
+    public abstract UserAccount createUser(UserAccountType type);
 
-    abstract UserAccount createUser();
 }
