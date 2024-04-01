@@ -14,6 +14,7 @@ public class Course {
     private List<String> courseMaterials;
     private CourseState courseState;
 
+
     public Course(){
         courseState = CourseState.EDITING;
     }

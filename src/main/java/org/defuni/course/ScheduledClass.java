@@ -57,23 +57,23 @@ public class ScheduledClass implements Subject {
             return;
         }
 
-        for (CourseContent courseContent : classContent) {
-            int[] weeks = courseContent.getWeeks();
-            String[] contents = courseContent.getContent();
-            String[] lecturings = courseContent.getLecturing();
-
-            for (int week : weeks) {
-                // Calculate the date for the current week
-                LocalDate sessionDate = beginDate.plusWeeks(week - 1); // Subtract 1 because weeks are 1-based
-
-                // Create a new session for each week
-                LocalDateTime sessionDateTime = sessionDate.atTime(time);
-
-                // Create a new session for each week
-                Session session = new Session(courseContent, sessionDateTime, room);
-                sessions.add(session);
-            }
-        }
+//        for (CourseContent courseContent : classContent) {
+//            int[] weeks = courseContent.getWeeks();
+//            String[] contents = courseContent.getContent();
+//            String[] lecturings = courseContent.getLecturing();
+//
+//            for (int week : weeks) {
+//                // Calculate the date for the current week
+//                LocalDate sessionDate = beginDate.plusWeeks(week - 1); // Subtract 1 because weeks are 1-based
+//
+//                // Create a new session for each week
+//                LocalDateTime sessionDateTime = sessionDate.atTime(time);
+//
+//                // Create a new session for each week
+//                Session session = new Session(courseContent, sessionDateTime, room);
+//                sessions.add(session);
+//            }
+//        }
     }
     public String getContent(){
         return this.content;
