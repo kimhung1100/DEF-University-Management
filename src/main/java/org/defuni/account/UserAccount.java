@@ -1,8 +1,12 @@
 package org.defuni.account;
 
 import java.time.LocalDate;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 
+@Entity
 public abstract class UserAccount {
+    @Id
     private int userID;
     private String userName;
     private String email;
@@ -13,6 +17,17 @@ public abstract class UserAccount {
 
     private String address;
     private LocalDate dob;
+
+    public UserAccount(String userName, String email, String password) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public UserAccount() {
+
+    }
+
 
     public boolean login(String username, String password) {
         Manager loginManager = Manager.getInstance();
@@ -72,7 +87,12 @@ public abstract class UserAccount {
         return this.firstName;
     }
 
-
+    public String getEmail() {
+        return email;
+    }
+    public String getPassword() {
+        return password;
+    }
 
 
 

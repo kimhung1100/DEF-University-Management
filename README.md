@@ -6,7 +6,7 @@ When finish project, we draw class diagram generated from IdeaJ to LucidChart fo
 After that, we explain what we do in slides.
 
 ## Work list:
-- [ ] Connect to Firebase for Logging (Toàn).
+- [x] Connected to Firebase and Create first Student.
 - [ ] Course Register
 - [ ] Course 
 - [x] Create user by Factory Method pattern.

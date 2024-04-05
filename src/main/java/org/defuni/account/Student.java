@@ -1,17 +1,25 @@
 package org.defuni.account;
 
+import com.googlecode.objectify.annotation.Entity;
 import org.defuni.account.UserAccount;
 import org.defuni.course.ScheduledClass;
 import org.defuni.course.StudentObserver;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.googlecode.objectify.annotation.Id;
+@Entity
 public class Student extends UserAccount implements StudentObserver {
+    @Id
     List<ScheduledClass> courseClass;
     List<String> notification;
 
     public Student(){
+        courseClass = new ArrayList<ScheduledClass>();
+        notification = new ArrayList<String>();
+    }
+    public Student(String userName, String email, String password){
+        super(userName, email, password);
         courseClass = new ArrayList<ScheduledClass>();
         notification = new ArrayList<String>();
     }
