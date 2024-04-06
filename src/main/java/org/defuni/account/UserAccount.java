@@ -24,6 +24,7 @@ public abstract class UserAccount {
         this.password = password;
     }
 
+
     public UserAccount() {
 
     }

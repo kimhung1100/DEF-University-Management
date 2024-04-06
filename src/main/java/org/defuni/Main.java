@@ -5,6 +5,7 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
+import org.defuni.account.Manager;
 import org.defuni.account.Student;
 import com.google.api.core.ApiFutures;
 
@@ -16,8 +17,7 @@ public class Main {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         // Get an instance of Firestore using the Connection class
-        Connection connection = new Connection();
-        Firestore firestore = connection.connect();
+        Firestore firestore = Manager.connect();
 
         // Create a new student
         Student student = new Student("test_student", "test_email","password");
@@ -27,6 +27,9 @@ public class Main {
         data.put("userName", student.getUserName());
         data.put("email", student.getEmail());
         data.put("password", student.getPassword());
+        data.put("firstName", student.getFirstName());
+        data.put("lastName", student.getLastName());
+        data.put("address", student.getAddress());
 
 
         // asynchronously write data
