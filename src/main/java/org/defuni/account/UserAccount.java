@@ -1,8 +1,9 @@
 package org.defuni.account;
 
 import java.util.Scanner;
-
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public abstract class UserAccount {
     private int userID;
@@ -95,7 +96,14 @@ public abstract class UserAccount {
         return userID;
     }
 
-    private void updateProfile() {
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    // Will need to connect to DB
+    public void updateProfile() {
+        clearScreen();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(String.format("Updating info. If you dont want to change any field, just Enter"));
@@ -125,13 +133,37 @@ public abstract class UserAccount {
         } else
             setAddress(input);
 
-        System.out.println(String.format("Date of birth: %s", getDob()));
-        input = scanner.nextLine();
-        if (input == "") {
-        } else
-            setFirstName(input);
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        // System.out.println(String.format("Date of birth dd-mm-yyyy: %s",
+        // getDob().format(formatter))));
+        // input = scanner.nextLine();
+        // if (input == "") {
+        // } else {
+        // setDob(LocalDate.parse(input, formatter));
+        // }
 
-        scanner.close();
+        // scanner.close(); //THIS MUST NOT CLOSE
+        clearScreen();
+    }
+
+    // Will need to connect to DB
+    public void displayInfo() {
+        clearScreen();
+        System.out.println(String.format("Name: %s %s", getLastName(), getFirstName()));
+        System.out.println(String.format("Email: %s", getEmail()));
+        System.out.println(String.format("Address: %s", getAddress()));
+
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        // String dob = getDob().format(formatter);
+        // System.out.println(String.format("Date of birth: " + dob));
+
+        System.out.print("*Press Enter to exit");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+
+        clearScreen();
+
+        // Scanner must NOT close, process in LecturerPage needs it to run
     }
 
 }
