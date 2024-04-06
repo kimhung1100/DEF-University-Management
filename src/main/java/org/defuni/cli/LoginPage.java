@@ -30,7 +30,7 @@ public class LoginPage {
                     break;
                 case 2:
                     Lecturer lecturer = new Lecturer();
-                    if (lecturer.login(username, password) == true){
+                    if (lecturer.login(username, password) != null){
                         LecturerPage lecturerPage = new LecturerPage(lecturer);
                         break;
                     }

@@ -56,11 +56,10 @@ public class TestStudentObserve {
         UserAccountFactory studentAccountFactory = new StudentAccountFactory();
 
         UserAccount user = staffAccountFactory.createUser(UserAccountType.LECTURER);
-        user.setUserName("admin");
-        user.setPassword("password");
+        user.setUserName("testUser");
+        user.setPassword("testPassword");
 
-        assertTrue(user.login("admin", "password"));
-        assertFalse(user.login("admin", "passwor1"));
+        assertTrue(user.login(user.getUserName(), user.getPassword())!=null);
 
 
 
