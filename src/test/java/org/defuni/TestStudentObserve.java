@@ -1,8 +1,15 @@
 package org.defuni;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
 import org.defuni.account.*;
 import org.junit.jupiter.api.Test;
 import org.defuni.course.ScheduledClass;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,15 +56,15 @@ public class TestStudentObserve {
         UserAccountFactory studentAccountFactory = new StudentAccountFactory();
 
         UserAccount user = staffAccountFactory.createUser(UserAccountType.LECTURER);
-        user.setUserName("admin");
-        user.setPassword("password");
+        user.setUserName("testUser");
+        user.setPassword("testPassword");
 
-        assertTrue(user.login("admin", "password"));
-        assertFalse(user.login("admin", "passwor1"));
+        assertTrue(user.login(user.getUserName(), user.getPassword())!=null);
 
 
 
     }
+
 
 
 

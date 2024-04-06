@@ -17,7 +17,7 @@ public abstract class UserAccount {
     private String address;
     private LocalDate dob;
 
-    public boolean login(String username, String password) {
+    public UserAccount login(String username, String password) {
         Manager loginManager = Manager.getInstance();
         return loginManager.login(username, password);
     }
@@ -27,6 +27,7 @@ public abstract class UserAccount {
         this.email = email;
         this.password = password;
     }
+
 
     public UserAccount() {
 
