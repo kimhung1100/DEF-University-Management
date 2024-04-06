@@ -17,12 +17,12 @@ After that, we explain what we do in slides.
 
 ## Work list:
 - [x] Connected to Firebase and Create first Student.
+- [ ] Course Create
 - [ ] Course Register
-- [ ] Course 
 - [x] Create user by Factory Method pattern.
 - [ ] Management course for Lecturer (implementing)
 - [ ] Course listener by Student (doing).
-- [ ] Login feature by Singleton Pattern (not CLass diagram yet.)
+- [x] Login feature by Singleton Pattern (not CLass diagram yet.)
 - [ ] Complete Logic for 3 actor (Student, Lecturer, )
 - [ ] Report
 - [ ] Slide
