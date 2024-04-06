@@ -7,12 +7,16 @@ After that, we explain what we do in slides.
 
 ## Some Example Crud code:
 - Create: test/java/.../StudentFireStoreTest.java
+
   https://firebase.google.com/docs/firestore/manage-data/add-data
 - Read: account/Manager.java/login()
+
   https://firebase.google.com/docs/firestore/query-data/get-data
 - Update: test/java/.../UpdateStudentTest.java
+
   https://firebase.google.com/docs/firestore/manage-data/add-data#update-data
 - Delete: account/EducationalManager.java/deleteStudent()
+  
   https://firebase.google.com/docs/firestore/manage-data/delete-data
 
 ## Work list:
