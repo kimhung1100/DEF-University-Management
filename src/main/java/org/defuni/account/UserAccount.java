@@ -21,6 +21,16 @@ public abstract class UserAccount {
         return loginManager.login(username, password);
     }
 
+    public UserAccount(String userName, String email, String password) {
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
+    }
+
+    public UserAccount() {
+
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -123,4 +133,5 @@ public abstract class UserAccount {
 
         scanner.close();
     }
+
 }
