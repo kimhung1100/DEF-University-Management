@@ -5,6 +5,12 @@ When finish project, we draw class diagram generated from IdeaJ to LucidChart fo
 
 After that, we explain what we do in slides.
 
+## Some Example Crud code:
+- Create: test/java/.../StudentFireStoreTest.java
+- Read: account/Manager.java/login()
+- Update: test/java/.../UpdateStudentTest.java
+- Delete: account/EducationalManager.java/deleteStudent()
+
 ## Work list:
 - [x] Connected to Firebase and Create first Student.
 - [ ] Course Register
