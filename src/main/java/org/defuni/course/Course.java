@@ -13,14 +13,14 @@ public class Course {
     private List<CourseContent> courseContent;
     private List<String> courseMaterials;
     private CourseState courseState;
+    private List<ScheduledClass> classes;
 
+    public String description;
+    public Department department;
 
-    public Course(){
+    public Course() {
         courseState = CourseState.EDITING;
     }
-
-
-
 
     public double getComponentGrade(int index) {
         if (index < 0 || index >= componentGrades.size()) {
@@ -33,11 +33,9 @@ public class Course {
         return componentGrades.size();
     }
 
-    public String description;
-    public Department department;
-
-    public List<CourseContent> getCourseContent() {return this.courseContent;}
-
+    public List<CourseContent> getCourseContent() {
+        return this.courseContent;
+    }
 
     public void setCourseID(String courseID) {
         this.courseID = courseID;
