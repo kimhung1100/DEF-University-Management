@@ -3,6 +3,7 @@ package org.defuni.course;
 import org.defuni.account.Lecturer;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Course {
     private String courseID;
@@ -20,6 +21,14 @@ public class Course {
 
     public Course() {
         courseState = CourseState.EDITING;
+        classes = new ArrayList<ScheduledClass>();
+
+        classes.add(new ScheduledClass("L01", this));
+        classes.add(new ScheduledClass("L02", this));
+        classes.add(new ScheduledClass("L03", this));
+
+        courseMaterials = new ArrayList<>();
+
     }
 
     public double getComponentGrade(int index) {
@@ -43,6 +52,10 @@ public class Course {
 
     public void setCourseTitle(String courseTitle) {
         this.courseTitle = courseTitle;
+    }
+
+    public String getCourseTitle() {
+        return this.courseTitle;
     }
 
     public void setLecturerInCharge(Lecturer lecturer) {

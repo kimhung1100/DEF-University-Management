@@ -56,7 +56,12 @@ public class Lecturer extends UserAccount implements LecturerObserver {
         // Add the created course to the list of courses
         Manager.addCourse(course);
 
-        System.out.println("Course created successfully!");
+        System.out.println(String.format("Course %s created successfully!", course.getCourseTitle()));
+
+        scanner.nextLine();
+        clearScreen();
+
+        // scanner.close(); // Dont close the scanner!
         return true;
     }
 }

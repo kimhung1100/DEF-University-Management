@@ -18,7 +18,10 @@ public class LoginPage {
         int choice = scanner.nextInt();
         scanner.nextLine(); // Consume newline character
 
-        while(true) {
+        while (true) {
+            clearScreen();
+
+            System.out.println("LOGIN PAGE");
             System.out.print("Enter username: ");
             String username = scanner.nextLine();
             System.out.print("Enter password: ");
@@ -30,12 +33,14 @@ public class LoginPage {
                     break;
                 case 2:
                     Lecturer lecturer = new Lecturer();
-                    if (lecturer.login(username, password) != null){
-                        LecturerPage lecturerPage = new LecturerPage(lecturer);
-                        break;
-                    }
+                    // if (lecturer.login(username, password) != null) { //hình như chưa đồng bộ đc
+                    // bên ggfb?
+                    // LecturerPage lecturerPage = new LecturerPage(lecturer);
+                    // lecturerPage.run();
+                    // }
 
-
+                    LecturerPage lecturerPage = new LecturerPage(lecturer);
+                    lecturerPage.run();
                     break;
                 case 3:
                     EducationManager manager = new EducationManager();
@@ -44,8 +49,13 @@ public class LoginPage {
                 default:
                     System.out.println("Invalid choice. Please choose again.");
             }
+
         }
 
+    }
 
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }
