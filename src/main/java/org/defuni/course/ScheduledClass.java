@@ -1,5 +1,6 @@
 package org.defuni.course;
 
+import org.defuni.account.Lecturer;
 import org.defuni.infrastructure.Room;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ import java.util.List;
 public class ScheduledClass implements Subject {
     private List<StudentObserver> studentObservers;
 
-    private List<LecturerObserver> lectureObservers;
+    private Lecturer lecturerIncharge;
 
     private String classID; // class's name: L01, L02...
     private Course course;
@@ -24,12 +25,10 @@ public class ScheduledClass implements Subject {
 
     public ScheduledClass() {
         studentObservers = new ArrayList<StudentObserver>();
-        lectureObservers = new ArrayList<LecturerObserver>();
     }
 
     public ScheduledClass(String ID, Course course) {
         studentObservers = new ArrayList<StudentObserver>();
-        lectureObservers = new ArrayList<LecturerObserver>();
 
         this.classID = ID;
         this.course = course;
@@ -38,6 +37,43 @@ public class ScheduledClass implements Subject {
     public ScheduledClass(Course course) {
         this.course = course;
         classContent = course.getCourseContent();
+    }
+
+    public void addStudent(StudentObserver o) {
+        this.registerObserver(o);
+    }
+
+    public void removeStudent(StudentObserver o) {
+        this.removeObserver(o);
+    }
+
+    public void notifyStudents() {
+        this.notifyObserver();
+    }
+
+    public void contentChanged() {
+        notifyStudents();
+    }
+
+    public void setContent(String courseContent) {
+        this.content = courseContent;
+        contentChanged();
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public String getClassID() {
+        return this.classID;
+    }
+
+    public void setLectuter(Lecturer l) {
+        this.lecturerIncharge = l;
+    }
+
+    public Lecturer getLecturer() {
+        return this.lecturerIncharge;
     }
 
     public void registerObserver(StudentObserver student) {
@@ -52,47 +88,5 @@ public class ScheduledClass implements Subject {
         for (StudentObserver student : studentObservers) {
             student.update(this);
         }
-    }
-
-    public void contentChanged() {
-        notifyObserver();
-    }
-
-    public void setContent(String courseContent) {
-        this.content = courseContent;
-        contentChanged();
-    }
-
-    public void createSessionEachWeek(LocalTime time, LocalDate beginDate, Room room) {
-        if (classContent == null) {
-            return;
-        }
-
-        // for (CourseContent courseContent : classContent) {
-        // int[] weeks = courseContent.getWeeks();
-        // String[] contents = courseContent.getContent();
-        // String[] lecturings = courseContent.getLecturing();
-        //
-        // for (int week : weeks) {
-        // // Calculate the date for the current week
-        // LocalDate sessionDate = beginDate.plusWeeks(week - 1); // Subtract 1 because
-        // weeks are 1-based
-        //
-        // // Create a new session for each week
-        // LocalDateTime sessionDateTime = sessionDate.atTime(time);
-        //
-        // // Create a new session for each week
-        // Session session = new Session(courseContent, sessionDateTime, room);
-        // sessions.add(session);
-        // }
-        // }
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public String getClassID() {
-        return this.classID;
     }
 }

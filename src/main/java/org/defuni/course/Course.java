@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Course {
     private String courseID;
     private String courseTitle;
-    private Lecturer lecturerInCharge;
+    private Lecturer lecturerCreated;
     private int credits;
     private List<Double> componentGrades;
     private List<CourseContent> courseContent;
@@ -26,6 +26,9 @@ public class Course {
         classes.add(new ScheduledClass("L01", this));
         classes.add(new ScheduledClass("L02", this));
         classes.add(new ScheduledClass("L03", this));
+
+        classes.get(0).addLecturer(lecturerCreated); // L01 sẽ do giáo viên tạo course dạy
+        lecturerCreated.addClass(classes.get(0));
 
         courseMaterials = new ArrayList<>();
 
@@ -59,7 +62,7 @@ public class Course {
     }
 
     public void setLecturerInCharge(Lecturer lecturer) {
-        this.lecturerInCharge = lecturer;
+        this.lecturerCreated = lecturer;
     }
 
     public void setCredits(int credits) {

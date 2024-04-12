@@ -9,16 +9,22 @@ import java.util.Scanner;
 public class LoginPage {
     public LoginPage() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("DEF University Management System");
-        System.out.println("Log in using your account on:");
-        System.out.println("1. Student");
-        System.out.println("2. Lecturer");
-        System.out.println("3. Education Manager");
-
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Consume newline character
 
         while (true) {
+            clearScreen();
+            System.out.println("DEF University Management System");
+            System.out.println("Log in using your account on:");
+            System.out.println("1. Student");
+            System.out.println("2. Lecturer");
+            System.out.println("3. Education Manager");
+            System.out.println("0. EXIT");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            if (choice == 0)
+                break;
+
             clearScreen();
 
             System.out.println("LOGIN PAGE");
@@ -27,6 +33,9 @@ public class LoginPage {
             System.out.print("Enter password: ");
             String password = scanner.nextLine();
             switch (choice) {
+                case 0:
+                    break;
+
                 case 1:
                     Student student = new Student();
                     student.login(username, password);
@@ -49,9 +58,7 @@ public class LoginPage {
                 default:
                     System.out.println("Invalid choice. Please choose again.");
             }
-
         }
-
     }
 
     private void clearScreen() {

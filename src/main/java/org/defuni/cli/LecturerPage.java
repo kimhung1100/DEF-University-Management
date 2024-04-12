@@ -26,6 +26,7 @@ public class LecturerPage {
             System.out.println("1. Display info");
             System.out.println("2. Update info");
             System.out.println("3. Create a course");
+            System.out.println("4. Regist class");
             System.out.println("999. Log out");
 
             int choice = Integer.parseInt(scanner.nextLine());
@@ -44,6 +45,10 @@ public class LecturerPage {
 
             else if (choice == 3) {
                 lecturer.courseCreate();
+            }
+
+            else if (choice == 4) {
+
             }
 
             else if (choice == 999) {
