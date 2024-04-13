@@ -50,6 +50,9 @@ public class Course {
         this.courseID = courseID;
     }
 
+    public String getCourseID(String courseID) {
+        return this.courseID;
+    }
     public void setCourseTitle(String courseTitle) {
         this.courseTitle = courseTitle;
     }
