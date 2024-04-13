@@ -6,9 +6,10 @@ import org.defuni.cli.*;
 
 public class CourseRegistingPage {
     // Trang Dang Ky Mon Hoc
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-        System.out.println(String.format("Course: ", getCourseID());
+//    Course course
+//    public void run() {
+//        Scanner scanner = new Scanner(System.in);
+//
+//        while (true) {
+//        System.out.println(String.format("Course: ", getCourseID());
 }

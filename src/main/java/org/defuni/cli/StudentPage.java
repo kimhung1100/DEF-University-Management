@@ -44,22 +44,22 @@ public class StudentPage {
                 student.updateProfile();
             }
 
-            else if (choice == 3) {
-                student.addClass();
-            }
-
-            else if (choice == 4) {
-                student.removeClass();
-            }
-            else if (choice == 5) {
-                student.();
-            }
-            else if (choice == 6) {
-                student.();
-            }
-            else if (choice == 7) {
-                student.();
-            }
+//            else if (choice == 3) {
+//                student.addClass();
+//            }
+//
+//            else if (choice == 4) {
+//                student.removeClass();
+//            }
+//            else if (choice == 5) {
+//                student.();
+//            }
+//            else if (choice == 6) {
+//                student.();
+//            }
+//            else if (choice == 7) {
+//                student.();
+//            }
 
             else if (choice == 999) {
                 return;
