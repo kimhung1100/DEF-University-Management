@@ -31,12 +31,12 @@ Firebase firebase = manager.connect()
 
 ## Work list:
 - [x] Connected to Firebase and Create first Student.
-- [ ] Course Create
-- [ ] Course Register
+- [x] Course Create
+- [x] Course Register
 - [x] Class update
 - [x] Create user by Factory Method pattern.
 - [ ] Management course for Lecturer (implementing)
-- [ ] Course listener by Student (doing).
+- [x] Course listener by Student.
 - [x] Login feature by Singleton Pattern (not CLass diagram yet.)
 - [ ] Complete Logic for 3 actor (Student, Lecturer, )
 - [ ] Report
