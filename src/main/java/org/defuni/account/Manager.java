@@ -5,6 +5,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class Manager {
     private static Manager instance;
@@ -32,11 +35,52 @@ public class Manager {
         }
         return instance;
     }
+    public Boolean updateDocument(String collection, String documentId, String field, String newValue) {
+        DocumentReference docRef = db.collection(collection).document(documentId);
+        // (async) Update one field
+        ApiFuture<WriteResult> future = docRef.update(field, newValue);
 
+//        WriteResult result = future.get();
+
+        return true;
+    }
+    public Boolean updateDocument(String collection, String documentId, String field, List<String> newValue) {
+        DocumentReference docRef = db.collection(collection).document(documentId);
+        // (async) Update one field
+        ApiFuture<WriteResult> future = docRef.update(field, newValue);
+
+//        WriteResult result = future.get();
+
+        return true;
+    }
+    public Map<String, Object> findDocument(String collection, String documentId) {
+        // Reference to the document
+        DocumentReference docRef = db.collection(collection).document(documentId);
+
+        try {
+            // Get the document snapshot
+            DocumentSnapshot documentSnapshot = docRef.get().get();
+
+            // Check if the document exists
+            if (documentSnapshot.exists()) {
+                // Convert the document snapshot to a Map and return
+                return documentSnapshot.getData();
+            } else {
+                // Document does not exist
+                System.out.println("Document does not exist.");
+                return null;
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            // Handle exceptions
+            e.printStackTrace();
+            return null;
+        }
+    }
+    Firestore db;
     public UserAccount login(String username, String password) {
         // Dummy implementation, replace with actual authentication logic
         // Here you can implement your authentication logic, e.g., check against a database
-        Firestore db = connect();
+        db = connect();
         DocumentReference docRef = db.collection("students").document(username);
         DocumentReference docRef2 = db.collection("lecturers").document(username);
         DocumentReference docRef3 = db.collection("educationManagers").document(username);
@@ -71,9 +115,9 @@ public class Manager {
 
     public static Firestore connect() {
         Firestore db = null;
-        try {
-            String currentDir = System.getProperty("user.dir");
-            InputStream serviceAccount = new FileInputStream(currentDir+"/src/main/java/org/defuni/service_account.json");
+        String currentDir = System.getProperty("user.dir");
+        // Using try-with-resources to automatically close the FileInputStream
+        try (InputStream serviceAccount = new FileInputStream(currentDir + "/src/main/java/org/defuni/service_account.json")) {
             GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(credentials)
@@ -90,6 +134,8 @@ public class Manager {
         courseList.add(course);
         return true;
     }
+
+
 
 
 

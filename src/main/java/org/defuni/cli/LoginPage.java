@@ -3,7 +3,9 @@ package org.defuni.cli;
 import org.defuni.account.EducationManager;
 import org.defuni.account.Lecturer;
 import org.defuni.account.Student;
+import org.defuni.account.UserAccount;
 
+import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 
 public class LoginPage {
@@ -38,8 +40,16 @@ public class LoginPage {
 
                 case 1:
                     Student student = new Student();
-                    student.login(username, password);
-                    break;
+                    UserAccount ua = student.login(username, password);
+                    if (student != null) {
+                        StudentPage studentPage = new StudentPage(ua);
+                        studentPage.run();
+
+                        break;
+                    } else {
+                        System.out.println("Wrong username or password");
+                    }
+
                 case 2:
                     Lecturer lecturer = new Lecturer();
                     // if (lecturer.login(username, password) != null) { //hình như chưa đồng bộ đc
@@ -54,6 +64,7 @@ public class LoginPage {
                 case 3:
                     EducationManager manager = new EducationManager();
                     manager.login(username, password);
+
                     break;
                 default:
                     System.out.println("Invalid choice. Please choose again.");
