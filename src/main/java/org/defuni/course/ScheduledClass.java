@@ -17,10 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ScheduledClass implements Subject {
+public class ScheduledClass extends Course {
     private List<StudentObserver> studentObservers;
 
-    private List<LecturerObserver> lectureObservers;
+    private List<LecturerObserver> lecturerObservers;
 
     private String classID; // class's name: L01, L02...
     private Course course;
@@ -29,32 +29,71 @@ public class ScheduledClass implements Subject {
 
     // private List<CourseContent> classContent;
     private ScheduledClassType type;
+    private String semester;
+    private String schoolYear;
+    private LocalTime time;
+    private Room room;
 
- 
+    public void setTime(LocalTime time){
+        this.time = time;
+    }
+    public LocalTime getTime(){
+        return this.time;
+    }
+    public void setRoom(Room room){
+        this.room = room;
+    }
+    public Room getRoom(){
+        return this.room;
+    }
+    public ScheduledClass(){
+
+    }
+    public void setSemester(String semester){
+        this.semester = semester;
+    }
+    public String getSemester() {
+        return semester;
+    }
+    public void setSchoolYear(String year){
+        this.schoolYear = year;
+    }
+    public String getSchoolYear(){
+        return schoolYear;
+    }
 
     public ScheduledClass(String classID) {
         this.classID = classID;
         studentObservers = new ArrayList<StudentObserver>();
-        lectureObservers = new ArrayList<LecturerObserver>();
+        lecturerObservers = new ArrayList<LecturerObserver>();
+        save();
+    }
+    private void save(){
         Manager manager = Manager.getInstance();
+
         Firestore firestore = manager.connect();
         CollectionReference scheduledClassCollection = firestore.collection("scheduledClass");
         DocumentReference docRef = scheduledClassCollection.document(this.getClassID());
         Map<String, Object> data = createExpectedDataMap();
 
         ApiFuture<WriteResult> writeResult = docRef.set(data);
-
-
-
     }
 
-    public ScheduledClass(String ID) {
-        studentObservers = new ArrayList<StudentObserver>();
-        lectureObservers = new ArrayList<LecturerObserver>();
-
-        this.classID = ID;
+    public ScheduledClass(String classID, Course course){
+        this.setClassID(classID);
+        this.setCourse(course);
+        save();
     }
-    
+
+    private void setCourse(Course course) {
+        this.course = course;
+    }
+
+    private void setClassID(String classID) {
+        this.classID = classID;
+    }
+
+
     private Map<String, Object> createExpectedDataMap() {
         Map<String, Object> data = new HashMap<>();
         data.put("classId", this.getClassID());
@@ -68,11 +107,11 @@ public class ScheduledClass implements Subject {
 
     public ScheduledClass(Course course) {
         this.course = course;
-        classContent = course.getCourseContent();
+        this.content = course.getCourseContent();
     }
     public void registerObserver(LecturerObserver lecture) {
         
-        lectureObservers.add(lecture);
+        lecturerObservers.add(lecture);
     }
      
 
@@ -82,7 +121,7 @@ public class ScheduledClass implements Subject {
     }
 
     public void removeObserver(LecturerObserver lecture) {
-        LecturerObserver.remove(lecture);
+        lecturerObservers.remove(lecture);
     }
 
 
@@ -105,30 +144,30 @@ public class ScheduledClass implements Subject {
         contentChanged();
     }
 
-    public void createSessionEachWeek(LocalTime time, LocalDate beginDate, Room room) {
-        if (classContent == null) {
-            return;
-        }
-
-        // for (CourseContent courseContent : classContent) {
-        // int[] weeks = courseContent.getWeeks();
-        // String[] contents = courseContent.getContent();
-        // String[] lecturings = courseContent.getLecturing();
-        //
-        // for (int week : weeks) {
-        // // Calculate the date for the current week
-        // LocalDate sessionDate = beginDate.plusWeeks(week - 1); // Subtract 1 because
-        // weeks are 1-based
-        //
-        // // Create a new session for each week
-        // LocalDateTime sessionDateTime = sessionDate.atTime(time);
-        //
-        // // Create a new session for each week
-        // Session session = new Session(courseContent, sessionDateTime, room);
-        // sessions.add(session);
-        // }
-        // }
-    }
+//    public void createSessionEachWeek(LocalTime time, LocalDate beginDate, Room room) {
+//        if (classContent == null) {
+//            return;
+//        }
+//
+//        // for (CourseContent courseContent : classContent) {
+//        // int[] weeks = courseContent.getWeeks();
+//        // String[] contents = courseContent.getContent();
+//        // String[] lecturings = courseContent.getLecturing();
+//        //
+//        // for (int week : weeks) {
+//        // // Calculate the date for the current week
+//        // LocalDate sessionDate = beginDate.plusWeeks(week - 1); // Subtract 1 because
+//        // weeks are 1-based
+//        //
+//        // // Create a new session for each week
+//        // LocalDateTime sessionDateTime = sessionDate.atTime(time);
+//        //
+//        // // Create a new session for each week
+//        // Session session = new Session(courseContent, sessionDateTime, room);
+//        // sessions.add(session);
+//        // }
+//        // }
+//    }
 
     public String getContent() {
         return this.content;
@@ -138,7 +177,7 @@ public class ScheduledClass implements Subject {
         return this.classID;
     }
 
-    public String getCourse() {
+    public Course getCourse() {
         return this.course;
     }
 }

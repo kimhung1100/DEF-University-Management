@@ -45,6 +45,7 @@ public class LoginPage {
                 case 3:
                     EducationManager manager = new EducationManager();
                     manager.login(username, password);
+
                     break;
                 default:
                     System.out.println("Invalid choice. Please choose again.");

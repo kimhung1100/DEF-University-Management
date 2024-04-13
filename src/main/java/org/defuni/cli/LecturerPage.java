@@ -43,7 +43,7 @@ public class LecturerPage {
             }
 
             else if (choice == 3) {
-                lecturer.courseCreate();
+                CourseCreatePage courseCreatePage = new CourseCreatePage(lecturer);
             }
 
             else if (choice == 999) {

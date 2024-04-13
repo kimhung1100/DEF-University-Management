@@ -18,11 +18,6 @@ public class Lecturer extends UserAccount implements LecturerObserver {
         this.department = "default";
         this.certificates = new ArrayList<String>();
 
-        this.setLastName("No");
-        this.setFirstName("Name");
-        this.setEmail("noMail@MUvodich");
-        this.setAddress("Vo Gia Cu");
-        this.setUserID(ID++); // Lecturer's ID k lien quan den Student's ID, mac du chung userID ben super
 
     }
 

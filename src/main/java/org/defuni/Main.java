@@ -33,12 +33,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Lecturer lecturer = new Lecturer();
-        ScheduledClass scClass = new ScheduledClass("CO1004");
-        Student student = new Student();
-        scClass.registerObserver(lecturer);
-        scClass.registerObserver(student);
-        lecturer.updateContent(scClass, "new content");
+        LoginPage loginPage = new LoginPage();
 
     }
 }
