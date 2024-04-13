@@ -5,6 +5,16 @@ When finish project, we draw class diagram generated from IdeaJ to LucidChart fo
 
 After that, we explain what we do in slides.
 
+Database connector in account/Manager.java
+
+To conect:
+Manager manager = manager.getInstance()
+Firebase firebase = manager.connect()
+
+
+...
+
+
 ## Some Example Crud code:
 - Create: test/java/.../StudentFireStoreTest.java
 
@@ -23,6 +33,7 @@ After that, we explain what we do in slides.
 - [x] Connected to Firebase and Create first Student.
 - [ ] Course Create
 - [ ] Course Register
+- [x] Class update
 - [x] Create user by Factory Method pattern.
 - [ ] Management course for Lecturer (implementing)
 - [ ] Course listener by Student (doing).

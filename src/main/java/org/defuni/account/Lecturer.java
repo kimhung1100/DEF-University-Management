@@ -2,6 +2,7 @@ package org.defuni.account;
 
 import org.defuni.course.Course;
 import org.defuni.course.LecturerObserver;
+import org.defuni.course.ScheduledClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,10 @@ public class Lecturer extends UserAccount implements LecturerObserver {
 
     }
 
+
+    public void updateContent(ScheduledClass scheduledClass, String Content) { // Need target, update class, not student
+        scheduledClass.setContent(Content);
+    }
     public boolean inspectStudentScore() { // Need target
         return true;
     }

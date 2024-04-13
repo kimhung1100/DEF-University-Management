@@ -1,12 +1,21 @@
 package org.defuni.course;
 
+import org.defuni.account.Manager;
 import org.defuni.infrastructure.Room;
 
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
+import org.defuni.account.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ScheduledClass implements Subject {
     private List<StudentObserver> studentObservers;
@@ -16,33 +25,66 @@ public class ScheduledClass implements Subject {
     private String classID; // class's name: L01, L02...
     private Course course;
 
-    private List<Session> sessions;
     private String content; // just for test, will be replace by classContent
 
-    private List<CourseContent> classContent;
+    // private List<CourseContent> classContent;
     private ScheduledClassType type;
 
-    public ScheduledClass() {
+ 
+
+    public ScheduledClass(String classID) {
+        this.classID = classID;
         studentObservers = new ArrayList<StudentObserver>();
         lectureObservers = new ArrayList<LecturerObserver>();
+        Manager manager = Manager.getInstance();
+        Firestore firestore = manager.connect();
+        CollectionReference scheduledClassCollection = firestore.collection("scheduledClass");
+        DocumentReference docRef = scheduledClassCollection.document(this.getClassID());
+        Map<String, Object> data = createExpectedDataMap();
+
+        ApiFuture<WriteResult> writeResult = docRef.set(data);
+
+
+
     }
 
-    public ScheduledClass(String ID, Course course) {
+    public ScheduledClass(String ID) {
         studentObservers = new ArrayList<StudentObserver>();
         lectureObservers = new ArrayList<LecturerObserver>();
 
         this.classID = ID;
-        this.course = course;
     }
+    
+    private Map<String, Object> createExpectedDataMap() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("classId", this.getClassID());
+        // data.put("email", this.getCourseContent());
+        // data.put("password", this.getPassword());
+        // ... other fields based on your Student class
+        return data;
+    }
+
+   
 
     public ScheduledClass(Course course) {
         this.course = course;
         classContent = course.getCourseContent();
     }
+    public void registerObserver(LecturerObserver lecture) {
+        
+        lectureObservers.add(lecture);
+    }
+     
 
     public void registerObserver(StudentObserver student) {
+
         studentObservers.add(student);
     }
+
+    public void removeObserver(LecturerObserver lecture) {
+        LecturerObserver.remove(lecture);
+    }
+
 
     public void removeObserver(StudentObserver student) {
         studentObservers.remove(student);
@@ -94,5 +136,9 @@ public class ScheduledClass implements Subject {
 
     public String getClassID() {
         return this.classID;
+    }
+
+    public String getCourse() {
+        return this.course;
     }
 }

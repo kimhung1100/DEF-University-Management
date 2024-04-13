@@ -45,7 +45,7 @@ public class Student extends UserAccount implements StudentObserver {
     public void update(ScheduledClass scheduledClass) {
         notification.add("Current class " + scheduledClass.getClassID() + " updated: \n" + scheduledClass.getContent());
         System.out
-                .println("Current class " + scheduledClass.getClassID() + " updated: \n" + scheduledClass.getContent());
+                .println("Student notification: Current class " + scheduledClass.getClassID() + " updated: \n" + scheduledClass.getContent());
     }
 
 }
