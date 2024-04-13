@@ -20,11 +20,9 @@ public class Student extends UserAccount implements StudentObserver {
         courseClass = new ArrayList<ScheduledClass>();
         notification = new ArrayList<String>();
 
-        this.setLastName("No");
-        this.setFirstName("Name");
-        this.setEmail("noMail@MUvodich");
-        this.setAddress("Vo Gia Cu");
-        this.setUserID(ID++);
+    }
+    public Student(String studentID){
+        this.setUserName(studentID);
     }
 
     public Student(String userName, String email, String password) {
@@ -32,6 +30,8 @@ public class Student extends UserAccount implements StudentObserver {
         courseClass = new ArrayList<ScheduledClass>();
         notification = new ArrayList<String>();
     }
+
+
 
     public void addClass(ScheduledClass scheduledClass) {
         courseClass.add(scheduledClass);

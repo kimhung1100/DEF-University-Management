@@ -1,13 +1,15 @@
 package org.defuni.cli;
 
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 import org.defuni.account.Student;
+import org.defuni.account.UserAccount;
 import org.defuni.cli.*;
 public class StudentPage {
-    Student student;
+    UserAccount student;
 
-    public StudentPage(Student student) {
+    public StudentPage(UserAccount student) {
         this.student = student;
     }
     private void clearScreen() {
@@ -44,9 +46,9 @@ public class StudentPage {
                 student.updateProfile();
             }
 
-//            else if (choice == 3) {
-//                student.addClass();
-//            }
+            else if (choice == 3) {
+                CourseRegistingPage courseRegistingPage = new CourseRegistingPage(student);
+            }
 //
 //            else if (choice == 4) {
 //                student.removeClass();
@@ -71,7 +73,7 @@ public class StudentPage {
 
             clearScreen();
         }
-
         scanner.close();
     }
+
 }

@@ -8,6 +8,7 @@ import com.google.cloud.firestore.WriteResult;
 import org.defuni.account.Lecturer;
 import org.defuni.account.Manager;
 import org.defuni.account.Student;
+import org.defuni.account.UserAccount;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,54 @@ public class Course {
         Map<String, Object> data = createExpectedDataMap();
 
         ApiFuture<WriteResult> writeResult = docRef.set(data);
+    }
+    public static Course fromMap(Map<String, Object> data){
+        Course course = new Course();
+        course.setCourseID((String) data.get("courseID"));
+        course.setCourseTitle((String) data.get("courseTitle"));
+//        course.setLecturerInCharge((Lecturer) data.get("lecturerInCharge"));
+        Object creditsObj = data.get("credits");
+        // Check if the creditsObj is not null and is an instance of Integer or Long
+        if (creditsObj != null && (creditsObj instanceof Integer || creditsObj instanceof Long)) {
+            // Convert the creditsObj to Integer
+            int credits = ((Number) creditsObj).intValue();
+            // Set the credits to the course object
+            course.setCredits(credits);
+        } else {
+            // Handle the case where credits is not an Integer or Long
+            // You can log an error, provide a default value, or take other appropriate actions
+            course.setCredits(0);
+        }
+        course.setComponentGrades((List<Double>) data.get("componentGrades"));
+        course.setCourseMaterials((List<String>) data.get("courseMaterials"));
+//        CourseState courseState = (CourseState) data.get("courseState");
+//        course.setState((String) data.get("state"));
+        course.setDescription((String) data.get("description"));
+        List<String> studentIds = (List<String>) data.get("studentRegisters");
+        ArrayList<Student> students = new ArrayList<>();
+        for (String studentId : studentIds){
+            students.add(new Student(studentId));
+        }
+        course.setStudentRegisters(students);
+
+        return course;
+
+    }
+
+    private void setDescription(String description) {
+        this.description = description;
+    }
+
+    private void setState(CourseState state) {
+        this.courseState = state;
+    }
+
+    private void setCourseMaterials(List<String> courseMaterials) {
+        this.courseMaterials = courseMaterials;
+    }
+
+    private void setStudentRegisters(List<Student> studentRegisters) {
+        this.studentRegisters = studentRegisters;
     }
 
     private Map<String, Object> createExpectedDataMap() {
@@ -107,6 +156,10 @@ public class Course {
 
     public void registerCourse(Student student){
         this.studentRegisters.add(student);
+        save();
+    }
+    public void removeRegister(Student student){
+        this.studentRegisters.remove(student);
     }
     public List<Student> getStudentRegisters() {
         return this.studentRegisters;
