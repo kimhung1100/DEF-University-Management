@@ -34,6 +34,10 @@ public class Lecturer extends UserAccount implements LecturerObserver {
 
     }
 
+
+    public void updateContent(ScheduledClass scheduledClass, String Content) { // Need target, update class, not student
+        scheduledClass.setContent(Content);
+    }
     public boolean inspectStudentScore() { // Need target
         return true;
     }

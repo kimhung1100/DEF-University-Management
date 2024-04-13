@@ -38,6 +38,11 @@ public class Student extends UserAccount implements StudentObserver {
         scheduledClass.registerObserver(this);
     }
 
+    public void removeClass(ScheduledClass scheduledClass) {
+        courseClass.remove(scheduledClass);
+        scheduledClass.removeObserver(this);
+    }
+
     public void displayGrade() {
 
     }
@@ -45,7 +50,7 @@ public class Student extends UserAccount implements StudentObserver {
     public void update(ScheduledClass scheduledClass) {
         notification.add("Current class " + scheduledClass.getClassID() + " updated: \n" + scheduledClass.getContent());
         System.out
-                .println("Current class " + scheduledClass.getClassID() + " updated: \n" + scheduledClass.getContent());
+                .println("Student notification: Current class " + scheduledClass.getClassID() + " updated: \n" + scheduledClass.getContent());
     }
 
 }
