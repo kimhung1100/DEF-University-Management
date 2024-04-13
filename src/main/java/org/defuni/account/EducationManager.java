@@ -11,7 +11,7 @@ public class EducationManager extends UserAccount {
         super();
     }
 
-    public void createCourse(){
+    public void createCourse(String courseID){
 
     }
 

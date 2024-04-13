@@ -38,6 +38,11 @@ public class Student extends UserAccount implements StudentObserver {
         scheduledClass.registerObserver(this);
     }
 
+    public void removeClass(ScheduledClass scheduledClass) {
+        courseClass.remove(scheduledClass);
+        scheduledClass.removeObserver(this);
+    }
+
     public void displayGrade() {
 
     }
