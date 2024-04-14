@@ -30,6 +30,7 @@ Firebase firebase = manager.connect()
   https://firebase.google.com/docs/firestore/manage-data/delete-data
 
 ## Work list:
+- [ ] Refactor code firebase by Respository pattern (Doing for Scheduled class)
 - [x] Connected to Firebase and Create first Student.
 - [x] Course Create
 - [x] Course Register

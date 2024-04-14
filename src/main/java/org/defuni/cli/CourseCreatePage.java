@@ -5,6 +5,7 @@ import org.defuni.course.Course;
 import org.defuni.course.CourseState;
 import org.defuni.course.Department;
 import org.defuni.course.ScheduledClass;
+import org.defuni.repository.CourseRepositoryFirebase;
 
 import java.util.List;
 import java.util.Scanner;
@@ -32,6 +33,9 @@ public class CourseCreatePage {
         int credit = scanner.nextInt();
 
         Course course = new Course(courseID, courseName, credit, courseContent, lecturer);
+        CourseRepositoryFirebase courseRepository = new CourseRepositoryFirebase();
+
+        courseRepository.saveCourse(course);
 
         System.out.println("Course Create Successful!");
 

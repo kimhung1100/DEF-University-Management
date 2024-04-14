@@ -31,16 +31,6 @@ public class Course {
     public Department department;
 
     private List<Student> studentRegisters;
-    private void save(){
-        Manager manager = Manager.getInstance();
-
-        Firestore firestore = manager.connect();
-        CollectionReference scheduledClassCollection = firestore.collection("course");
-        DocumentReference docRef = scheduledClassCollection.document(this.getCourseID());
-        Map<String, Object> data = createExpectedDataMap();
-
-        ApiFuture<WriteResult> writeResult = docRef.set(data);
-    }
     public static Course fromMap(Map<String, Object> data){
         Course course = new Course();
         course.setCourseID((String) data.get("courseID"));
@@ -90,28 +80,6 @@ public class Course {
         this.studentRegisters = studentRegisters;
     }
 
-    private Map<String, Object> createExpectedDataMap() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("courseID", this.getCourseID());
-        data.put("courseTitle", this.getCourseTitle());
-        data.put("lecturerInCharge", this.getLecturer());
-        data.put("credits", this.getCredits());
-        data.put("componentGrades", this.getComponentGrades());
-        data.put("courseContent", this.getCourseContent());
-        data.put("courseMaterials", this.getCourseMaterials());
-        data.put("state", this.getState());
-        data.put("description", this.getDescription());
-        data.put("department", this.getDepartment());
-        data.put("studentRegisters", this.getStudentRegisters());
-
-
-
-
-
-        // data.put("password", this.getPassword());
-        // ... other fields based on your Student class
-        return data;
-    }
 
     public Department getDepartment() {
         return this.department;
@@ -132,9 +100,37 @@ public class Course {
     public List<Double> getComponentGrades(){
         return this.componentGrades;
     }
-    private int getCredits() {
+    public int getCredits() {
         return this.credits;
     }
+
+    public List<ScheduledClass> createScheduledClass(int studentEachClass){
+        List<ScheduledClass> scheduledClasses = new ArrayList<>();
+        int numsClass = (int) Math.ceil(studentRegisters.size()/studentEachClass);
+        for (int i = 0; i < numsClass; i++) {
+            ScheduledClass scheduledClass = new ScheduledClass();
+            scheduledClass.setCourseID(this.getCourseID());
+            scheduledClass.setClassID("L"+Integer.toString(i));
+            scheduledClass.setContent(this.getCourseContent());
+            scheduledClass.setCredits(this.getCredits());
+            scheduledClass.setComponentGrades(this.getComponentGrades());
+
+            Manager manager = Manager.getInstance();
+            scheduledClass.setSemester(manager.getCurrentSemester());
+            scheduledClass.setSchoolYear(manager.getCurrentSchoolYear());
+            scheduledClasses.add(scheduledClass);
+        }
+        for (int i = 0; i < studentRegisters.size(); i ++){
+            scheduledClasses.get(i / studentEachClass).registerObserver(studentRegisters.get(i));
+        }
+        this.studentRegisters = new ArrayList<Student>();
+        return scheduledClasses;
+    }
+
+    public String toString(){
+        return "Course{"+ courseTitle +"}";
+    }
+
 
     private Lecturer getLecturer() {
         return this.lecturerInCharge;
@@ -149,14 +145,10 @@ public class Course {
         this.studentRegisters = new ArrayList<>();
         this.courseState = CourseState.EDITING;
         this.lecturerInCharge = lecturer;
-
-        save();
-
     }
 
     public void registerCourse(Student student){
         this.studentRegisters.add(student);
-        save();
     }
     public void removeRegister(Student student){
         this.studentRegisters.remove(student);
@@ -171,7 +163,6 @@ public class Course {
 
     public Course() {
         courseState = CourseState.EDITING;
-
         courseMaterials = new ArrayList<>();
         studentRegisters = new ArrayList<>();
 
