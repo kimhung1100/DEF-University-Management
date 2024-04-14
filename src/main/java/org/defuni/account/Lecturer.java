@@ -1,8 +1,6 @@
 package org.defuni.account;
 
-import org.defuni.course.Course;
-import org.defuni.course.LecturerObserver;
-import org.defuni.course.ScheduledClass;
+import org.defuni.course.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +9,14 @@ import java.util.Scanner;
 public class Lecturer extends UserAccount implements LecturerObserver {
     private String department;
     private List<String> certificates;
+    private List<ScheduledClass> classesIncharged;
 
     public static int ID = 1;
 
     public Lecturer() {
         this.department = "default";
         this.certificates = new ArrayList<String>();
+        this.classesIncharged = new ArrayList<>();
 
 
     }
@@ -63,5 +63,9 @@ public class Lecturer extends UserAccount implements LecturerObserver {
 
         // scanner.close(); // Dont close the scanner!
         return true;
+    }
+
+    public void addClass(ScheduledClass sch) {
+        this.classesIncharged.add(sch);
     }
 }

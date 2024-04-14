@@ -18,7 +18,7 @@ import java.util.Map;
 public class Course {
     private String courseID;
     private String courseTitle;
-    private Lecturer lecturerInCharge;
+    private Lecturer lecturerCreated;
     private int credits;
     private List<Double> componentGrades;
 //    private List<CourseContent> courseContent;
@@ -203,7 +203,7 @@ public class Course {
     }
 
     public void setLecturerInCharge(Lecturer lecturer) {
-        this.lecturerInCharge = lecturer;
+        this.lecturerCreated = lecturer;
     }
 
     public void setCredits(int credits) {

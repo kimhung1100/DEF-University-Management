@@ -1,6 +1,6 @@
 package org.defuni.course;
 
-import org.defuni.account.Manager;
+import org.defuni.account.*;
 import org.defuni.infrastructure.Room;
 
 import com.google.api.core.ApiFuture;
@@ -104,17 +104,54 @@ public class ScheduledClass extends Course {
         return data;
     }
 
-   
+
 
     public ScheduledClass(Course course) {
         this.course = course;
         this.content = course.getCourseContent();
     }
     public void registerObserver(LecturerObserver lecture) {
-        
+
         lecturerObservers.add(lecture);
     }
-     
+
+
+    public void addStudent(StudentObserver o) {
+        this.registerObserver(o);
+    }
+
+    public void removeStudent(StudentObserver o) {
+        this.removeObserver(o);
+    }
+
+    public void notifyStudents() {
+        this.notifyObserver();
+    }
+
+    public void contentChanged() {
+        notifyStudents();
+    }
+
+    public void setContent(String courseContent) {
+        this.content = courseContent;
+        contentChanged();
+    }
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public String getClassID() {
+        return this.classID;
+    }
+
+    public void setLectuter(Lecturer l) {
+        this.lecturerIncharge = l;
+    }
+
+    public Lecturer getLecturer() {
+        return this.lecturerIncharge;
+    }
 
     public void registerObserver(StudentObserver student) {
 
