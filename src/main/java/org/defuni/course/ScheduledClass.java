@@ -69,11 +69,12 @@ public class ScheduledClass extends Course {
         return schoolYear;
     }
 
+
     public ScheduledClass(String classID) {
         this.classID = classID;
         studentObservers = new ArrayList<StudentObserver>();
         lecturerObservers = new ArrayList<LecturerObserver>();
-        save();
+//        save();
     }
 
     private void save() {

@@ -137,6 +137,34 @@ public class Course {
         return this.credits;
     }
 
+    public List<ScheduledClass> createScheduledClass(int studentEachClass){
+        List<ScheduledClass> scheduledClasses = new ArrayList<>();
+        int numsClass = (int) Math.ceil(studentRegisters.size()/studentEachClass);
+        for (int i = 0; i < numsClass; i++) {
+            ScheduledClass scheduledClass = new ScheduledClass();
+            scheduledClass.setCourseID(this.getCourseID());
+            scheduledClass.setClassID("L"+Integer.toString(i));
+            scheduledClass.setContent(this.getCourseContent());
+            scheduledClass.setCredits(this.getCredits());
+            scheduledClass.setComponentGrades(this.getComponentGrades());
+
+            Manager manager = Manager.getInstance();
+            scheduledClass.setSemester(manager.getCurrentSemester());
+            scheduledClass.setSchoolYear(manager.getCurrentSchoolYear());
+            scheduledClasses.add(scheduledClass);
+        }
+        for (int i = 0; i < studentRegisters.size(); i ++){
+            scheduledClasses.get(i / studentEachClass).registerObserver(studentRegisters.get(i));
+        }
+        this.studentRegisters = new ArrayList<Student>();
+        return scheduledClasses;
+    }
+
+    public String toString(){
+        return "Course{"+ courseTitle +"}";
+    }
+
+
     private Lecturer getLecturer() {
         return this.lecturerInCharge;
     }
@@ -150,14 +178,10 @@ public class Course {
         this.studentRegisters = new ArrayList<>();
         this.courseState = CourseState.EDITING;
         this.lecturerInCharge = lecturer;
-
-        save();
-
     }
 
     public void registerCourse(Student student) {
         this.studentRegisters.add(student);
-        save();
     }
 
     public void removeRegister(Student student) {
@@ -174,7 +198,6 @@ public class Course {
 
     public Course() {
         courseState = CourseState.EDITING;
-
         courseMaterials = new ArrayList<>();
         studentRegisters = new ArrayList<>();
 

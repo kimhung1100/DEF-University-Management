@@ -23,6 +23,8 @@ public class Manager {
     private static Manager instance;
     private static List<Course> courseList = new ArrayList<Course>();
     Firestore db;
+    private String currentSemester = "HK2";
+    private String currentSchoolYear = "2023-2024";
 
     private Manager() {
         // Prevent instantiation via reflection
@@ -31,6 +33,18 @@ public class Manager {
         }
     }
 
+    public String getCurrentSemester(){
+        return currentSemester;
+    }
+    public String getCurrentSchoolYear(){
+        return currentSchoolYear;
+    }
+    public void setCurrentSemester(String semester){
+        currentSemester = semester;
+    }
+    public void setCurrentSchoolYear(String year){
+        currentSchoolYear = year;
+    }
     public static synchronized Manager getInstance() {
         if (instance == null) {
             instance = new Manager();
@@ -138,6 +152,12 @@ public class Manager {
     public static boolean addCourse(Course course) {
         courseList.add(course);
         return true;
+    }
+    public Firestore getDb(){
+        if (db == null) {
+            db = connect();
+        }
+        return db;
     }
 
     public static Student convStudent(Map<String, Object> document) {
