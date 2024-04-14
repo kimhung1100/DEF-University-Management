@@ -35,8 +35,6 @@ public class Main {
         UserAccountFactory studentAccountFactory = new StudentAccountFactory();
 
         UserAccount user = staffAccountFactory.createUser(UserAccountType.LECTURER);
-        user.setUserName("a");
-        user.setPassword("a");
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {

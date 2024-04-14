@@ -128,14 +128,7 @@ public class ScheduledClass extends Course {
         this.notifyObserver();
     }
 
-    public void contentChanged() {
-        notifyStudents();
-    }
 
-    public void setContent(String courseContent) {
-        this.content = courseContent;
-        contentChanged();
-    }
 
     public String getContent() {
         return this.content;
@@ -145,13 +138,11 @@ public class ScheduledClass extends Course {
         return this.classID;
     }
 
-    public void setLectuter(Lecturer l) {
-        this.lecturerIncharge = l;
-    }
+    
 
-    public Lecturer getLecturer() {
-        return this.lecturerIncharge;
-    }
+//    public Lecturer getLecturer() {
+//        return this.lecturerIncharge;
+//    }
 
     public void registerObserver(StudentObserver student) {
 
@@ -207,13 +198,6 @@ public class ScheduledClass extends Course {
 //        // }
 //    }
 
-    public String getContent() {
-        return this.content;
-    }
-
-    public String getClassID() {
-        return this.classID;
-    }
 
     public Course getCourse() {
         return this.course;
