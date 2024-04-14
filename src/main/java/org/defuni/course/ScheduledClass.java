@@ -8,9 +8,7 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
-import org.defuni.account.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +20,7 @@ public class ScheduledClass extends Course {
 
     private List<LecturerObserver> lecturerObservers;
 
+    private List<List<Double>> componentGradesList;
     private String classID; // class's name: L01, L02...
     private Course course;
 
@@ -47,8 +46,24 @@ public class ScheduledClass extends Course {
         return this.room;
     }
     public ScheduledClass(){
-
+        List<List<Double>> componentGradesList = new ArrayList<>();
+        for(int i=0; i < studentObservers.size(); i++){
+            for(int j=0; j < componentGrades.size(); j++) {
+                componentGradesList.add(getComponentGrades());
+            }
+        }
     }
+    public void GradeChanged(StudentObserver o, int index, Double grade){
+        int position = studentObservers.indexOf(o);
+        for(int i=0; i < studentObservers.size(); i++){
+            if(studentObservers.get(i) == o){
+                position = i;
+                break;
+            }
+        }
+        componentGradesList.get(position).set(index,grade);
+    }
+
     public void setSemester(String semester){
         this.semester = semester;
     }

@@ -20,7 +20,7 @@ public class Course {
     private String courseTitle;
     private Lecturer lecturerCreated;
     private int credits;
-    private List<Double> componentGrades;
+    protected List<Double> componentGrades;
 //    private List<CourseContent> courseContent;
     private String courseContent;
     private List<String> courseMaterials;
