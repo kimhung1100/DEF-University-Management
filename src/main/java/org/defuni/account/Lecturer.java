@@ -18,7 +18,6 @@ public class Lecturer extends UserAccount implements LecturerObserver {
         this.certificates = new ArrayList<String>();
         this.classesIncharged = new ArrayList<>();
 
-
     }
 
     public void updateClass() { // Need target
@@ -29,10 +28,11 @@ public class Lecturer extends UserAccount implements LecturerObserver {
 
     }
 
-
     public void updateContent(ScheduledClass scheduledClass, String Content) { // Need target, update class, not student
+        // if (scheduledClass has this as main teacher)
         scheduledClass.setContent(Content);
     }
+
     public boolean inspectStudentScore() { // Need target
         return true;
     }

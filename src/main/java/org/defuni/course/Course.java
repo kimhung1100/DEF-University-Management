@@ -18,10 +18,11 @@ import java.util.Map;
 public class Course {
     private String courseID;
     private String courseTitle;
-    private Lecturer lecturerCreated;
+    private Lecturer lecturerInCharge; // Trưởng khoa
     private int credits;
     private List<Double> componentGrades;
-//    private List<CourseContent> courseContent;
+
+    // private List<CourseContent> courseContent;
     private String courseContent;
     private List<String> courseMaterials;
 
@@ -31,7 +32,8 @@ public class Course {
     public Department department;
 
     private List<Student> studentRegisters;
-    private void save(){
+
+    private void save() {
         Manager manager = Manager.getInstance();
 
         Firestore firestore = manager.connect();
@@ -41,11 +43,12 @@ public class Course {
 
         ApiFuture<WriteResult> writeResult = docRef.set(data);
     }
-    public static Course fromMap(Map<String, Object> data){
+
+    public static Course fromMap(Map<String, Object> data) {
         Course course = new Course();
         course.setCourseID((String) data.get("courseID"));
         course.setCourseTitle((String) data.get("courseTitle"));
-//        course.setLecturerInCharge((Lecturer) data.get("lecturerInCharge"));
+        // course.setLecturerInCharge((Lecturer) data.get("lecturerInCharge"));
         Object creditsObj = data.get("credits");
         // Check if the creditsObj is not null and is an instance of Integer or Long
         if (creditsObj != null && (creditsObj instanceof Integer || creditsObj instanceof Long)) {
@@ -55,17 +58,18 @@ public class Course {
             course.setCredits(credits);
         } else {
             // Handle the case where credits is not an Integer or Long
-            // You can log an error, provide a default value, or take other appropriate actions
+            // You can log an error, provide a default value, or take other appropriate
+            // actions
             course.setCredits(0);
         }
         course.setComponentGrades((List<Double>) data.get("componentGrades"));
         course.setCourseMaterials((List<String>) data.get("courseMaterials"));
-//        CourseState courseState = (CourseState) data.get("courseState");
-//        course.setState((String) data.get("state"));
+        // CourseState courseState = (CourseState) data.get("courseState");
+        // course.setState((String) data.get("state"));
         course.setDescription((String) data.get("description"));
         List<String> studentIds = (List<String>) data.get("studentRegisters");
         ArrayList<Student> students = new ArrayList<>();
-        for (String studentId : studentIds){
+        for (String studentId : studentIds) {
             students.add(new Student(studentId));
         }
         course.setStudentRegisters(students);
@@ -104,10 +108,6 @@ public class Course {
         data.put("department", this.getDepartment());
         data.put("studentRegisters", this.getStudentRegisters());
 
-
-
-
-
         // data.put("password", this.getPassword());
         // ... other fields based on your Student class
         return data;
@@ -129,9 +129,10 @@ public class Course {
         return this.courseMaterials;
     }
 
-    public List<Double> getComponentGrades(){
+    public List<Double> getComponentGrades() {
         return this.componentGrades;
     }
+
     private int getCredits() {
         return this.credits;
     }
@@ -154,20 +155,22 @@ public class Course {
 
     }
 
-    public void registerCourse(Student student){
+    public void registerCourse(Student student) {
         this.studentRegisters.add(student);
         save();
     }
-    public void removeRegister(Student student){
+
+    public void removeRegister(Student student) {
         this.studentRegisters.remove(student);
     }
+
     public List<Student> getStudentRegisters() {
         return this.studentRegisters;
     }
-    public void deleteRegisters(){
+
+    public void deleteRegisters() {
         this.studentRegisters = new ArrayList<>();
     }
-
 
     public Course() {
         courseState = CourseState.EDITING;
@@ -188,13 +191,12 @@ public class Course {
         return componentGrades.size();
     }
 
-//    public List<CourseContent> getCourseContent() {
-//        return this.courseContent;
-//    }
+    // public List<CourseContent> getCourseContent() {
+    // return this.courseContent;
+    // }
     public String getCourseContent() {
         return this.courseContent;
     }
-
 
     public void setCourseID(String courseID) {
         this.courseID = courseID;
@@ -203,6 +205,7 @@ public class Course {
     public String getCourseID() {
         return this.courseID;
     }
+
     public void setCourseTitle(String courseTitle) {
         this.courseTitle = courseTitle;
     }
@@ -212,7 +215,7 @@ public class Course {
     }
 
     public void setLecturerInCharge(Lecturer lecturer) {
-        this.lecturerCreated = lecturer;
+        this.lecturerInCharge = lecturer;
     }
 
     public void setCredits(int credits) {

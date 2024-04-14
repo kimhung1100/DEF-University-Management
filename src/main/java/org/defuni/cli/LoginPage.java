@@ -77,3 +77,10 @@ public class LoginPage {
         System.out.flush();
     }
 }
+
+/*
+ * 
+ * TO DO LIST:
+ * tạo CLI tạo tài khoản.
+ * tạo các hàm rút từ DB về, conv sang object
+ */
