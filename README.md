@@ -5,12 +5,7 @@ When finish project, we draw class diagram generated from IdeaJ to LucidChart fo
 
 After that, we explain what we do in slides.
 
-Database connector in account/Manager.java
-
-To conect:
-Manager manager = manager.getInstance()
-Firebase firebase = manager.connect()
-
+Use Repository to integrate with Firebase (pass Class to them).
 
 ...
 
@@ -30,7 +25,7 @@ Firebase firebase = manager.connect()
   https://firebase.google.com/docs/firestore/manage-data/delete-data
 
 ## Work list:
-- [ ] Refactor code firebase by Respository pattern (Doing for Scheduled class)
+- [ ] Refactor code firebase by Repository pattern (Doing for Scheduled class)
 - [x] Connected to Firebase and Create first Student.
 - [x] Course Create
 - [x] Course Register
