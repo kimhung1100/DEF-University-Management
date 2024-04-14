@@ -21,6 +21,7 @@ public class ScheduledClass extends Course {
 
     private List<LecturerObserver> lecturerObservers;
 
+    private List<List<Double>> componentGradesList;
     private String classID; // class's name: L01, L02...
     private Course course;
 
@@ -48,12 +49,26 @@ public class ScheduledClass extends Course {
     public Room getRoom() {
         return this.room;
     }
-
-    public ScheduledClass() {
-
+    public ScheduledClass(){
+        List<List<Double>> componentGradesList = new ArrayList<>();
+        for(int i=0; i < studentObservers.size(); i++){
+            for(int j=0; j < componentGrades.size(); j++) {
+                componentGradesList.add(getComponentGrades());
+            }
+        }
+    }
+    public void GradeChanged(StudentObserver o, int index, Double grade){
+        int position = studentObservers.indexOf(o);
+        for(int i=0; i < studentObservers.size(); i++){
+            if(studentObservers.get(i) == o){
+                position = i;
+                break;
+            }
+        }
+        componentGradesList.get(position).set(index,grade);
     }
 
-    public void setSemester(String semester) {
+    public void setSemester(String semester){
         this.semester = semester;
     }
 
@@ -133,6 +148,26 @@ public class ScheduledClass extends Course {
         this.content = courseContent;
         contentChanged();
     }
+
+    public void notifyStudents() {
+        this.notifyObserver();
+    }
+
+
+
+    public String getContent() {
+        return this.content;
+    }
+
+    public String getClassID() {
+        return this.classID;
+    }
+
+
+
+//    public Lecturer getLecturer() {
+//        return this.lecturerIncharge;
+//    }
 
     public void registerObserver(StudentObserver student) {
 
