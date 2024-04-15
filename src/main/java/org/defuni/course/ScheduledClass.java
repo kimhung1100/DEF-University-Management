@@ -49,26 +49,34 @@ public class ScheduledClass extends Course {
     public Room getRoom() {
         return this.room;
     }
-    public ScheduledClass(){
+
+    public void setClassID(String ID) {
+        this.classID = ID;
+    }
+
+    public ScheduledClass() {
+        int n = course.getComponentGrades().size();
+
         List<List<Double>> componentGradesList = new ArrayList<>();
-        for(int i=0; i < studentObservers.size(); i++){
-            for(int j=0; j < componentGrades.size(); j++) {
+        for (int i = 0; i < studentObservers.size(); i++) {
+            for (int j = 0; j < n; j++) {
                 componentGradesList.add(getComponentGrades());
             }
         }
     }
-    public void GradeChanged(StudentObserver o, int index, Double grade){
+
+    public void GradeChanged(StudentObserver o, int index, Double grade) {
         int position = studentObservers.indexOf(o);
-        for(int i=0; i < studentObservers.size(); i++){
-            if(studentObservers.get(i) == o){
+        for (int i = 0; i < studentObservers.size(); i++) {
+            if (studentObservers.get(i) == o) {
                 position = i;
                 break;
             }
         }
-        componentGradesList.get(position).set(index,grade);
+        componentGradesList.get(position).set(index, grade);
     }
 
-    public void setSemester(String semester){
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 
@@ -84,12 +92,11 @@ public class ScheduledClass extends Course {
         return schoolYear;
     }
 
-
     public ScheduledClass(String classID) {
         this.classID = classID;
         studentObservers = new ArrayList<StudentObserver>();
         lecturerObservers = new ArrayList<LecturerObserver>();
-//        save();
+        // save();
     }
 
     private void save() {
@@ -109,12 +116,8 @@ public class ScheduledClass extends Course {
         save();
     }
 
-    private void setCourse(Course course) {
+    public void setCourse(Course course) {
         this.course = course;
-    }
-
-    private void setClassID(String classID) {
-        this.classID = classID;
     }
 
     private Map<String, Object> createExpectedDataMap() {
@@ -149,25 +152,9 @@ public class ScheduledClass extends Course {
         contentChanged();
     }
 
-    public void notifyStudents() {
-        this.notifyObserver();
-    }
-
-
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public String getClassID() {
-        return this.classID;
-    }
-
-
-
-//    public Lecturer getLecturer() {
-//        return this.lecturerIncharge;
-//    }
+    // public Lecturer getLecturer() {
+    // return this.lecturerIncharge;
+    // }
 
     public void registerObserver(StudentObserver student) {
 

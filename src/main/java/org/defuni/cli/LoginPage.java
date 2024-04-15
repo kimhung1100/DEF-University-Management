@@ -7,9 +7,77 @@ import org.defuni.account.UserAccount;
 
 import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class LoginPage {
     public LoginPage() {
+
+    }
+
+    public void gate() { // Ask user want to login or sign in?
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            clearScreen();
+
+            System.out.println("DEF University account gateway");
+            System.out.println("You want to LOGIN or you want to SIGNUP for a new account?");
+
+            String input = scanner.nextLine();
+            input = lower(input);
+
+            if (input == "login") {
+                login();
+            }
+
+            else if (input == "signup") {
+                signup();
+            }
+
+            else {
+                System.out.println("The input should be LOGIN or SIGNUP");
+                sleep(1000);
+                continue;
+            }
+
+            scanner.close();
+        }
+
+    }
+
+    public void signup() {
+
+        while (true) {
+            System.out.println("You sign up as:");
+            System.out.println("1. Student");
+            System.out.println("2. Lecturer");
+
+            Scanner scanner = new Scanner(System.in);
+            int choice = 0;
+            try {
+                choice = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter 1 or 2.");
+            } finally {
+                scanner.close();
+            }
+
+            if (choice == 1) {
+
+            }
+
+            else if (choice == 2) {
+
+            }
+
+            else {
+                System.out.println("The input should be 1 or 2");
+                sleep(1000);
+                continue;
+            }
+        }
+    }
+
+    public void login() {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -75,6 +143,33 @@ public class LoginPage {
     private void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
+    }
+
+    public String lower(String s) {
+        if (s == null || s.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isUpperCase(c)) {
+                result.append(Character.toLowerCase(c));
+            } else {
+                result.append(c);
+            }
+        }
+
+        return result.toString();
+    }
+
+    public void sleep(int milisec) {
+        try { // Sleep 1000ms before clear screen
+            Thread.sleep(milisec);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
