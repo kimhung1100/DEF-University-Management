@@ -8,19 +8,12 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.api.core.ApiFutures;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.defuni.account.*;
 import org.defuni.cli.*;
-import org.defuni.course.Course;
 import org.defuni.course.ScheduledClass;
-import org.defuni.repository.CourseRepository;
-import org.defuni.repository.CourseRepositoryFirebase;
-import org.defuni.repository.ScheduledClassRepository;
-
-import javax.sound.midi.SysexMessage;
 
 public class Main {
     public static void clearScreen() {
@@ -35,6 +28,8 @@ public class Main {
         UserAccountFactory studentAccountFactory = new StudentAccountFactory();
 
         UserAccount user = staffAccountFactory.createUser(UserAccountType.LECTURER);
+        user.setUserName("a");
+        user.setPassword("a");
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
