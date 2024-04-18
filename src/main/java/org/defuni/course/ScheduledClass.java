@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedList;
 
 public class ScheduledClass extends Course {
     private List<StudentObserver> studentObservers;
@@ -33,6 +34,10 @@ public class ScheduledClass extends Course {
     private String schoolYear;
     private LocalTime time;
     private Room room;
+
+    //score list 
+    private SinglyLinkedList listScore = new SinglyLinkedList();
+
 
     public void setTime(LocalTime time) {
         this.time = time;
@@ -207,6 +212,43 @@ public class ScheduledClass extends Course {
     public Course getCourse() {
         return this.course;
     }
+
+
+   //~~~~~~~~~~~listScore~~~~~~~~~~~~~
+    public void setScore(int MSSV, double[] data){
+        listScore.add(MSSV, data);
+    }
+
+    public void sortListScore(){
+        listScore.sortListByMSSV();
+    }
+
+    public SinglyLinkedList getListScore(){
+        return listScore;
+    } 
+
+    public double[] getScoreStudent(int MSSV){
+        return listScore.Score(MSSV);
+    }
+    public void printListScore(){
+        listScore.printList();
+    }
+
+    public void printScoreStudent(int MSSV){
+        listScore.printStudent(MSSV);
+    }
+    public boolean findStudent(int MSSV){
+        return listScore.findMSSV(MSSV);
+    }
+
+    public void updateScore(int MSSV, double[] data){
+        listScore.updateScore(MSSV, data);
+    }
+
+   //~~~~~~~~~~~listScore~~~~~~~~~~~~~
+
+
+
 
     // public void createSessionEachWeek(LocalTime time, LocalDate beginDate, Room
     // room) {

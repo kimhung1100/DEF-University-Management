@@ -22,23 +22,9 @@ import org.defuni.repository.ScheduledClassRepository;
 
 import javax.sound.midi.SysexMessage;
 
-public class Main {
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    public static void test_init() {
-        UserAccountFactory staffAccountFactory = new StaffAccountFactory();
-
-        // to create studentAccount
-        UserAccountFactory studentAccountFactory = new StudentAccountFactory();
-
-        UserAccount user = staffAccountFactory.createUser(UserAccountType.LECTURER);
-    }
-
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        
+public class scoreList {
+    
+    public void scoreist(String[] args) throws ExecutionException, InterruptedException {
         Lecturer lecturer = new Lecturer();
         ScheduledClass scClass = new ScheduledClass("CO5259");
 
