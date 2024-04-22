@@ -53,8 +53,8 @@ public class StudentPage {
 //            else if (choice == 4) {
 //                student.removeClass();
 //            }
-//            else if (choice == 5) {
-//                student.();
+            else if (choice == 5) {
+               student.displayGrades();
 //            }
 //            else if (choice == 6) {
 //                student.();
