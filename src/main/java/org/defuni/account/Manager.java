@@ -22,29 +22,36 @@ import java.util.concurrent.ExecutionException;
 public class Manager {
     private static Manager instance;
     private static List<Course> courseList = new ArrayList<Course>();
-    Firestore db;
     private String currentSemester = "HK2";
     private String currentSchoolYear = "2023-2024";
+
+    private static Firestore db;
 
     private Manager() {
         // Prevent instantiation via reflection
         if (instance != null) {
             throw new IllegalStateException("Cannot instantiate singleton class using reflection");
         }
+
+        db = null;
     }
 
-    public String getCurrentSemester(){
+    public String getCurrentSemester() {
         return currentSemester;
     }
-    public String getCurrentSchoolYear(){
+
+    public String getCurrentSchoolYear() {
         return currentSchoolYear;
     }
-    public void setCurrentSemester(String semester){
+
+    public void setCurrentSemester(String semester) {
         currentSemester = semester;
     }
-    public void setCurrentSchoolYear(String year){
+
+    public void setCurrentSchoolYear(String year) {
         currentSchoolYear = year;
     }
+
     public static synchronized Manager getInstance() {
         if (instance == null) {
             instance = new Manager();
@@ -149,15 +156,16 @@ public class Manager {
         return db;
     }
 
-    public static boolean addCourse(Course course) {
-        courseList.add(course);
-        return true;
-    }
-    public Firestore getDb(){
+    public static Firestore getDB() {
         if (db == null) {
             db = connect();
         }
         return db;
+    }
+
+    public static boolean addCourse(Course course) {
+        courseList.add(course);
+        return true;
     }
 
     public static Student convStudent(Map<String, Object> document) {

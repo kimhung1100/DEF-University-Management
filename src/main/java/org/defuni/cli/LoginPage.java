@@ -1,13 +1,15 @@
 package org.defuni.cli;
 
-import org.defuni.account.EducationManager;
-import org.defuni.account.Lecturer;
-import org.defuni.account.Student;
-import org.defuni.account.UserAccount;
+import org.defuni.account.*;
+import org.defuni.repository.Firebase;
+
+import com.google.cloud.firestore.Firestore;
 
 import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+
+import java.util.Map;
 
 public class LoginPage {
     public LoginPage() {
@@ -15,22 +17,26 @@ public class LoginPage {
     }
 
     public void gate() { // Ask user want to login or sign in?
+        Scanner scanner = new Scanner(System.in);
+
         while (true) {
-            Scanner scanner = new Scanner(System.in);
             clearScreen();
 
             System.out.println("DEF University account gateway");
             System.out.println("You want to LOGIN or you want to SIGNUP for a new account?");
 
-            String input = scanner.nextLine();
-            input = lower(input);
+            String input = scanner.nextLine().toLowerCase();
 
-            if (input == "login") {
+            if (input.equals("login")) {
                 login();
             }
 
-            else if (input == "signup") {
+            else if (input.equals("signup")) {
                 signup();
+            }
+
+            else if (input.equals("exit")) {
+                break;
             }
 
             else {
@@ -38,35 +44,113 @@ public class LoginPage {
                 sleep(1000);
                 continue;
             }
-
-            scanner.close();
         }
-
+        scanner.close();
     }
 
     public void signup() {
+        Scanner scanner = new Scanner(System.in);
+        Firestore db = Manager.getDB();
 
         while (true) {
+            clearScreen();
             System.out.println("You sign up as:");
             System.out.println("1. Student");
             System.out.println("2. Lecturer");
 
-            Scanner scanner = new Scanner(System.in);
             int choice = 0;
             try {
                 choice = scanner.nextInt();
+                scanner.nextLine(); // Consume the invalid input
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter 1 or 2.");
-            } finally {
-                scanner.close();
+                continue;
             }
 
-            if (choice == 1) {
+            if (choice == 1) { // Student sign up
+                String username, password;
 
+                while (true) {
+                    System.out.println("Enter your user name");
+                    username = scanner.nextLine();
+
+                    System.out.println("Enter your password");
+                    password = scanner.nextLine();
+
+                    // Check if account's already created
+                    if (Firebase.hasName(db, "students", username)) {
+                        clearScreen();
+                        System.out.println(String.format("Username %s has been used.", username));
+                        continue;
+                    }
+
+                    System.out.println("Confirm info:       enter 'N' to change info, other keys to create account. ");
+                    System.out.printf("Username: %s \n", username);
+                    System.out.printf("Username: %s \n", password);
+
+                    String input = scanner.nextLine();
+                    if (lower(input).equals("n")) {
+                        continue;
+                    }
+                    break;
+                }
+
+                StudentAccountFactory stuFac = new StudentAccountFactory();
+                Student newStudent = stuFac.createUser(UserAccountType.STUDENT);
+
+                newStudent.setUserName(username);
+                newStudent.setPassword(password);
+
+                Map<String, Object> data = Firebase.createExpectedDataMap(newStudent);
+                Firebase.saveNewObject(db, "students", username, data);
+
+                System.out.println("Created student");
+                System.out.println("You can now login to your new account");
+                sleep(3000);
+                break;
             }
 
-            else if (choice == 2) {
+            else if (choice == 2) { // Lecturer sign up
+                String username, password;
 
+                while (true) {
+                    System.out.println("Enter your user name");
+                    username = scanner.nextLine();
+
+                    System.out.println("Enter your password");
+                    password = scanner.nextLine();
+
+                    // Check if account's already created
+                    if (Firebase.hasName(db, "lecturers", username)) {
+                        clearScreen();
+                        System.out.println(String.format("Username %s has been used.", username));
+                        continue;
+                    }
+
+                    System.out.println("Confirm info:       enter 'N' to change info, other keys to create account. ");
+                    System.out.printf("Username: %s \n", username);
+                    System.out.printf("Username: %s \n", password);
+
+                    String input = scanner.nextLine();
+                    if (lower(input).equals("n")) {
+                        continue;
+                    }
+                    break;
+                }
+
+                StudentAccountFactory stuFac = new StudentAccountFactory();
+                Student newStudent = stuFac.createUser(UserAccountType.STUDENT);
+
+                newStudent.setUserName(username);
+                newStudent.setPassword(password);
+
+                Map<String, Object> data = Firebase.createExpectedDataMap(newStudent);
+                Firebase.saveNewObject(db, "lecturers", username, data);
+
+                System.out.println("Created lecturer");
+                System.out.println("You can now login to your new account");
+                sleep(3000);
+                break;
             }
 
             else {
@@ -75,6 +159,7 @@ public class LoginPage {
                 continue;
             }
         }
+        // scanner.close(); //Dont close the input stream
     }
 
     public void login() {
