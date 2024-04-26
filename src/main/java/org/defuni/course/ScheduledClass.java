@@ -35,9 +35,8 @@ public class ScheduledClass extends Course {
     private LocalTime time;
     private Room room;
 
-    //score list 
+    // score list
     private SinglyLinkedList listScore = new SinglyLinkedList();
-
 
     public void setTime(LocalTime time) {
         this.time = time;
@@ -200,42 +199,40 @@ public class ScheduledClass extends Course {
         return this.course;
     }
 
-
-   //~~~~~~~~~~~listScore~~~~~~~~~~~~~
-    public void setScore(int MSSV, double[] data){
+    // ~~~~~~~~~~~listScore~~~~~~~~~~~~~
+    public void setScore(int MSSV, double[] data) {
         listScore.add(MSSV, data);
     }
 
-    public void sortListScore(){
+    public void sortListScore() {
         listScore.sortListByMSSV();
     }
 
-    public SinglyLinkedList getListScore(){
+    public SinglyLinkedList getListScore() {
         return listScore;
-    } 
+    }
 
-    public double[] getScoreStudent(int MSSV){
+    public double[] getScoreStudent(int MSSV) {
         return listScore.Score(MSSV);
     }
-    public void printListScore(){
+
+    public void printListScore() {
         listScore.printList();
     }
 
-    public void printScoreStudent(int MSSV){
+    public void printScoreStudent(int MSSV) {
         listScore.printStudent(MSSV);
     }
-    public boolean findStudent(int MSSV){
+
+    public boolean findStudent(int MSSV) {
         return listScore.findMSSV(MSSV);
     }
 
-    public void updateScore(int MSSV, double[] data){
+    public void updateScore(int MSSV, double[] data) {
         listScore.updateScore(MSSV, data);
     }
 
-   //~~~~~~~~~~~listScore~~~~~~~~~~~~~
-
-
-
+    // ~~~~~~~~~~~listScore~~~~~~~~~~~~~
 
     // public void createSessionEachWeek(LocalTime time, LocalDate beginDate, Room
     // room) {

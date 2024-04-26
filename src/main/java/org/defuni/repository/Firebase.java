@@ -12,6 +12,7 @@ import org.defuni.account.Lecturer;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class Firebase {
     public static void saveNewObject(Firestore db, String collection, String newDoc, Map<String, Object> value) {
@@ -25,7 +26,7 @@ public class Firebase {
         data.put("courseID", course.getCourseID());
         data.put("courseTitle", course.getCourseTitle());
         // data.put("lecturerInCharge", course.getLecturer());
-        data.put("credits", course.getCredits());
+        // data.put("credits", course.getCredits());
         data.put("componentGrades", course.getComponentGrades());
         data.put("courseContent", course.getCourseContent());
         data.put("courseMaterials", course.getCourseMaterials());
@@ -46,14 +47,27 @@ public class Firebase {
         return data;
     }
 
-    public static Map<String, Object> createExpectedDataMap(UserAccount user) {
+    public static Map<String, Object> createExpectedDataMap(Lecturer lec) {
         Map<String, Object> data = new HashMap<>();
-        data.put("username", user.getUserName());
-        data.put("password", user.getPassword());
-        data.put("firstName", user.getFirstName());
-        data.put("lastName", user.getLastName());
-        data.put("email", user.getEmail());
-        data.put("address", user.getAddress());
+        data.put("username", lec.getUserName());
+        data.put("password", lec.getPassword());
+        data.put("firstName", lec.getFirstName());
+        data.put("lastName", lec.getLastName());
+        data.put("email", lec.getEmail());
+        data.put("address", lec.getAddress());
+        return data;
+    }
+
+    public static Map<String, Object> createExpectedDataMap(Student stu) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("username", stu.getUserName());
+        data.put("password", stu.getPassword());
+        data.put("firstName", stu.getFirstName());
+        data.put("lastName", stu.getLastName());
+        data.put("email", stu.getEmail());
+        data.put("address", stu.getAddress());
+        data.put("notifications", stu.getNotifications());
+        data.put("grades", stu.getGrades());
         return data;
     }
 
@@ -78,4 +92,27 @@ public class Firebase {
         return false;
     }
 
+    public static boolean isValidLogin(Firestore db, String collection, String username, String password)
+            throws InterruptedException, ExecutionException {
+        DocumentReference docRef = db.collection(collection).document(username);
+
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+
+        DocumentSnapshot document = future.get();
+
+        if (!document.exists()) {
+            System.out.println("No username as such");
+            return false;
+        } else {
+            String actualPassword = document.getString("password");
+
+            if (!password.equals(actualPassword)) {
+                System.out.println("Wrong password");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+    }
 }

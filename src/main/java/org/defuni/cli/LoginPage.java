@@ -7,6 +7,7 @@ import com.google.cloud.firestore.Firestore;
 
 import javax.sound.midi.SysexMessage;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 import java.util.InputMismatchException;
 
 import java.util.Map;
@@ -164,6 +165,7 @@ public class LoginPage {
 
     public void login() {
         Scanner scanner = new Scanner(System.in);
+        Firestore db = Manager.getDB();
 
         while (true) {
             clearScreen();
@@ -192,15 +194,36 @@ public class LoginPage {
                     break;
 
                 case 1:
-                    Student student = new Student();
-                    UserAccount ua = student.login(username, password);
-                    if (student != null) {
-                        StudentPage studentPage = new StudentPage(ua);
-                        studentPage.run();
+                    // Student student = new Student();
+                    // UserAccount ua = student.login(username, password);
+                    // if (student != null) {
+                    // StudentPage studentPage = new StudentPage(ua);
+                    // studentPage.run();
 
-                        break;
-                    } else {
-                        System.out.println("Wrong username or password");
+                    // break;
+                    // } else {
+                    // System.out.println("Wrong username or password");
+                    // }
+
+                    // Đã có Manager.login, hỏi senpai cách dùng.
+                    try {
+                        boolean loginSuccess = Firebase.isValidLogin(db, "students", username, password);
+                        if (loginSuccess) {
+                            System.out.println("Grabbed Momoi!");
+
+                            // Rút & convert student ToT
+                            Map<String, Object> stu = Manager.findDocument(db, "students", username);
+                            Student Momoi = Manager.convStudent(stu);
+                            StudentPage studentPage = new StudentPage(Momoi);
+                            studentPage.run();
+                        } else {
+                            System.out.println("Wrong username or password");
+                            continue;
+                        }
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                        System.out.println("Error, idk, ask GPT");
+                        continue;
                     }
 
                 case 2:
@@ -223,6 +246,7 @@ public class LoginPage {
                     System.out.println("Invalid choice. Please choose again.");
             }
         }
+
     }
 
     private void clearScreen() {

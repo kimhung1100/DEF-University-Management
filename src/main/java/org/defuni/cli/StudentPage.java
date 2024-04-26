@@ -6,12 +6,14 @@ import java.util.concurrent.ExecutionException;
 import org.defuni.account.Student;
 import org.defuni.account.UserAccount;
 import org.defuni.cli.*;
+
 public class StudentPage {
     UserAccount student;
 
     public StudentPage(UserAccount student) {
         this.student = student;
     }
+
     private void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -49,21 +51,20 @@ public class StudentPage {
             else if (choice == 3) {
                 CourseRegistingPage courseRegistingPage = new CourseRegistingPage(student);
             }
-//
-//            else if (choice == 4) {
-//                student.removeClass();
-//            }
+            //
+            // else if (choice == 4) {
+            // student.removeClass();
+            // }
             else if (choice == 5) {
-               student.displayGrades();
-//            }
-//            else if (choice == 6) {
-//                student.();
-//            }
-//            else if (choice == 7) {
-//                student.();
-//            }
-
-            else if (choice == 999) {
+                // student.displayGrades();
+                // }
+                // else if (choice == 6) {
+                // student.();
+                // }
+                // else if (choice == 7) {
+                // student.();
+                // }
+            } else if (choice == 999) {
                 return;
             }
 

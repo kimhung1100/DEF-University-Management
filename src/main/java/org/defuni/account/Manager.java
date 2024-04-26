@@ -77,25 +77,19 @@ public class Manager {
         return true;
     }
 
-    public Map<String, Object> findDocument(String collection, String documentId) {
-        // Reference to the document
+    public static Map<String, Object> findDocument(Firestore db, String collection, String documentId) {
         DocumentReference docRef = db.collection(collection).document(documentId);
 
         try {
-            // Get the document snapshot
             DocumentSnapshot documentSnapshot = docRef.get().get();
 
-            // Check if the document exists
             if (documentSnapshot.exists()) {
-                // Convert the document snapshot to a Map and return
                 return documentSnapshot.getData();
             } else {
-                // Document does not exist
                 System.out.println("Document does not exist.");
                 return null;
             }
         } catch (InterruptedException | ExecutionException e) {
-            // Handle exceptions
             e.printStackTrace();
             return null;
         }
@@ -177,6 +171,11 @@ public class Manager {
         stu.setLastName((String) document.get("lastName"));
         stu.setAddress((String) document.get("address"));
 
+        List<String> notifications = (List<String>) document.get("notifications");
+        stu.setNotifications(notifications);
+
+        List<Map<String, String>> grades = (List<Map<String, String>>) document.get("grades");
+        stu.setGrades(grades);
         return stu;
     }
 

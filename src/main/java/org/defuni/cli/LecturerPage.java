@@ -19,6 +19,7 @@ public class LecturerPage {
     }
 
     public void run() {
+        clearScreen();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {

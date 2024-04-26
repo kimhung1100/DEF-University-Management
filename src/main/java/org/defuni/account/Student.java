@@ -17,17 +17,31 @@ public class Student extends UserAccount implements StudentObserver {
     List<ScheduledClass> courseClass;
     List<String> notification;
     private static int ID;
-    Map<ScheduledClass, Integer> grades;
+    // Map<ScheduledClass, Integer> grades; //Whose idea?
+    List<Map<String, String>> grades; // Why not this? like "CO1001" : "10 9 9.5 8", "PH1003" "8 5 7 2"
+
+    public List<Map<String, String>> getGrades() {
+        return this.grades;
+    }
+
+    public void setNotifications(List<String> noti) {
+        this.notification = noti;
+    }
+
+    public void setGrades(List<Map<String, String>> grades) {
+        this.grades = grades;
+    }
 
     public Student() {
         courseClass = new ArrayList<ScheduledClass>();
         notification = new ArrayList<String>();
-        grades = new HashMap<>();
+        grades = new ArrayList<>();
 
     }
-    public Student(String studentID){
+
+    public Student(String studentID) {
         this.setUserName(studentID);
-        grades = new HashMap<>();
+        grades = new ArrayList<>();
     }
 
     public Student(String userName, String email, String password) {
@@ -36,8 +50,6 @@ public class Student extends UserAccount implements StudentObserver {
         notification = new ArrayList<String>();
         grades = new HashMap<>();
     }
-
-
 
     public void addClass(ScheduledClass scheduledClass) {
         courseClass.add(scheduledClass);
@@ -58,12 +70,16 @@ public class Student extends UserAccount implements StudentObserver {
     }
 
     public void update(ScheduledClass scheduledClass) {
-        int grade = scheduledClass.getGradeForStudent(this);
-        grades.put(scheduledClass, grade);
+        // int grade = scheduledClass.getGradeForStudent(this);
+        // grades.put(scheduledClass, grade);
 
-        notification.add("Current class " + scheduledClass.getClassID() + " updated: \n" + scheduledClass.getContent());
-        System.out
-                .println("Student notification: Current class " + scheduledClass.getClassID() + " updated: \n" + scheduledClass.getContent());
+        // notification.add("Current class " + scheduledClass.getClassID() + "
+        // updated:\n" + scheduledClass.getContent());
+        // System.out.println("Student notification: Current class " +
+        // scheduledClass.getClassID() + " updated: \n" + scheduledClass.getContent());
     }
 
+    public List<String> getNotifications() {
+        return this.notification;
+    }
 }
