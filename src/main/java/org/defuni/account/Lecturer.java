@@ -14,6 +14,8 @@ public class Lecturer extends UserAccount implements LecturerObserver {
     public static int ID = 1;
 
     public Lecturer() {
+        setAccType(UserAccountType.LECTURER);
+
         this.department = "default";
         this.certificates = new ArrayList<String>();
         this.classesIncharged = new ArrayList<>();
@@ -69,16 +71,17 @@ public class Lecturer extends UserAccount implements LecturerObserver {
         this.classesIncharged.add(sch);
     }
 
-    //~~~~~~~~~listScore~~~~~~~~~~~
-    public void setScore(String sch, int MSSV, double[] data){
+    // ~~~~~~~~~listScore~~~~~~~~~~~
+    public void setScore(String sch, int MSSV, double[] data) {
         ScheduledClass choseClass = checkClass(sch);
-        if(choseClass == null){
-            System.out.print("Not Found");                
+        if (choseClass == null) {
+            System.out.print("Not Found");
             return;
         }
         choseClass.setScore(MSSV, data);
     }
-    public ScheduledClass checkClass(String sch){
+
+    public ScheduledClass checkClass(String sch) {
         for (ScheduledClass findSch : classesIncharged) {
             if (findSch.getClassID().equalsIgnoreCase(sch)) {
                 return findSch;
@@ -87,66 +90,60 @@ public class Lecturer extends UserAccount implements LecturerObserver {
         return null;
     }
 
-    public void printListScore(String sch){
+    public void printListScore(String sch) {
         ScheduledClass choseClass = checkClass(sch);
-        if(choseClass == null){
-            System.out.print("Not Found\n");                
+        if (choseClass == null) {
+            System.out.print("Not Found\n");
             return;
         }
         choseClass.printListScore();
     }
 
-    public void sortListScore(String sch){
+    public void sortListScore(String sch) {
         ScheduledClass choseClass = checkClass(sch);
-        if(choseClass == null){
-            System.out.print("Not Found\n");                
+        if (choseClass == null) {
+            System.out.print("Not Found\n");
             return;
         }
         choseClass.sortListScore();
     }
 
-    public SinglyLinkedList getListScore(String sch){
+    public SinglyLinkedList getListScore(String sch) {
         ScheduledClass choseClass = checkClass(sch);
-        if(choseClass == null){
-            System.out.print("Not Found\n");                
+        if (choseClass == null) {
+            System.out.print("Not Found\n");
             return null;
         }
         return choseClass.getListScore();
     }
 
-    public double[] getScoreStudent( String sch, int MSSV){
+    public double[] getScoreStudent(String sch, int MSSV) {
         ScheduledClass choseClass = checkClass(sch);
-        if(choseClass == null){
-            System.out.print("Not Found\n");                
+        if (choseClass == null) {
+            System.out.print("Not Found\n");
             return null;
         }
         return choseClass.getScoreStudent(MSSV);
     }
 
-    public void printScoreStudent( String sch, int MSSV){
+    public void printScoreStudent(String sch, int MSSV) {
         ScheduledClass choseClass = checkClass(sch);
-        if(choseClass == null){
-            System.out.print("Not Found\n");                
+        if (choseClass == null) {
+            System.out.print("Not Found\n");
             return;
         }
         choseClass.printScoreStudent(MSSV);
     }
 
-    public void updateScore( String sch, int MSSV, double[] data){
+    public void updateScore(String sch, int MSSV, double[] data) {
         ScheduledClass choseClass = checkClass(sch);
-        if(choseClass == null){
-            System.out.print("Not Found\n");                
+        if (choseClass == null) {
+            System.out.print("Not Found\n");
             return;
         }
         choseClass.updateScore(MSSV, data);
     }
 
-
-    
-    
-
-
-    //~~~~~~~~~listScore~~~~~~~~~~~
-
+    // ~~~~~~~~~listScore~~~~~~~~~~~
 
 }

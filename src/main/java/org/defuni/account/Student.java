@@ -2,6 +2,8 @@ package org.defuni.account;
 
 import com.googlecode.objectify.annotation.Entity;
 import org.defuni.account.UserAccount;
+import org.defuni.account.UserAccountType;
+
 import org.defuni.course.ScheduledClass;
 import org.defuni.course.StudentObserver;
 
@@ -33,6 +35,7 @@ public class Student extends UserAccount implements StudentObserver {
     }
 
     public Student() {
+        setAccType(UserAccountType.STUDENT);
         courseClass = new ArrayList<ScheduledClass>();
         notification = new ArrayList<String>();
         grades = new ArrayList<>();
@@ -40,6 +43,7 @@ public class Student extends UserAccount implements StudentObserver {
     }
 
     public Student(String studentID) {
+        setAccType(UserAccountType.STUDENT);
         this.setUserName(studentID);
         grades = new ArrayList<>();
     }

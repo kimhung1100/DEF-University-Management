@@ -18,4 +18,13 @@ public class StaffAccountFactory extends UserAccountFactory {
         } else
             return null;
     }
+
+    public Lecturer createLecturer() {
+        Lecturer newLecturer = new Lecturer();
+        newLecturer.setFirstName("fname");
+        newLecturer.setLastName("lname");
+        newLecturer.setAddress("Address");
+        newLecturer.setEmail("abc@xyz");
+        return newLecturer;
+    }
 }

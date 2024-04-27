@@ -33,7 +33,7 @@ public class Manager {
             throw new IllegalStateException("Cannot instantiate singleton class using reflection");
         }
 
-        db = null;
+        db = connect();
     }
 
     public String getCurrentSemester() {
@@ -59,12 +59,17 @@ public class Manager {
         return instance;
     }
 
-    public Boolean updateDocument(String collection, String documentId, String field, String newValue) {
+    public Boolean updateDocument(Firestore db, String collection, String documentId, String field, String newValue) {
         DocumentReference docRef = db.collection(collection).document(documentId);
         // (async) Update one field
         ApiFuture<WriteResult> future = docRef.update(field, newValue);
 
-        // WriteResult result = future.get();
+        try {
+            WriteResult result = future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.err.println("Error updating document: " + e.getMessage());
+            return false;
+        }
         return true;
     }
 
@@ -133,24 +138,35 @@ public class Manager {
     }
 
     public static Firestore connect() {
-        Firestore db = null;
-        String currentDir = System.getProperty("user.dir");
-        // Using try-with-resources to automatically close the FileInputStream
-        try (InputStream serviceAccount = new FileInputStream(
-                currentDir + "/src/main/java/org/defuni/service_account.json")) {
-            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
-            FirebaseOptions options = new FirebaseOptions.Builder()
-                    .setCredentials(credentials)
-                    .build();
-            FirebaseApp.initializeApp(options);
-            db = FirestoreClient.getFirestore();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (db == null) {
+            Firestore db = null;
+            String currentDir = System.getProperty("user.dir");
+            // Using try-with-resources to automatically close the FileInputStream
+            try (InputStream serviceAccount = new FileInputStream(
+                    currentDir + "/src/main/java/org/defuni/service_account.json")) {
+                GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+                FirebaseOptions options = new FirebaseOptions.Builder()
+                        .setCredentials(credentials)
+                        .build();
+                FirebaseApp.initializeApp(options);
+                db = FirestoreClient.getFirestore();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return db;
+        } else
+            return db;
+
+    }
+
+    public static Firestore getDB() { // Cho ai dùng static
+        if (db == null) {
+            db = connect();
         }
         return db;
     }
 
-    public static Firestore getDB() {
+    public Firestore retriveDB() { // Cho ai dùng object
         if (db == null) {
             db = connect();
         }
@@ -165,11 +181,17 @@ public class Manager {
     public static Student convStudent(Map<String, Object> document) {
         Student stu = new Student();
         stu.setEmail((String) document.get("email"));
-        stu.setUserName((String) document.get("userName"));
+        stu.setUserName((String) document.get("username"));
         stu.setPassword((String) document.get("password"));
         stu.setFirstName((String) document.get("firstName"));
         stu.setLastName((String) document.get("lastName"));
         stu.setAddress((String) document.get("address"));
+
+        String accountTypeStr = (String) document.get("accountType");
+        if (accountTypeStr != null) {
+            UserAccountType accountType = UserAccountType.valueOf(accountTypeStr);
+            stu.setAccType(accountType);
+        }
 
         List<String> notifications = (List<String>) document.get("notifications");
         stu.setNotifications(notifications);
@@ -182,12 +204,17 @@ public class Manager {
     public static Lecturer convLecturer(Map<String, Object> document) {
         Lecturer lec = new Lecturer();
         lec.setEmail((String) document.get("email"));
-        lec.setUserName((String) document.get("userName"));
+        lec.setUserName((String) document.get("username"));
         lec.setPassword((String) document.get("password"));
         lec.setFirstName((String) document.get("firstName"));
         lec.setLastName((String) document.get("lastName"));
         lec.setAddress((String) document.get("address"));
 
+        String accountTypeStr = (String) document.get("accountType");
+        if (accountTypeStr != null) {
+            UserAccountType accountType = UserAccountType.valueOf(accountTypeStr);
+            lec.setAccType(accountType);
+        }
         return lec;
     }
 

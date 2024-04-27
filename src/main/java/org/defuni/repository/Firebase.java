@@ -55,6 +55,8 @@ public class Firebase {
         data.put("lastName", lec.getLastName());
         data.put("email", lec.getEmail());
         data.put("address", lec.getAddress());
+        data.put("accountType", lec.getAccType());
+
         return data;
     }
 
@@ -68,6 +70,7 @@ public class Firebase {
         data.put("address", stu.getAddress());
         data.put("notifications", stu.getNotifications());
         data.put("grades", stu.getGrades());
+        data.put("accountType", stu.getAccType());
         return data;
     }
 

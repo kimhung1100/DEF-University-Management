@@ -130,7 +130,7 @@ public class LoginPage {
 
                     System.out.println("Confirm info:       enter 'N' to change info, other keys to create account. ");
                     System.out.printf("Username: %s \n", username);
-                    System.out.printf("Username: %s \n", password);
+                    System.out.printf("Password: %s \n", password);
 
                     String input = scanner.nextLine();
                     if (lower(input).equals("n")) {
@@ -139,13 +139,13 @@ public class LoginPage {
                     break;
                 }
 
-                StudentAccountFactory stuFac = new StudentAccountFactory();
-                Student newStudent = stuFac.createUser(UserAccountType.STUDENT);
+                StaffAccountFactory lecFac = new StaffAccountFactory();
+                Lecturer newLecturer = lecFac.createLecturer();
 
-                newStudent.setUserName(username);
-                newStudent.setPassword(password);
+                newLecturer.setUserName(username);
+                newLecturer.setPassword(password);
 
-                Map<String, Object> data = Firebase.createExpectedDataMap(newStudent);
+                Map<String, Object> data = Firebase.createExpectedDataMap(newLecturer);
                 Firebase.saveNewObject(db, "lecturers", username, data);
 
                 System.out.println("Created lecturer");
@@ -194,21 +194,11 @@ public class LoginPage {
                     break;
 
                 case 1:
-                    // Student student = new Student();
-                    // UserAccount ua = student.login(username, password);
-                    // if (student != null) {
-                    // StudentPage studentPage = new StudentPage(ua);
-                    // studentPage.run();
-
-                    // break;
-                    // } else {
-                    // System.out.println("Wrong username or password");
-                    // }
-
                     // Đã có Manager.login, hỏi senpai cách dùng.
                     try {
                         boolean loginSuccess = Firebase.isValidLogin(db, "students", username, password);
                         if (loginSuccess) {
+                            // Momoi là gì? Momoi là tên của 1 đứa hs. vậy thôi
                             System.out.println("Grabbed Momoi!");
 
                             // Rút & convert student ToT
@@ -227,15 +217,25 @@ public class LoginPage {
                     }
 
                 case 2:
-                    Lecturer lecturer = new Lecturer();
-                    // if (lecturer.login(username, password) != null) { //hình như chưa đồng bộ đc
-                    // bên ggfb?
-                    // LecturerPage lecturerPage = new LecturerPage(lecturer);
-                    // lecturerPage.run();
-                    // }
+                    try {
+                        boolean loginSuccess = Firebase.isValidLogin(db, "lecturers", username, password);
+                        if (loginSuccess) {
+                            System.out.println("Grabbed Sensei!");
 
-                    LecturerPage lecturerPage = new LecturerPage(lecturer);
-                    lecturerPage.run();
+                            // Rút & convert sensei <(")
+                            Map<String, Object> data = Manager.findDocument(db, "lecturers", username);
+                            Lecturer lec = Manager.convLecturer(data);
+                            LecturerPage lecturerPage = new LecturerPage(lec);
+                            lecturerPage.run();
+                        } else {
+                            System.out.println("Wrong username or password");
+                            continue;
+                        }
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                        System.out.println("Error, idk, ask GPT");
+                        continue;
+                    }
                     break;
                 case 3:
                     EducationManager manager = new EducationManager();

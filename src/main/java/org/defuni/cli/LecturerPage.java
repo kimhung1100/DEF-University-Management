@@ -55,13 +55,6 @@ public class LecturerPage {
             }
 
             else if (choice == 111) {
-                Manager manager = Manager.getInstance();
-                Firestore firebase = manager.connect();
-
-                Map<String, Object> studentInfo = manager.findDocument("students", "testUser");
-                Student stu = manager.convStudent(studentInfo);
-
-                // do sth to that student ToT
 
             }
 
