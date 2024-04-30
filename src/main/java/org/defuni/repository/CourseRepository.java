@@ -6,7 +6,7 @@ public interface CourseRepository {
     public Course findCourseById(String courseID);
     public void saveCourse(Course course);
 
-    public Course getCourse();
+
 
     public void updateCourse();
 

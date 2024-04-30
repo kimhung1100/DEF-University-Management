@@ -23,7 +23,6 @@ public class CourseRegistingPage {
         String courseID = scanner.nextLine();
 
         Manager manager = Manager.getInstance();
-
         Map<String, Object> documentData = manager.findDocument("course", courseID);
         if (documentData != null) {
             System.out.println("Document found:");

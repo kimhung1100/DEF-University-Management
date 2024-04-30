@@ -83,6 +83,7 @@ public class Manager {
     }
 
     public static Map<String, Object> findDocument(Firestore db, String collection, String documentId) {
+
         DocumentReference docRef = db.collection(collection).document(documentId);
 
         try {
@@ -99,6 +100,25 @@ public class Manager {
             return null;
         }
     }
+    public static Map<String, Object> findDocument(String collection, String documentId) {
+
+        DocumentReference docRef = db.collection(collection).document(documentId);
+
+        try {
+            DocumentSnapshot documentSnapshot = docRef.get().get();
+
+            if (documentSnapshot.exists()) {
+                return documentSnapshot.getData();
+            } else {
+                System.out.println("Document does not exist.");
+                return null;
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public UserAccount login(String username, String password) {
         // Dummy implementation, replace with actual authentication logic

@@ -238,10 +238,28 @@ public class LoginPage {
                     }
                     break;
                 case 3:
-                    EducationManager manager = new EducationManager();
-                    manager.login(username, password);
+                    try {
+                        boolean loginSuccess = Firebase.isValidLogin(db, "educationManagers", username, password);
+                        if (loginSuccess) {
+                            System.out.println("Grabbed Manager!");
 
-                    break;
+                            // Rút & convert manager <(")
+                            Map<String, Object> data = Manager.findDocument(db, "educationManagers", username);
+                            ManagerPage managerPage = new ManagerPage();
+                            managerPage.run();
+
+                        } else {
+                            System.out.println("Wrong username or password");
+                            continue;
+                        }
+                    }
+                        catch (InterruptedException | ExecutionException e) {
+                            e.printStackTrace();
+                            System.out.println("Error, idk, ask GPT");
+                            continue;
+                        }
+                        break;
+
                 default:
                     System.out.println("Invalid choice. Please choose again.");
             }

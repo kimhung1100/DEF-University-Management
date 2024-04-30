@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ScheduledClassRepository {
     public void createScheduledClass(ScheduledClass scheduledClass);
-    public ScheduledClass getScheduledClass(int id);
+    public ScheduledClass findScheduledClassByID(String id);
     public List<ScheduledClass> getAllScheduledClasses();
     public void deleteScheduledClass(int id);
 

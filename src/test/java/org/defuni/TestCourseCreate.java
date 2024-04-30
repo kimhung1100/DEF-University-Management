@@ -9,6 +9,7 @@ public class TestCourseCreate {
     public void TestCourseCreate(){
         Lecturer lecturer = new Lecturer();
         lecturer.courseCreate();
+
     }
 
 }

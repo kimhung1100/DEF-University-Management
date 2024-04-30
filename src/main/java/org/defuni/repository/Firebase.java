@@ -44,6 +44,14 @@ public class Firebase {
         data.put("classID", scheduledClass.getClassID());
         data.put("courseID", scheduledClass.getCourseID());
         data.put("courseTitle", scheduledClass.getCourseTitle());
+        data.put("content", scheduledClass.getContent());
+//        data.put("type", scheduledClass.getType());
+        data.put("semester", scheduledClass.getSemester());
+        data.put("schoolYear", scheduledClass.getSchoolYear());
+        data.put("time", scheduledClass.getTime());
+        data.put("room", scheduledClass.getRoom());
+//        data.put("listScore", scheduledClass.getListScore());
+        data.put("studentList", scheduledClass.getStudentList());
         return data;
     }
 
@@ -62,7 +70,8 @@ public class Firebase {
 
     public static Map<String, Object> createExpectedDataMap(Student stu) {
         Map<String, Object> data = new HashMap<>();
-        data.put("username", stu.getUserName());
+        data.put("studentID", stu.getID());
+        data.put("userName", stu.getUserName());
         data.put("password", stu.getPassword());
         data.put("firstName", stu.getFirstName());
         data.put("lastName", stu.getLastName());

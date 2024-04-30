@@ -38,8 +38,8 @@ Use Repository to integrate with Firebase (pass Class to them).
 - [ ] Report
 - [ ] Slide
 
-## Class diagram : 
-- https://lucid.app/lucidchart/e83a0b19-4a6e-48b1-b12f-4b665473e822/edit?invitationId=inv_1ec96244-71c6-4b27-89ec-7805fad875b6&fbclid=IwAR0x_2mFPRu5GPn9iVG93J9PoTp9vCGbsPZtW5cU-xWoNSZtB_SfPa0NRfs&page=0_0#
+## Class diagram :
+https://lucid.app/lucidchart/e83a0b19-4a6e-48b1-b12f-4b665473e822/edit?invitationId=inv_1ec96244-71c6-4b27-89ec-7805fad875b6&fbclid=IwAR0x_2mFPRu5GPn9iVG93J9PoTp9vCGbsPZtW5cU-xWoNSZtB_SfPa0NRfs&page=0_0#
 
 ## Report: 
 https://www.overleaf.com/8513712129rtnzjfrzdvpz#77ce3b

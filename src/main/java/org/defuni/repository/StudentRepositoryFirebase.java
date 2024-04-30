@@ -4,20 +4,19 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import org.defuni.account.Manager;
-import org.defuni.course.Course;
+import org.defuni.account.Student;
 
-import java.util.HashMap;
+
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class CourseRepositoryFirebase implements CourseRepository{
-    static String collectionName = "course";
+public class StudentRepositoryFirebase implements StudentRepository{
+    static String collectionName = "students";
 
-    public Course findCourseById(String courseID) {
-        String courseCollection = "course";
+    public Student findStudentById(String studentID) {
         Manager manager = Manager.getInstance();
         Firestore db = manager.retriveDB();
-        DocumentReference docRef = db.collection(courseCollection).document(courseID);
+        DocumentReference docRef = db.collection(collectionName).document(studentID);
 
         try {
             // Get the document snapshot
@@ -26,8 +25,8 @@ public class CourseRepositoryFirebase implements CourseRepository{
             // Check if the document exists
             if (documentSnapshot.exists()) {
                 // Convert the document snapshot to a Map and return
-                Course course = documentSnapshot.toObject(Course.class);
-                return course;
+                Student student = documentSnapshot.toObject(Student.class);
+                return student;
             } else {
                 // Document does not exist
                 System.out.println("Document does not exist.");
@@ -43,22 +42,26 @@ public class CourseRepositoryFirebase implements CourseRepository{
     }
 
     @Override
-    public void saveCourse(Course course) {
-        Map<String, Object> expectedDataMap = Firebase.createExpectedDataMap(course);
+    public void saveStudent(Student student) {
+        Map<String, Object> expectedDataMap = Firebase.createExpectedDataMap(student);
         Manager manager = Manager.getInstance();
         Firestore db = manager.retriveDB();
 
-        Firebase.saveNewObject(db, collectionName, course.getCourseID(), expectedDataMap);
-    }
-
-
-    @Override
-    public void updateCourse() {
-
+        Firebase.saveNewObject(db, collectionName, Integer.toString(student.getID()), expectedDataMap);
     }
 
     @Override
-    public void deleteBook() {
+    public Student getStudents() {
+        return null;
+    }
+
+    @Override
+    public void updateStudent() {
+
+    }
+
+    @Override
+    public void deleteStudent() {
 
     }
 }

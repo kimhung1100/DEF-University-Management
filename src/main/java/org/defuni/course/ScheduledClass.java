@@ -35,6 +35,8 @@ public class ScheduledClass extends Course {
     private LocalTime time;
     private Room room;
 
+    List<String> studentList = new ArrayList<String>();
+
     // score list
     private SinglyLinkedList listScore = new SinglyLinkedList();
 
@@ -58,16 +60,6 @@ public class ScheduledClass extends Course {
         this.classID = ID;
     }
 
-    public ScheduledClass() {
-        int n = course.getComponentGrades().size();
-
-        List<List<Double>> componentGradesList = new ArrayList<>();
-        for (int i = 0; i < studentObservers.size(); i++) {
-            for (int j = 0; j < n; j++) {
-                componentGradesList.add(getComponentGrades());
-            }
-        }
-    }
 
     public void GradeChanged(StudentObserver o, int index, Double grade) {
         int position = studentObservers.indexOf(o);
@@ -78,6 +70,9 @@ public class ScheduledClass extends Course {
             }
         }
         componentGradesList.get(position).set(index, grade);
+    }
+    public ScheduledClass() {
+
     }
 
     public void setSemester(String semester) {
@@ -136,6 +131,14 @@ public class ScheduledClass extends Course {
     public ScheduledClass(Course course) {
         this.course = course;
         this.content = course.getCourseContent();
+//        int n = course.getComponentGrades().size();
+//
+//        List<List<Double>> componentGradesList = new ArrayList<>();
+//        for (int i = 0; i < studentObservers.size(); i++) {
+//            for (int j = 0; j < n; j++) {
+//                componentGradesList.add(getComponentGrades());
+//            }
+//        }
     }
 
     public void registerObserver(LecturerObserver lecture) {
@@ -174,6 +177,9 @@ public class ScheduledClass extends Course {
     }
 
     public void notifyObserver() {
+        if (studentObservers == null || studentObservers.isEmpty())
+        {
+            return;}
         for (StudentObserver student : studentObservers) {
             student.update(this);
         }
@@ -230,6 +236,13 @@ public class ScheduledClass extends Course {
 
     public void updateScore(int MSSV, double[] data) {
         listScore.updateScore(MSSV, data);
+    }
+
+    public void registerStudent(String studentID) {
+        studentList.add(studentID);
+    }
+    public List<String> getStudentList() {
+        return studentList;
     }
 
     // ~~~~~~~~~~~listScore~~~~~~~~~~~~~

@@ -28,7 +28,9 @@ public class LecturerPage {
             System.out.println("1. Display info");
             System.out.println("2. Update info");
             System.out.println("3. Create a course");
-            System.out.println("4. Regist class");
+            System.out.println("4. Update Course");
+            System.out.println("5. Register class");
+
             System.out.println("111. Test ground!");
             System.out.println("999. Log out");
 
@@ -51,6 +53,9 @@ public class LecturerPage {
             }
 
             else if (choice == 4) {
+                UpdateCoursePage updateCoursePage = new UpdateCoursePage(lecturer);
+            }
+            else if (choice == 5) {
 
             }
 
