@@ -234,7 +234,9 @@ public class Course {
     public String getCourseContent() {
         return this.courseContent;
     }
+    public void setCourseContent(String courseContent) { this.courseContent = courseContent; }
 
+    public void setDepartment(Department department) { this.department = department; }
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }

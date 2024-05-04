@@ -20,6 +20,7 @@ public class StudentPage {
     }
 
     public void run() {
+        clearScreen();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -29,52 +30,44 @@ public class StudentPage {
             System.out.println("2. Update info");
             System.out.println("3. Register course");
             System.out.println("4. Cancel course");
-            System.out.println("5. ");
-            System.out.println("6. ");
-            System.out.println("7. ");
+            System.out.println("5. Schedule");
+            System.out.println("6. Transcript");
             System.out.println("999. Log out");
 
             int choice = Integer.parseInt(scanner.nextLine());
 
-            if (choice == 0) {
-                break;
-            }
+            switch (choice) {
+                case 0:
+                    return; // Exit the student page
+                case 1:
+                    student.displayInfo();
+                    break;
+                case 2:
+                    student.updateProfile();
+                    break;
+                case 3:
+                    CourseRegistingPage courseRegistingPage = new CourseRegistingPage(student);
+                    //courseRegistingPage.run();
+                    break;
+//                case 4:
+//                    student.removeClass();
+//                    break;
+//                case 5:
+//                    student.displaySchedule();
+//                    break;
+//                case 6:
+//                    student.displayTranscript();
+//                    break;
+                case 999:
+                    return; // Log out
 
-            else if (choice == 1) {
-                student.displayInfo();
+                default:
+                    System.out.println("Invalid option. Please try again.");
+                    break;
             }
-
-            else if (choice == 2) {
-                student.updateProfile();
-            }
-
-            else if (choice == 3) {
-                CourseRegistingPage courseRegistingPage = new CourseRegistingPage(student);
-            }
-            //
-            // else if (choice == 4) {
-            // student.removeClass();
-            // }
-            else if (choice == 5) {
-                // student.displayGrades();
-                // }
-                // else if (choice == 6) {
-                // student.();
-                // }
-                // else if (choice == 7) {
-                // student.();
-                // }
-            } else if (choice == 999) {
-                return;
-            }
-
-            else {
-                System.out.println("Uwwooooooh ToT");
-            }
-
             clearScreen();
         }
-        scanner.close();
+
     }
 
 }
