@@ -74,7 +74,6 @@ public class Course {
     // return course;
     //
     // }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -83,7 +82,7 @@ public class Course {
         this.courseMaterials = courseMaterials;
     }
 
-    private void setStudentRegisters(List<String> studentRegisters) {
+    public void setStudentRegisters(List<String> studentRegisters) {
         this.studentRegisters = studentRegisters;
     }
 
@@ -157,7 +156,7 @@ public class Course {
     }
 
     public Course(String courseID, String courseName, int credit, String courseContent, Lecturer lecturer, String des,
-            String mat) {
+                  String mat) {
         this.courseID = courseID;
         this.courseTitle = courseName;
         this.credits = credit;
@@ -207,9 +206,9 @@ public class Course {
         return componentGrades.get(index);
     }
 
-//    public int getNumberOfComponentGrades() {
-//        return componentGrades.size();
-//    }
+    // public int getNumberOfComponentGrades() {
+    // return componentGrades.size();
+    // }
 
     // public List<CourseContent> getCourseContent() {
     // return this.courseContent;
@@ -254,8 +253,3 @@ public class Course {
         this.componentGrades = componentGrades;
     }
 }
-//    public void setStudentRegisters(List<String> studentRegisters) {
-//        this.studentRegisters = studentRegisters;
-//    }
-//
-//    public List<String> getStudentRegisters() { return this.studentRegisters; }

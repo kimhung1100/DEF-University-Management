@@ -251,8 +251,8 @@ public class Manager {
         List<String> componentGrades = (List<String>) document.get("componentGrades");
         co.setComponentGrades(componentGrades);
 
-//        List<String> studentRegister = (List<String>) document.get("studentRegisters");
-//        co.setStudentRegisters(studentRegister);
+        List<String> studentRegister = (List<String>) document.get("studentRegisters");
+        co.setStudentRegisters(studentRegister);
         return co;
     }
 }
