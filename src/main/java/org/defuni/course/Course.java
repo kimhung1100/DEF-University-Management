@@ -24,12 +24,10 @@ public class Course {
 
     // private List<CourseContent> courseContent;
     private String courseContent;
-    private List<String> courseMaterials;
+    private String courseMaterials;
 
-    private CourseState courseState;
 
     public String description;
-    public Department department;
 
     private List<String> studentRegisters;
 
@@ -85,11 +83,9 @@ public class Course {
         this.description = description;
     }
 
-    private void setState(CourseState state) {
-        this.courseState = state;
-    }
 
-    private void setCourseMaterials(List<String> courseMaterials) {
+
+    public void setCourseMaterials(String courseMaterials) {
         this.courseMaterials = courseMaterials;
     }
 
@@ -106,9 +102,7 @@ public class Course {
         data.put("componentGrades", this.getComponentGrades());
         data.put("courseContent", this.getCourseContent());
         data.put("courseMaterials", this.getCourseMaterials());
-        data.put("state", this.getState());
         data.put("description", this.getDescription());
-        data.put("department", this.getDepartment());
         data.put("studentRegisters", this.getStudentRegisters());
 
         // data.put("password", this.getPassword());
@@ -116,19 +110,13 @@ public class Course {
         return data;
     }
 
-    public Department getDepartment() {
-        return this.department;
-    }
 
     public String getDescription() {
         return this.description;
     }
 
-    public CourseState getState() {
-        return this.courseState;
-    }
 
-    public List<String> getCourseMaterials() {
+    public String getCourseMaterials() {
         return this.courseMaterials;
     }
 
@@ -183,7 +171,6 @@ public class Course {
         this.courseContent = courseContent;
         this.componentGrades = new ArrayList<>();
         this.studentRegisters = new ArrayList<>();
-        this.courseState = CourseState.EDITING;
         this.lecturerInCharge = lecturer;
     }
 
@@ -204,8 +191,6 @@ public class Course {
     }
 
     public Course() {
-        courseState = CourseState.EDITING;
-        courseMaterials = new ArrayList<>();
         studentRegisters = new ArrayList<>();
 
     }
@@ -227,15 +212,7 @@ public class Course {
     public String getCourseContent() {
         return this.courseContent;
     }
-
-    public void setCourseContent(String courseContent) {
-        this.courseContent = courseContent;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
+    public void setCourseContent(String courseContent) { this.courseContent = courseContent; }
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
