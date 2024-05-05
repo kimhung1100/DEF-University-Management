@@ -104,11 +104,9 @@ public class Course {
         return data;
     }
 
-
     public String getDescription() {
         return this.description;
     }
-
 
     public String getCourseMaterials() {
         return this.courseMaterials;
@@ -156,6 +154,19 @@ public class Course {
 
     private Lecturer getLecturer() {
         return this.lecturerInCharge;
+    }
+
+    public Course(String courseID, String courseName, int credit, String courseContent, Lecturer lecturer, String des,
+            String mat) {
+        this.courseID = courseID;
+        this.courseTitle = courseName;
+        this.credits = credit;
+        this.courseContent = courseContent;
+        this.componentGrades = new ArrayList<>();
+        this.studentRegisters = new ArrayList<>();
+        this.lecturerInCharge = lecturer;
+        this.description = des;
+        this.courseMaterials = mat;
     }
 
     public Course(String courseID, String courseName, int credit, String courseContent, Lecturer lecturer) {
@@ -206,7 +217,11 @@ public class Course {
     public String getCourseContent() {
         return this.courseContent;
     }
-    public void setCourseContent(String courseContent) { this.courseContent = courseContent; }
+
+    public void setCourseContent(String courseContent) {
+        this.courseContent = courseContent;
+    }
+
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
