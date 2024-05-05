@@ -25,17 +25,13 @@ public class Firebase {
         Map<String, Object> data = new HashMap<>();
         data.put("courseID", course.getCourseID());
         data.put("courseTitle", course.getCourseTitle());
-        // data.put("lecturerInCharge", course.getLecturer());
         data.put("credits", course.getCredits());
         data.put("componentGrades", course.getComponentGrades());
         data.put("courseContent", course.getCourseContent());
         data.put("courseMaterials", course.getCourseMaterials());
-        data.put("state", course.getState());
         data.put("description", course.getDescription());
-        data.put("department", course.getDepartment());
         data.put("studentRegisters", course.getStudentRegisters());
-        // data.put("password", course.getPassword());
-        // ... other fields based on your Student class
+
         return data;
     }
 
