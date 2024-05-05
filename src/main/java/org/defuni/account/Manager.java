@@ -241,8 +241,18 @@ public class Manager {
     public static Course convCourse(Map<String, Object> document) {
         Course co = new Course();
 
-        co.setComponentGrades(null);
+        co.setCourseID((String) document.get("courseId"));
+        co.setCourseMaterials((String) document.get("courseMaterials"));
+        co.setCourseTitle((String) document.get("courseTitle"));
+        co.setCourseContent((String) document.get("courseContent"));
+        co.setCredits((Integer) document.get("credits"));
+        co.setDescription((String) document.get("description"));
 
+        List<String> componentGrades = (List<String>) document.get("componentGrades");
+        co.setComponentGrades(componentGrades);
+
+//        List<String> studentRegister = (List<String>) document.get("studentRegisters");
+//        co.setStudentRegisters(studentRegister);
         return co;
     }
 }

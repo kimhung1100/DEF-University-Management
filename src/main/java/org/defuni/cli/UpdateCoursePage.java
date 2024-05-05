@@ -68,10 +68,10 @@ public class UpdateCoursePage {
                 case 8:
                     System.out.println("Enter number of components:");
                     int num = scanner.nextInt();
-                    List<Double> components = new ArrayList<>();
+                    List<String> components = new ArrayList<>();
                     for (int i = 0; i < num; i++) {
                         System.out.println("Enter component " + i + " grade:");
-                        components.add(scanner.nextDouble());
+                        components.add(scanner.nextLine());
                     }
                     course.setComponentGrades(components);
                     break;

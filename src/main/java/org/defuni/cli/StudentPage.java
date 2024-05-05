@@ -47,7 +47,6 @@ public class StudentPage {
                     break;
                 case 3:
                     CourseRegistingPage courseRegistingPage = new CourseRegistingPage(student);
-                    //courseRegistingPage.run();
                     break;
 //                case 4:
 //                    student.removeClass();

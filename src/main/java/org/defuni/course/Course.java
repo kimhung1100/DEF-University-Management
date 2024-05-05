@@ -20,15 +20,11 @@ public class Course {
     private String courseTitle;
     private Lecturer lecturerInCharge; // Trưởng khoa
     private int credits;
-    private List<Double> componentGrades;
-
+    private List<String> componentGrades;
     // private List<CourseContent> courseContent;
     private String courseContent;
     private String courseMaterials;
-
-
     public String description;
-
     private List<String> studentRegisters;
 
     // private void save() {
@@ -79,11 +75,9 @@ public class Course {
     //
     // }
 
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
-
-
 
     public void setCourseMaterials(String courseMaterials) {
         this.courseMaterials = courseMaterials;
@@ -120,7 +114,7 @@ public class Course {
         return this.courseMaterials;
     }
 
-    public List<Double> getComponentGrades() {
+    public List<String> getComponentGrades() {
         return this.componentGrades;
     }
 
@@ -195,16 +189,16 @@ public class Course {
 
     }
 
-    public double getComponentGradeAt(int index) {
+    public String getComponentGradeAt(int index) {
         if (index < 0 || index >= componentGrades.size()) {
             throw new IllegalArgumentException("Index out of bounds");
         }
         return componentGrades.get(index);
     }
 
-    public int getNumberOfComponentGrades() {
-        return componentGrades.size();
-    }
+//    public int getNumberOfComponentGrades() {
+//        return componentGrades.size();
+//    }
 
     // public List<CourseContent> getCourseContent() {
     // return this.courseContent;
@@ -241,7 +235,12 @@ public class Course {
         this.lecturerInCharge = lecturer;
     }
 
-    public void setComponentGrades(List<Double> componentGrades) {
+    public void setComponentGrades(List<String> componentGrades) {
         this.componentGrades = componentGrades;
     }
 }
+//    public void setStudentRegisters(List<String> studentRegisters) {
+//        this.studentRegisters = studentRegisters;
+//    }
+//
+//    public List<String> getStudentRegisters() { return this.studentRegisters; }
