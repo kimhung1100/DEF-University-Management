@@ -100,6 +100,7 @@ public class Manager {
             return null;
         }
     }
+
     public static Map<String, Object> findDocument(String collection, String documentId) {
 
         DocumentReference docRef = db.collection(collection).document(documentId);
@@ -118,7 +119,6 @@ public class Manager {
             return null;
         }
     }
-
 
     public UserAccount login(String username, String password) {
         // Dummy implementation, replace with actual authentication logic
@@ -251,8 +251,8 @@ public class Manager {
         List<String> componentGrades = (List<String>) document.get("componentGrades");
         co.setComponentGrades(componentGrades);
 
-//        List<String> studentRegister = (List<String>) document.get("studentRegisters");
-//        co.setStudentRegisters(studentRegister);
+        List<String> studentRegister = (List<String>) document.get("studentRegisters");
+        co.setStudentRegisters(studentRegister);
         return co;
     }
 }

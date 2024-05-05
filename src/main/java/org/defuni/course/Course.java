@@ -83,7 +83,7 @@ public class Course {
         this.courseMaterials = courseMaterials;
     }
 
-    private void setStudentRegisters(List<String> studentRegisters) {
+    public void setStudentRegisters(List<String> studentRegisters) {
         this.studentRegisters = studentRegisters;
     }
 
@@ -207,9 +207,9 @@ public class Course {
         return componentGrades.get(index);
     }
 
-//    public int getNumberOfComponentGrades() {
-//        return componentGrades.size();
-//    }
+    // public int getNumberOfComponentGrades() {
+    // return componentGrades.size();
+    // }
 
     // public List<CourseContent> getCourseContent() {
     // return this.courseContent;
@@ -254,8 +254,8 @@ public class Course {
         this.componentGrades = componentGrades;
     }
 }
-//    public void setStudentRegisters(List<String> studentRegisters) {
-//        this.studentRegisters = studentRegisters;
-//    }
+// public void setStudentRegisters(List<String> studentRegisters) {
+// this.studentRegisters = studentRegisters;
+// }
 //
-//    public List<String> getStudentRegisters() { return this.studentRegisters; }
+// public List<String> getStudentRegisters() { return this.studentRegisters; }
