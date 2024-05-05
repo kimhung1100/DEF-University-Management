@@ -160,7 +160,7 @@ public class LoginPage {
                 continue;
             }
         }
-        // scanner.close(); //Dont close the input stream
+        // scanner.close(); //Don't close the input stream
     }
 
     public void login() {
@@ -194,7 +194,7 @@ public class LoginPage {
                     break;
 
                 case 1:
-                    // Đã có Manager.login, hỏi senpai cách dùng.
+
                     try {
                         boolean loginSuccess = Firebase.isValidLogin(db, "students", username, password);
                         if (loginSuccess) {
@@ -300,9 +300,3 @@ public class LoginPage {
     }
 }
 
-/*
- * 
- * TO DO LIST:
- * tạo CLI tạo tài khoản.
- * tạo các hàm rút từ DB về, conv sang object
- */
