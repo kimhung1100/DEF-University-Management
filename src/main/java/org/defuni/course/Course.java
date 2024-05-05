@@ -33,50 +33,53 @@ public class Course {
 
     private List<String> studentRegisters;
 
-//    private void save() {
-//        Manager manager = Manager.getInstance();
-//
-//        Firestore firestore = manager.connect();
-//        CollectionReference scheduledClassCollection = firestore.collection("course");
-//        DocumentReference docRef = scheduledClassCollection.document(this.getCourseID());
-//        Map<String, Object> data = createExpectedDataMap();
-//
-//        ApiFuture<WriteResult> writeResult = docRef.set(data);
-//    }
+    // private void save() {
+    // Manager manager = Manager.getInstance();
+    //
+    // Firestore firestore = manager.connect();
+    // CollectionReference scheduledClassCollection =
+    // firestore.collection("course");
+    // DocumentReference docRef =
+    // scheduledClassCollection.document(this.getCourseID());
+    // Map<String, Object> data = createExpectedDataMap();
+    //
+    // ApiFuture<WriteResult> writeResult = docRef.set(data);
+    // }
 
-//    public static Course fromMap(Map<String, Object> data) {
-//        Course course = new Course();
-//        course.setCourseID((String) data.get("courseID"));
-//        course.setCourseTitle((String) data.get("courseTitle"));
-//        // course.setLecturerInCharge((Lecturer) data.get("lecturerInCharge"));
-//        Object creditsObj = data.get("credits");
-//        // Check if the creditsObj is not null and is an instance of Integer or Long
-//        if (creditsObj != null && (creditsObj instanceof Integer || creditsObj instanceof Long)) {
-//            // Convert the creditsObj to Integer
-//            int credits = ((Number) creditsObj).intValue();
-//            // Set the credits to the course object
-//            course.setCredits(credits);
-//        } else {
-//            // Handle the case where credits is not an Integer or Long
-//            // You can log an error, provide a default value, or take other appropriate
-//            // actions
-//            course.setCredits(0);
-//        }
-//        course.setComponentGrades((List<Double>) data.get("componentGrades"));
-//        course.setCourseMaterials((List<String>) data.get("courseMaterials"));
-//        // CourseState courseState = (CourseState) data.get("courseState");
-//        // course.setState((String) data.get("state"));
-//        course.setDescription((String) data.get("description"));
-//        List<String> studentIds = (List<String>) data.get("studentRegisters");
-//        ArrayList<Student> students = new ArrayList<>();
-//        for (String studentId : studentIds) {
-//            students.add(new Student(studentId));
-//        }
-//        course.setStudentRegisters(students);
-//
-//        return course;
-//
-//    }
+    // public static Course fromMap(Map<String, Object> data) {
+    // Course course = new Course();
+    // course.setCourseID((String) data.get("courseID"));
+    // course.setCourseTitle((String) data.get("courseTitle"));
+    // // course.setLecturerInCharge((Lecturer) data.get("lecturerInCharge"));
+    // Object creditsObj = data.get("credits");
+    // // Check if the creditsObj is not null and is an instance of Integer or Long
+    // if (creditsObj != null && (creditsObj instanceof Integer || creditsObj
+    // instanceof Long)) {
+    // // Convert the creditsObj to Integer
+    // int credits = ((Number) creditsObj).intValue();
+    // // Set the credits to the course object
+    // course.setCredits(credits);
+    // } else {
+    // // Handle the case where credits is not an Integer or Long
+    // // You can log an error, provide a default value, or take other appropriate
+    // // actions
+    // course.setCredits(0);
+    // }
+    // course.setComponentGrades((List<Double>) data.get("componentGrades"));
+    // course.setCourseMaterials((List<String>) data.get("courseMaterials"));
+    // // CourseState courseState = (CourseState) data.get("courseState");
+    // // course.setState((String) data.get("state"));
+    // course.setDescription((String) data.get("description"));
+    // List<String> studentIds = (List<String>) data.get("studentRegisters");
+    // ArrayList<Student> students = new ArrayList<>();
+    // for (String studentId : studentIds) {
+    // students.add(new Student(studentId));
+    // }
+    // course.setStudentRegisters(students);
+    //
+    // return course;
+    //
+    // }
 
     private void setDescription(String description) {
         this.description = description;
@@ -133,20 +136,16 @@ public class Course {
         return this.componentGrades;
     }
 
-    private int getCredits() {
-        return this.credits;
-    }
-
-    public List<ScheduledClass> createScheduledClass(int studentEachClass){
+    public List<ScheduledClass> createScheduledClass(int studentEachClass) {
         List<ScheduledClass> scheduledClasses = new ArrayList<>();
-        int numsClass = (int) Math.ceil(studentRegisters.size()/studentEachClass);
+        int numsClass = (int) Math.ceil(studentRegisters.size() / studentEachClass);
         for (int i = 0; i < numsClass; i++) {
             ScheduledClass scheduledClass = new ScheduledClass(this);
             scheduledClass.setCourseID(this.getCourseID());
-            scheduledClass.setClassID("L"+Integer.toString(i));
+            scheduledClass.setClassID("L" + Integer.toString(i));
             scheduledClass.setContent(this.getCourseContent());
             scheduledClass.setCredits(this.getCredits());
-//            scheduledClass.setComponentGrades(this.getComponentGrades());
+            // scheduledClass.setComponentGrades(this.getComponentGrades());
 
             Manager manager = Manager.getInstance();
             scheduledClass.setSemester(manager.getCurrentSemester());
@@ -154,30 +153,24 @@ public class Course {
             scheduledClasses.add(scheduledClass);
 
             for (int j = 0; j < studentEachClass; j++) {
-                scheduledClass.registerStudent(studentRegisters.get(i*studentEachClass+j));
+                scheduledClass.registerStudent(studentRegisters.get(i * studentEachClass + j));
             }
         }
-
-
-
 
         return scheduledClasses;
     }
 
-    public String toString(){
+    public String toString() {
         return "Course ID: " + this.courseID + "\n" +
                 "Course Title: " + this.courseTitle + "\n" +
                 "Lecturer in charge: " + this.lecturerInCharge + "\n" +
                 "Credits: " + this.credits + "\n" +
                 "Course Content: " + this.courseContent + "\n" +
-                "Course State: " + this.courseState + "\n" +
                 "Description: " + this.description + "\n" +
-                "Department: " + this.department + "\n" +
                 "Student Registers: " + this.studentRegisters + "\n" +
                 "Course Materials: " + this.courseMaterials + "\n" +
                 "Component Grades: " + this.componentGrades + "\n";
     }
-
 
     private Lecturer getLecturer() {
         return this.lecturerInCharge;
@@ -234,15 +227,29 @@ public class Course {
     public String getCourseContent() {
         return this.courseContent;
     }
-    public void setCourseContent(String courseContent) { this.courseContent = courseContent; }
 
-    public void setDepartment(Department department) { this.department = department; }
+    public void setCourseContent(String courseContent) {
+        this.courseContent = courseContent;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
 
     public String getCourseID() {
         return this.courseID;
+    }
+
+    public int getCredits() {
+        return this.credits;
+    }
+
+    public void setCredits(int cre) {
+        this.credits = cre;
     }
 
     public void setCourseTitle(String courseTitle) {
@@ -255,10 +262,6 @@ public class Course {
 
     public void setLecturerInCharge(Lecturer lecturer) {
         this.lecturerInCharge = lecturer;
-    }
-
-    public void setCredits(int credits) {
-        this.credits = credits;
     }
 
     public void setComponentGrades(List<Double> componentGrades) {

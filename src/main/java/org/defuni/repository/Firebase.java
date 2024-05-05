@@ -26,7 +26,7 @@ public class Firebase {
         data.put("courseID", course.getCourseID());
         data.put("courseTitle", course.getCourseTitle());
         // data.put("lecturerInCharge", course.getLecturer());
-        // data.put("credits", course.getCredits());
+        data.put("credits", course.getCredits());
         data.put("componentGrades", course.getComponentGrades());
         data.put("courseContent", course.getCourseContent());
         data.put("courseMaterials", course.getCourseMaterials());
@@ -45,12 +45,12 @@ public class Firebase {
         data.put("courseID", scheduledClass.getCourseID());
         data.put("courseTitle", scheduledClass.getCourseTitle());
         data.put("content", scheduledClass.getContent());
-//        data.put("type", scheduledClass.getType());
+        // data.put("type", scheduledClass.getType());
         data.put("semester", scheduledClass.getSemester());
         data.put("schoolYear", scheduledClass.getSchoolYear());
         data.put("time", scheduledClass.getTime());
         data.put("room", scheduledClass.getRoom());
-//        data.put("listScore", scheduledClass.getListScore());
+        // data.put("listScore", scheduledClass.getListScore());
         data.put("studentList", scheduledClass.getStudentList());
         return data;
     }
