@@ -53,11 +53,11 @@ public class StudentPage {
                     CourseRemovingPage courseRemovePage = new CourseRemovingPage(student);
                     break;
                 case 5:
-//                    Student.displaySchedule();
+                    student.displaySchedule();
                     break;
-//                case 6:
-//                    student.displayTranscript();
-//                    break;
+                case 6:
+                    student.displayTranscript();
+                    break;
                 case 999:
                     return; // Log out
 

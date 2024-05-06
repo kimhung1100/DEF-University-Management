@@ -108,8 +108,24 @@ public abstract class UserAccount {
     public void displaySchedule() {
         clearScreen();
 //        System.out.println(String.format("Name: %s %s", getLastName(), getFirstName()));
-//        System.out.println(String.format("Email: %s", getEmail()));
-//        System.out.println(String.format("Address: %s", getAddress()));
+//
+
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        // String dob = getDob().format(formatter);
+        // System.out.println(String.format("Date of birth: " + dob));
+
+        System.out.print("*Press Enter to exit");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+
+        clearScreen();
+
+        // Scanner must NOT close, process in LecturerPage needs it to run
+    }
+    public void displayTranscript() {
+        clearScreen();
+//        System.out.println(String.format("Name: %s %s", getLastName(), getFirstName()));
+//
 
         // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         // String dob = getDob().format(formatter);
