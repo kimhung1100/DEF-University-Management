@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 import org.defuni.account.Student;
 import org.defuni.account.UserAccount;
 import org.defuni.cli.*;
+import org.defuni.course.ScheduledClass;
 
 public class StudentPage {
     UserAccount student;
@@ -48,12 +49,12 @@ public class StudentPage {
                 case 3:
                     CourseRegistingPage courseRegistingPage = new CourseRegistingPage(student);
                     break;
-//                case 4:
-//                    student.removeClass();
-//                    break;
-//                case 5:
-//                    student.displaySchedule();
-//                    break;
+                case 4:
+                    CourseRemovingPage courseRemovePage = new CourseRemovingPage(student);
+                    break;
+                case 5:
+//                    Student.displaySchedule();
+                    break;
 //                case 6:
 //                    student.displayTranscript();
 //                    break;

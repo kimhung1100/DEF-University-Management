@@ -30,11 +30,9 @@ public class UpdateCoursePage {
             System.out.println("2. Update course title");
             System.out.println("3. Update course credit");
             System.out.println("4. Update course content");
-            System.out.println("5. Update course state");
-            System.out.println("6. Update course department");
-            System.out.println("7. Update course materials");
-            System.out.println("8. Update course components grades:");
-            System.out.println("9. Exit: ");
+            System.out.println("5. Update course materials");
+            System.out.println("6. Update course components grades:");
+            System.out.println("7. Exit: ");
             System.out.println("\n______________________________________________________\n");
             System.out.println("Enter choice:");
             int choice = scanner.nextInt();
@@ -60,12 +58,12 @@ public class UpdateCoursePage {
                     String newContent = scanner.nextLine();
                     course.setCourseContent(newContent);
                     break;
-                case 7:
+                case 5:
                     System.out.println("Enter new Course Materials:");
                     String newMaterials = scanner.nextLine();
                     course.setCourseMaterials(newMaterials);
                     break;
-                case 8:
+                case 6:
                     System.out.println("Enter number of components:");
                     int num = scanner.nextInt();
                     List<String> components = new ArrayList<>();
@@ -75,7 +73,7 @@ public class UpdateCoursePage {
                     }
                     course.setComponentGrades(components);
                     break;
-                case 9:
+                case 7:
                     break;
                 default:
                     System.out.println("Invalid choice");

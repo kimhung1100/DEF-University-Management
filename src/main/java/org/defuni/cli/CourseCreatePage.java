@@ -3,8 +3,6 @@ package org.defuni.cli;
 import org.checkerframework.checker.units.qual.degrees;
 import org.defuni.account.Lecturer;
 import org.defuni.course.Course;
-import org.defuni.course.CourseState;
-import org.defuni.course.Department;
 import org.defuni.course.ScheduledClass;
 import org.defuni.repository.CourseRepositoryFirebase;
 
