@@ -20,11 +20,21 @@ public class StudentPage {
         System.out.flush();
     }
 
+    private void sleep(int milisec) {
+        try {
+            Thread.sleep(milisec);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void run() {
         clearScreen();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+            clearScreen();
+
             System.out.println("Student page:");
             System.out.println("0. EXIT");
             System.out.println("1. Display info");
@@ -35,37 +45,37 @@ public class StudentPage {
             System.out.println("6. Transcript");
             System.out.println("999. Log out");
 
-            int choice = Integer.parseInt(scanner.nextLine());
+            if (scanner.hasNextInt()) {
+                int choice = scanner.nextInt();
 
-            switch (choice) {
-                case 0:
+                if (choice == 0) {
                     return; // Exit the student page
-                case 1:
+                } else if (choice == 1) {
                     student.displayInfo();
-                    break;
-                case 2:
+                } else if (choice == 2) {
                     student.updateProfile();
-                    break;
-                case 3:
+                } else if (choice == 3) {
                     CourseRegistingPage courseRegistingPage = new CourseRegistingPage(student);
-                    break;
-                case 4:
+                } else if (choice == 4) {
                     CourseRemovingPage courseRemovePage = new CourseRemovingPage(student);
-                    break;
-                case 5:
+                } else if (choice == 5) {
                     student.displaySchedule();
-                    break;
-                case 6:
+                } else if (choice == 6) {
                     student.displayTranscript();
-                    break;
-                case 999:
+                } else if (choice == 999) {
                     return; // Log out
-
-                default:
+                } else {
                     System.out.println("Invalid option. Please try again.");
-                    break;
+                    sleep(1500);
+                    continue;
+                }
+            } else {
+                System.out.println("Invalid input");
+                scanner.nextLine();
+                sleep(1500);
+                continue;
             }
-            clearScreen();
+
         }
 
     }

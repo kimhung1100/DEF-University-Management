@@ -23,6 +23,14 @@ public class Main {
         System.out.flush();
     }
 
+    public static void sleep(int milisec) {
+        try {
+            Thread.sleep(milisec);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void test_init() {
         UserAccountFactory staffAccountFactory = new StaffAccountFactory();
 
@@ -37,7 +45,6 @@ public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         LoginPage loginPage = new LoginPage();
         loginPage.gate();
-
 
     }
 }
