@@ -74,7 +74,6 @@ public class Course {
     // return course;
     //
     // }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -157,7 +156,7 @@ public class Course {
     }
 
     public Course(String courseID, String courseName, int credit, String courseContent, Lecturer lecturer, String des,
-            String mat) {
+                  String mat) {
         this.courseID = courseID;
         this.courseTitle = courseName;
         this.credits = credit;
