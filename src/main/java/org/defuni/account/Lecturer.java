@@ -19,7 +19,6 @@ public class Lecturer extends UserAccount implements LecturerObserver {
         this.department = "default";
         this.certificates = new ArrayList<String>();
         this.classesIncharged = new ArrayList<>();
-
     }
 
     public void updateClass() { // Need target

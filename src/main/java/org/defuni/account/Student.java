@@ -18,7 +18,7 @@ public class Student extends UserAccount implements StudentObserver {
     @Id
     List<ScheduledClass> courseClass;
     List<String> notification;
-//    private static int ID;
+    // private static int ID;
     // Map<ScheduledClass, Integer> grades; //Whose idea?
     List<Map<String, String>> grades; // Why not this? like "CO1001" : "10 9 9.5 8", "PH1003" "8 5 7 2"
 
@@ -43,7 +43,6 @@ public class Student extends UserAccount implements StudentObserver {
         courseClass = new ArrayList<ScheduledClass>();
         notification = new ArrayList<String>();
         grades = new ArrayList<>();
-
     }
 
     public Student(String studentID) {
@@ -57,6 +56,7 @@ public class Student extends UserAccount implements StudentObserver {
         courseClass = new ArrayList<ScheduledClass>();
         notification = new ArrayList<String>();
         // grades = new HashMap<>();
+
     }
 
     public void addClass(ScheduledClass scheduledClass) {
@@ -71,10 +71,11 @@ public class Student extends UserAccount implements StudentObserver {
 
     public void displayGrade() {
         System.out.println("Grades for student " + getUserName() + ":");
-//        for (ScheduledClass scheduledClass : grades.keySet()) {
-//            int grade = grades.get(scheduledClass);
-//            System.out.println("Class: " + scheduledClass.getClassID() + ", Grade: " + grade);
-//        }
+        // for (ScheduledClass scheduledClass : grades.keySet()) {
+        // int grade = grades.get(scheduledClass);
+        // System.out.println("Class: " + scheduledClass.getClassID() + ", Grade: " +
+        // grade);
+        // }
     }
 
     public void update(ScheduledClass scheduledClass) {

@@ -1,5 +1,7 @@
 package org.defuni.account;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.google.cloud.firestore.Firestore;
@@ -21,6 +23,8 @@ public abstract class UserAccount {
     private LocalDate dob;
     private UserAccountType accType;
 
+    private List<String> schedule;
+
     public UserAccount login(String username, String password) {
         Manager loginManager = Manager.getInstance();
         return loginManager.login(username, password);
@@ -30,13 +34,22 @@ public abstract class UserAccount {
         this.userName = userName;
         this.email = email;
         this.password = password;
+
+        schedule = new ArrayList<>();
     }
 
     public UserAccount() {
 
     }
 
-    // Will need to connect to DB
+    public List<String> getSchedule() {
+        return this.schedule;
+    }
+
+    public void setSchedule(List<String> schedule) {
+        this.schedule = schedule;
+    }
+
     public void updateProfile() {
         clearScreen();
         Scanner scanner = new Scanner(System.in);
@@ -105,14 +118,15 @@ public abstract class UserAccount {
 
         // Scanner must NOT close, process in LecturerPage needs it to run
     }
+
     public void displaySchedule() {
         clearScreen();
-//        System.out.println(String.format("Name: %s %s", getLastName(), getFirstName()));
-//
 
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        // String dob = getDob().format(formatter);
-        // System.out.println(String.format("Date of birth: " + dob));
+        System.out.println("Schedule:");
+
+        for (String item : schedule) {
+            System.out.println(item);
+        }
 
         System.out.print("*Press Enter to exit");
         Scanner scanner = new Scanner(System.in);
@@ -122,10 +136,12 @@ public abstract class UserAccount {
 
         // Scanner must NOT close, process in LecturerPage needs it to run
     }
+
     public void displayTranscript() {
         clearScreen();
-//        System.out.println(String.format("Name: %s %s", getLastName(), getFirstName()));
-//
+        // System.out.println(String.format("Name: %s %s", getLastName(),
+        // getFirstName()));
+        //
 
         // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         // String dob = getDob().format(formatter);
@@ -139,6 +155,7 @@ public abstract class UserAccount {
 
         // Scanner must NOT close, process in LecturerPage needs it to run
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

@@ -218,6 +218,9 @@ public class Manager {
 
         List<Map<String, String>> grades = (List<Map<String, String>>) document.get("grades");
         stu.setGrades(grades);
+
+        List<String> schedule = (List<String>) document.get("schedule");
+        stu.setSchedule(schedule);
         return stu;
     }
 

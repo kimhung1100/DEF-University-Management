@@ -8,6 +8,8 @@ import org.defuni.account.UserAccount;
 import org.defuni.cli.*;
 import org.defuni.course.ScheduledClass;
 
+import com.google.api.services.storage.model.Notification;
+
 public class StudentPage {
     UserAccount student;
 
@@ -43,6 +45,7 @@ public class StudentPage {
             System.out.println("4. Cancel course");
             System.out.println("5. Schedule");
             System.out.println("6. Transcript");
+            System.out.println("7. Mail box");
             System.out.println("999. Log out");
 
             if (scanner.hasNextInt()) {
@@ -62,7 +65,11 @@ public class StudentPage {
                     student.displaySchedule();
                 } else if (choice == 6) {
                     student.displayTranscript();
-                } else if (choice == 999) {
+                }
+                // else if (choice == 7) {
+                // MailBoxPage mailBoxPage = new MailBoxPage(student);
+                // }
+                else if (choice == 999) {
                     return; // Log out
                 } else {
                     System.out.println("Invalid option. Please try again.");
