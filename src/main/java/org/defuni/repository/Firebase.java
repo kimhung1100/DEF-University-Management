@@ -46,8 +46,8 @@ public class Firebase {
         data.put("schoolYear", scheduledClass.getSchoolYear());
         data.put("time", scheduledClass.getTime());
         data.put("room", scheduledClass.getRoom());
-        // data.put("listScore", scheduledClass.getListScore());
         data.put("studentList", scheduledClass.getStudentList());
+        data.put("listScore", scheduledClass.getListScore());
         return data;
     }
 

@@ -130,9 +130,10 @@ public class Course {
             scheduledClass.setSemester(manager.getCurrentSemester());
             scheduledClass.setSchoolYear(manager.getCurrentSchoolYear());
             scheduledClasses.add(scheduledClass);
-
+            double[] data = {0.0 , 0.0, 0.0, 0.0, 0.0, 0.0};
             for (int j = 0; j < studentEachClass; j++) {
                 scheduledClass.registerStudent(studentRegisters.get(i * studentEachClass + j));
+                scheduledClass.addScore(studentRegisters.get(i * studentEachClass + j), data);
             }
         }
 

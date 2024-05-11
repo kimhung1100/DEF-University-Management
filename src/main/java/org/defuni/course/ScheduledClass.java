@@ -34,11 +34,14 @@ public class ScheduledClass extends Course {
     private String schoolYear;
     private LocalTime time;
     private Room room;
+    private Map<String, List<Double>> listScore = new HashMap<>();
 
-    List<String> studentList = new ArrayList<String>();
+    public List<String> studentList = new ArrayList<String>();
 
     // score list
-    private SinglyLinkedList listScore = new SinglyLinkedList();
+    
+
+    
 
     public void setTime(LocalTime time) {
         this.time = time;
@@ -205,7 +208,7 @@ public class ScheduledClass extends Course {
         return this.course;
     }
 
-    // ~~~~~~~~~~~listScore~~~~~~~~~~~~~
+   /*   ~~~~~~~~~~~~~~~~~~~~~~~~
     public void setScore(int MSSV, double[] data) {
         listScore.add(MSSV, data);
     }
@@ -238,15 +241,16 @@ public class ScheduledClass extends Course {
         listScore.updateScore(MSSV, data);
     }
 
+   
+
+    // ~~~~~~~~~~~~~~~~~~~~~~~~*/
+
     public void registerStudent(String studentID) {
         studentList.add(studentID);
     }
     public List<String> getStudentList() {
         return studentList;
     }
-
-    // ~~~~~~~~~~~listScore~~~~~~~~~~~~~
-
     // public void createSessionEachWeek(LocalTime time, LocalDate beginDate, Room
     // room) {
     // if (classContent == null) {
@@ -273,4 +277,37 @@ public class ScheduledClass extends Course {
     // // }
     // // }
     // }
+
+
+
+
+    //scorelist//
+    public  Map<String, List<Double>> getListScore() {
+        return this.listScore;
+    }
+
+    public void addScore(String MSSV, double[] data) {
+
+        if(this.findMSSV(MSSV)){
+            //System.out.print("Use updateScore(MSSV)\n");
+            return;
+        } 
+
+
+        List<Double> newScore = new ArrayList<>();
+        for (double value : data) {
+            newScore.add( Math.round(value * 100.0) / 100.0);
+        }
+        
+        this.listScore.put(MSSV, newScore);
+    }
+
+
+    public boolean findMSSV(String MSSV) {
+        
+        return false; // Không tìm thấy MSSV
+    }
+
+
+    //scorelist//
 }

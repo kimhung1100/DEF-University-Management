@@ -70,7 +70,7 @@ public class Lecturer extends UserAccount implements LecturerObserver {
         this.classesIncharged.add(sch);
     }
 
-    // ~~~~~~~~~listScore~~~~~~~~~~~
+    /* ~~~~~~~~~listScore~~~~~~~~~~~
     public void setScore(String sch, int MSSV, double[] data) {
         ScheduledClass choseClass = checkClass(sch);
         if (choseClass == null) {
@@ -143,6 +143,6 @@ public class Lecturer extends UserAccount implements LecturerObserver {
         choseClass.updateScore(MSSV, data);
     }
 
-    // ~~~~~~~~~listScore~~~~~~~~~~~
+    // ~~~~~~~~~listScore~~~~~~~~~~~*/ 
 
 }
