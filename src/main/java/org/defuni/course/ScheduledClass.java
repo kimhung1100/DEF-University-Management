@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,8 @@ public class ScheduledClass extends Course {
     private String schoolYear;
     private LocalTime time;
     private Room room;
+
+    //Database không thể nhận  Map<List<String>, List<Double>> không thể lập bảng điểm
     private Map<String, List<Double>> listScore = new HashMap<>();
 
     public List<String> studentList = new ArrayList<String>();
@@ -302,12 +305,41 @@ public class ScheduledClass extends Course {
         this.listScore.put(MSSV, newScore);
     }
 
-
+    // tìm
     public boolean findMSSV(String MSSV) {
-        
+        for (Map.Entry<String, List<Double>> entry : listScore.entrySet()) {
+            if(entry.getKey() == MSSV) return true;
+        }
         return false; // Không tìm thấy MSSV
     }
 
+    //in MSSV + điểm
+    public void printList(){
+        for (Map.Entry<String, List<Double>> entry : listScore.entrySet()) {
 
+            String[] formattedFractions = entry.getValue().stream()
+            .map(f -> String.format("%.2f", f))
+            .toArray(String[]::new);
+
+            System.out.println("StudentID: " + entry.getKey() + "    Score: " + String.join(", ", formattedFractions));
+        }
+    }
+
+
+    // cập nhật MSSV có sẵn, thất bại, trả false
+    public boolean updateScore(String MSSV, double[] newData){
+
+        if( !this.listScore.containsKey(MSSV)) return false;
+        
+
+        // Xóa tất cả giá trị cũ trong List
+        this.listScore.get(MSSV).clear();
+
+        // Thêm giá trị mới vào List
+        for (double value : newData) {
+            this.listScore.get(MSSV).add(value);
+        }
+            return true;
+    }
     //scorelist//
 }
