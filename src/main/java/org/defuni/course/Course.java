@@ -169,6 +169,18 @@ public class Course {
         this.courseMaterials = mat;
     }
 
+    public Course(String courseID, String courseName, int credit, String courseContent, String des,
+                  String mat) {
+        this.courseID = courseID;
+        this.courseTitle = courseName;
+        this.credits = credit;
+        this.courseContent = courseContent;
+        this.componentGrades = new ArrayList<>();
+        this.studentRegisters = new ArrayList<>();
+        this.description = des;
+        this.courseMaterials = mat;
+    }
+
     public Course(String courseID, String courseName, int credit, String courseContent, Lecturer lecturer) {
         this.courseID = courseID;
         this.courseTitle = courseName;
@@ -177,6 +189,15 @@ public class Course {
         this.componentGrades = new ArrayList<>();
         this.studentRegisters = new ArrayList<>();
         this.lecturerInCharge = lecturer;
+    }
+
+    public Course(String courseID, String courseName, int credit, String courseContent) {
+        this.courseID = courseID;
+        this.courseTitle = courseName;
+        this.credits = credit;
+        this.courseContent = courseContent;
+        this.componentGrades = new ArrayList<>();
+        this.studentRegisters = new ArrayList<>();
     }
 
     public void registerCourse(String studentID) {

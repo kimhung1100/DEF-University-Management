@@ -43,10 +43,12 @@ public class Main {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+        //chức năng tạo course của Manager đang bị lỗi, có thể tạo nhưng lỗi vói database...
         LoginPage loginPage = new LoginPage();
         loginPage.gate();
 
-        
+
 
     }
 }

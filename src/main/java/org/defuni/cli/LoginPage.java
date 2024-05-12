@@ -245,7 +245,8 @@ public class LoginPage {
 
                             // Rút & convert manager <(")
                             Map<String, Object> data = Manager.findDocument(db, "educationManagers", username);
-                            ManagerPage managerPage = new ManagerPage();
+                            EducationManager Emanager = Manager.convManager(data);
+                            ManagerPage managerPage = new ManagerPage(Emanager);
                             managerPage.run();
 
                         } else {

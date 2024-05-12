@@ -1,5 +1,7 @@
 package org.defuni.cli;
 
+import org.defuni.account.EducationManager;
+import org.defuni.account.Lecturer;
 import org.defuni.course.Course;
 import org.defuni.course.ScheduledClass;
 import org.defuni.repository.CourseRepositoryFirebase;
@@ -9,19 +11,29 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ManagerPage {
-    public void ManagerPage() {
-
+    EducationManager Emanager; 
+    
+    public ManagerPage(EducationManager Emanager) {
+        this.Emanager = Emanager;
     }
+
+    private void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
     public void run(){
-        System.out.println("Manager Page");
+        System.out.println("Education Manager Page");
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("1. Create Classes from Course registers");
-
+        //chức năng tạo course của Manager đang bị lỗi, có thể tạo nhưng lỗi vói database...
+        System.out.println("1. Create a course");
+        System.out.println("2. Create Classes from Course registers");
         System.out.println("Enter choice:");
         int choice = scanner.nextInt();
-
-        if (choice == 1) {
+        if(choice == 1){
+            //chức năng tạo course của Manager đang bị lỗi, có thể tạo nhưng lỗi với database...
+            CourseCreatePage courseCreatePage = new CourseCreatePage(this.Emanager);
+        }else if (choice == 2) {
             System.out.println("Enter course ID:");
             Scanner scanner1 = new Scanner(System.in);
             String courseID = scanner1.nextLine();
@@ -45,6 +57,10 @@ public class ManagerPage {
                 ScheduledClass scheduledClassRet = scheduledClassRepositoryFirebase.findScheduledClassByID(scheduledClass.getSemester() + scheduledClass.getCourseID() + scheduledClass.getClassID());
                 System.out.println(scheduledClassRet);
             }
+        }
+
+        else if (choice == 3) {
+           
         }
     }
 }

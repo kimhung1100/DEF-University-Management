@@ -241,6 +241,24 @@ public class Manager {
         return lec;
     }
 
+    public static EducationManager convManager(Map<String, Object> document) {
+        EducationManager manager = new EducationManager();
+        //manager.setEmail((String) document.get("email"));
+        //manager.setUserName((String) document.get("username"));
+        //manager.setPassword((String) document.get("password"));
+        //manager.setFirstName((String) document.get("firstName"));
+       // manager.setLastName((String) document.get("lastName"));
+        //manager.setAddress((String) document.get("address"));
+
+        String accountTypeStr = (String) document.get("accountType");
+        if (accountTypeStr != null) {
+            UserAccountType accountType = UserAccountType.valueOf(accountTypeStr);
+            manager.setAccType(accountType);
+        }
+        return manager;
+    }
+
+
     public static Course convCourse(Map<String, Object> document) {
         Course co = new Course();
 

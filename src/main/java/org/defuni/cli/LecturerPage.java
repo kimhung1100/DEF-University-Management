@@ -30,6 +30,7 @@ public class LecturerPage {
             System.out.println("3. Create a course");
             System.out.println("4. Update Course");
             System.out.println("5. Register class");
+            System.out.println("6. SocreList class");
             System.out.println("111. Test ground!");
             System.out.println("999. Log out");
 
@@ -57,7 +58,9 @@ public class LecturerPage {
             else if (choice == 5) {
 
             }
+            else if (choice == 6) {
 
+            }
             else if (choice == 111) {
 
             }

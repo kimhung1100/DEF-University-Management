@@ -1,6 +1,7 @@
 package org.defuni.cli;
 
 import org.checkerframework.checker.units.qual.degrees;
+import org.defuni.account.EducationManager;
 import org.defuni.account.Lecturer;
 import org.defuni.course.Course;
 import org.defuni.course.ScheduledClass;
@@ -36,12 +37,47 @@ public class CourseCreatePage {
         System.out.println("Enter credits:");
         int credit = scanner.nextInt();
 
-        Course course = new Course(courseID, courseName, credit, courseContent, lecturer, courseDes, courseMat);
+        Course course = new Course(courseID, courseName, credit, courseContent,lecturer, courseDes, courseMat);
         CourseRepositoryFirebase courseRepository = new CourseRepositoryFirebase();
 
         courseRepository.saveCourse(course);
 
         System.out.println("Course Create Successful!");
 
+    }
+
+    public CourseCreatePage(EducationManager manager) {
+        clearScreen();
+        //Scanner scanner = new Scanner(System.in);
+        //scanner never close?
+        try (Scanner scanner = new Scanner(System.in)){
+
+            System.out.println("Course Creating:");
+
+            System.out.println("Enter Course ID:");
+            String courseID = scanner.nextLine();
+
+            System.out.println("Enter Course Title:");
+            String courseName = scanner.nextLine();
+
+            System.out.println("Enter course description:");
+            String courseDes = scanner.nextLine();
+
+            System.out.println("Enter course initial material:");
+            String courseMat = scanner.nextLine();
+
+            System.out.println("Enter course content:");
+            String courseContent = scanner.nextLine();
+
+            System.out.println("Enter credits:");
+            int credit = scanner.nextInt();
+
+            Course course = new Course(courseID, courseName, credit, courseContent, courseDes, courseMat);
+            CourseRepositoryFirebase courseRepository = new CourseRepositoryFirebase();
+
+            courseRepository.saveCourse(course);
+
+            System.out.println("Course Create Successful!");
+        }
     }
 }
