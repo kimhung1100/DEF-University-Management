@@ -39,7 +39,7 @@ public class ScheduledClass extends Course {
     //Database không thể nhận  Map<List<String>, List<Double>> không thể lập bảng điểm
     private Map<String, List<Double>> listScore = new HashMap<>();
 
-    public List<String> studentList = new ArrayList<String>();
+    List<String> studentList = new ArrayList<String>();
 
     // score list
     
@@ -291,8 +291,7 @@ public class ScheduledClass extends Course {
 
     public void addScore(String MSSV, double[] data) {
 
-        if(this.findMSSV(MSSV)){
-            //System.out.print("Use updateScore(MSSV)\n");
+        if(this.listScore.containsKey(MSSV)){
             return;
         } 
 
@@ -339,7 +338,25 @@ public class ScheduledClass extends Course {
         for (double value : newData) {
             this.listScore.get(MSSV).add(value);
         }
-            return true;
+        return true;
     }
+
+    public void printScoreStudent(String MSSV){
+        if( !this.listScore.containsKey(MSSV)) return;
+        String[] formattedFractions = listScore.get(MSSV).stream()
+            .map(f -> String.format("%.2f", f))
+            .toArray(String[]::new);
+
+            System.out.println("StudentID: "+ MSSV + "   Score: " + String.join(", ", formattedFractions));
+    }
+
+    public List<Double> getScoreStudent(String MSSV){
+        List<Double> StudentScore = listScore.get(MSSV);
+        List<Double> StudentScoreCopy = new ArrayList<>(StudentScore);
+        return StudentScoreCopy;
+    }
+
+
+
     //scorelist//
 }

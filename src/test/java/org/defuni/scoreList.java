@@ -32,9 +32,9 @@ public class scoreList {
         scClass.registerObserver(lecturer);
         lecturer.addClass(scClass);
 
-        lecturer.setScore("CO5259", 2201221, new double[]{5,6,7});
-        lecturer.setScore("CO5259", 2201221, new double[]{5,6,8});
-        lecturer.printListScore("CO5259");
+       // lecturer.setScore("CO5259", 2201221, new double[]{5,6,7});
+       // lecturer.setScore("CO5259", 2201221, new double[]{5,6,8});
+        //lecturer.printListScore("CO5259");
         
     }
 }
