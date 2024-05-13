@@ -20,11 +20,22 @@ public class ScheduledClassRepositoryFirebase implements ScheduledClassRepositor
     public void createScheduledClass(ScheduledClass scheduledClass) {
         Map<String, Object> expectedDataMap = Firebase.createExpectedDataMap(scheduledClass);
         String scheduledClassId = scheduledClass.getSemester() + scheduledClass.getCourseID() + scheduledClass.getClassID();
-
         Manager manager = Manager.getInstance();
         Firestore db = manager.retriveDB();
+
         Firebase.saveNewObject(db, collectionName, scheduledClassId, expectedDataMap);
     }
+
+    public void saveScheduledClass(ScheduledClass scheduledClass) {
+        Map<String, Object> expectedDataMap = Firebase.createExpectedDataMap(scheduledClass);
+        String scheduledClassId = scheduledClass.getSemester() + scheduledClass.getCourseID() + scheduledClass.getClassID();
+        Manager manager = Manager.getInstance();
+        Firestore db = manager.retriveDB();
+
+        Firebase.saveNewObject(db, collectionName, scheduledClassId, expectedDataMap);
+    }
+
+
 
     @Override
     public ScheduledClass findScheduledClassByID(String scheduledClassID) {
@@ -55,6 +66,10 @@ public class ScheduledClassRepositoryFirebase implements ScheduledClassRepositor
 
 
     }
+
+
+
+
 
     @Override
     public List<ScheduledClass> getAllScheduledClasses() {

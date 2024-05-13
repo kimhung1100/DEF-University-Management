@@ -16,6 +16,8 @@ import org.defuni.cli.*;
 import org.defuni.course.Course;
 import org.defuni.course.ScheduledClass;
 import org.defuni.repository.CourseRepository;
+import org.defuni.repository.CourseRepositoryFirebase;
+import org.defuni.repository.ScheduledClassRepositoryFirebase;
 
 public class Main {
     public static void clearScreen() {
@@ -44,7 +46,15 @@ public class Main {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        //chức năng tạo course của Manager đang bị lỗi, có thể tạo nhưng lỗi vói database...
+        
+        //Cần  bổ sung chức năng thay đổi thông tin Class
+        //hiển thị danh sách điểm của class HK2aL0
+           /*  String schelleID = "HK2aL0";
+            ScheduledClassRepositoryFirebase scheRepository = new ScheduledClassRepositoryFirebase();
+
+            ScheduledClass sClasss = scheRepository.findScheduledClassByID(schelleID);
+            sClasss.printList();*/
+
         LoginPage loginPage = new LoginPage();
         loginPage.gate();
 

@@ -6,6 +6,8 @@ import org.defuni.account.*;
 import com.google.cloud.firestore.*;
 import java.util.*;
 
+import org.defuni.course.ScheduledClass;
+import org.defuni.repository.ScheduledClassRepositoryFirebase;
 public class LecturerPage {
     Lecturer lecturer;
 
@@ -30,7 +32,8 @@ public class LecturerPage {
             System.out.println("3. Create a course");
             System.out.println("4. Update Course");
             System.out.println("5. Register class");
-            System.out.println("6. SocreList class");
+            System.out.println("6. Update Class");
+            System.out.println("7. Display Class");
             System.out.println("111. Test ground!");
             System.out.println("999. Log out");
 
@@ -59,7 +62,20 @@ public class LecturerPage {
 
             }
             else if (choice == 6) {
+                //tạo 1 clone mới, chưa tìm ra cách xóa cái cũ....
+                UpdateScheduledClass UpdateScheduledClass = new UpdateScheduledClass(lecturer);
+            }
+            else if (choice == 7) {
+                // đang lỗi hàm, hãy dùng pp mẫu
+               // DisplayScheduledClassPage DisplayScheduledClassPage = new DisplayScheduledClassPage(lecturer);
+                
+                //lựa chọn sẵn ở đây
+                String schelleID = "HK2aL0";
+                ScheduledClassRepositoryFirebase scheRepository = new ScheduledClassRepositoryFirebase();
 
+                ScheduledClass sClasss = scheRepository.findScheduledClassByID(schelleID);
+                sClasss.printList();
+                 
             }
             else if (choice == 111) {
 
@@ -72,8 +88,8 @@ public class LecturerPage {
             else {
                 System.out.println("Uwwooooooh ToT");
             }
-
-            clearScreen();
+            //tạm ẩn
+            //clearScreen();
         }
 
         scanner.close();
