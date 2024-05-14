@@ -342,7 +342,10 @@ public class ScheduledClass extends Course {
     }
 
     public void printScoreStudent(String MSSV){
-        if( !this.listScore.containsKey(MSSV)) return;
+        if( !this.listScore.containsKey(MSSV)){
+            System.out.println("Not Found");
+            return;
+        } 
         String[] formattedFractions = listScore.get(MSSV).stream()
             .map(f -> String.format("%.2f", f))
             .toArray(String[]::new);

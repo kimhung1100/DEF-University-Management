@@ -66,16 +66,7 @@ public class LecturerPage {
                 UpdateScheduledClass UpdateScheduledClass = new UpdateScheduledClass(lecturer);
             }
             else if (choice == 7) {
-                // đang lỗi hàm, hãy dùng pp mẫu
-               // DisplayScheduledClassPage DisplayScheduledClassPage = new DisplayScheduledClassPage(lecturer);
-                
-                //lựa chọn sẵn ở đây
-                String schelleID = "HK2aL0";
-                ScheduledClassRepositoryFirebase scheRepository = new ScheduledClassRepositoryFirebase();
-
-                ScheduledClass sClasss = scheRepository.findScheduledClassByID(schelleID);
-                sClasss.printList();
-                 
+                DisplayScheduledClassPage();
             }
             else if (choice == 111) {
 
@@ -88,10 +79,101 @@ public class LecturerPage {
             else {
                 System.out.println("Uwwooooooh ToT");
             }
-            //tạm ẩn
-            //clearScreen();
+            clearScreen();
         }
 
         scanner.close();
     }
+
+    public void DisplayScheduledClassPage() {
+        clearScreen();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Class ID:");
+        String schelleID = scanner.nextLine();
+        ScheduledClassRepositoryFirebase scheRepository = new ScheduledClassRepositoryFirebase();
+        ScheduledClass sClasss = scheRepository.findScheduledClassByID(schelleID);
+        System.out.println(sClasss);
+        //sClasss.printList();
+        while (true){
+            clearScreen();
+           // System.out.println("______________________________________________________");
+            System.out.println("Update choice:");
+            System.out.println("1. Class Score ");
+            System.out.println("2. Student Score ");
+            System.out.println("3. Class Info");
+            System.out.println("7. Exit: ");
+            //System.out.println("______________________________________________________");
+            System.out.println("Enter choice:");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    //sClasss.printList();
+                    printSocre(sClasss);
+                    break;
+                case 2:                    
+                    
+                    printScoreStudent(sClasss);
+                    break;
+                case 3:
+                    printInfoClass(sClasss);
+                    break;
+                case 7:
+                    return;
+                    
+                default:
+                    System.out.println("Invalid choice");
+                
+            }
+            
+        
+        }
+        
+    }
+
+    void printSocre(ScheduledClass sClasss){
+        sClasss.printList();
+        System.out.println("*Enter to continue:");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        //scanner.close();
+        clearScreen();
+                    //Lsleep(1500);
+    }
+
+    void printScoreStudent(ScheduledClass sClasss){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter StudentID:");
+        String StudentID = scanner.nextLine();
+        sClasss.printScoreStudent(StudentID);
+        System.out.println("*Enter to continue:");
+        
+        scanner.nextLine();
+        //scanner.close();
+        clearScreen();
+    }
+
+    void printInfoClass(ScheduledClass sClasss){
+        System.out.println("Class time: " + sClasss.getTime());
+        System.out.println("Class room: " + sClasss.getRoom());
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("*Enter to continue:");
+        
+        scanner.nextLine();
+        //scanner.close();
+        clearScreen();
+    }
+
+    public void sleep(int milisec) {
+        try { // Sleep 1000ms before clear screen
+            Thread.sleep(milisec);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
 }
