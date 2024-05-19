@@ -116,8 +116,11 @@ public class Course {
     }
 
     public List<ScheduledClass> createScheduledClass(int studentEachClass) {
+        Manager manager = Manager.getInstance();
+
         List<ScheduledClass> scheduledClasses = new ArrayList<>();
         int numsClass = (int) Math.ceil(studentRegisters.size() / studentEachClass);
+
         for (int i = 0; i < numsClass; i++) {
             ScheduledClass scheduledClass = new ScheduledClass(this);
             scheduledClass.setCourseID(this.getCourseID());
@@ -125,16 +128,17 @@ public class Course {
             scheduledClass.setContent(this.getCourseContent());
             scheduledClass.setCredits(this.getCredits());
             // scheduledClass.setComponentGrades(this.getComponentGrades());
-
-            Manager manager = Manager.getInstance();
             scheduledClass.setSemester(manager.getCurrentSemester());
             scheduledClass.setSchoolYear(manager.getCurrentSchoolYear());
-            scheduledClasses.add(scheduledClass);
-            double[] data = {0.0 , 0.0, 0.0, 0.0, 0.0, 0.0};
+
+            double[] data = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
             for (int j = 0; j < studentEachClass; j++) {
                 scheduledClass.registerStudent(studentRegisters.get(i * studentEachClass + j));
                 scheduledClass.addScore(studentRegisters.get(i * studentEachClass + j), data);
             }
+
+            // Này là list các lớp học mới tạo
+            scheduledClasses.add(scheduledClass);
         }
 
         return scheduledClasses;
@@ -157,7 +161,7 @@ public class Course {
     }
 
     public Course(String courseID, String courseName, int credit, String courseContent, Lecturer lecturer, String des,
-                  String mat) {
+            String mat) {
         this.courseID = courseID;
         this.courseTitle = courseName;
         this.credits = credit;
@@ -170,7 +174,7 @@ public class Course {
     }
 
     public Course(String courseID, String courseName, int credit, String courseContent, String des,
-                  String mat) {
+            String mat) {
         this.courseID = courseID;
         this.courseTitle = courseName;
         this.credits = credit;

@@ -102,6 +102,7 @@ public abstract class UserAccount {
 
     public void displayInfo() {
         clearScreen();
+        System.out.println(String.format("Username: %s", getUserName()));
         System.out.println(String.format("Name: %s %s", getLastName(), getFirstName()));
         System.out.println(String.format("Email: %s", getEmail()));
         System.out.println(String.format("Address: %s", getAddress()));
@@ -127,6 +128,8 @@ public abstract class UserAccount {
         for (String item : schedule) {
             System.out.println(item);
         }
+
+        // "Course /t L0x /t Monday /t 8:00-10:00"
 
         System.out.print("*Press Enter to exit");
         Scanner scanner = new Scanner(System.in);

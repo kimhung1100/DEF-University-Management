@@ -2,10 +2,12 @@ package org.defuni.account;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -201,7 +203,7 @@ public class Manager {
     public static Student convStudent(Map<String, Object> document) {
         Student stu = new Student();
         stu.setEmail((String) document.get("email"));
-        stu.setUserName((String) document.get("username"));
+        stu.setUserName((String) document.get("userName"));
         stu.setPassword((String) document.get("password"));
         stu.setFirstName((String) document.get("firstName"));
         stu.setLastName((String) document.get("lastName"));
@@ -243,12 +245,12 @@ public class Manager {
 
     public static EducationManager convManager(Map<String, Object> document) {
         EducationManager manager = new EducationManager();
-        //manager.setEmail((String) document.get("email"));
-        //manager.setUserName((String) document.get("username"));
-        //manager.setPassword((String) document.get("password"));
-        //manager.setFirstName((String) document.get("firstName"));
-       // manager.setLastName((String) document.get("lastName"));
-        //manager.setAddress((String) document.get("address"));
+        // manager.setEmail((String) document.get("email"));
+        // manager.setUserName((String) document.get("username"));
+        // manager.setPassword((String) document.get("password"));
+        // manager.setFirstName((String) document.get("firstName"));
+        // manager.setLastName((String) document.get("lastName"));
+        // manager.setAddress((String) document.get("address"));
 
         String accountTypeStr = (String) document.get("accountType");
         if (accountTypeStr != null) {
@@ -257,7 +259,6 @@ public class Manager {
         }
         return manager;
     }
-
 
     public static Course convCourse(Map<String, Object> document) {
         Course co = new Course();
@@ -276,4 +277,21 @@ public class Manager {
         co.setStudentRegisters(studentRegister);
         return co;
     }
+
+    public static void displayDocs(String collection) {
+        Firestore db = getDB();
+        ApiFuture<QuerySnapshot> future = db.collection(collection).get();
+        try {
+            QuerySnapshot querySnapshot = future.get();
+            List<QueryDocumentSnapshot> documents = querySnapshot.getDocuments();
+            StringBuilder sb = new StringBuilder();
+            for (QueryDocumentSnapshot document : documents) {
+                sb.append(document.getId()).append("\t");
+            }
+            System.out.println(sb.toString());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

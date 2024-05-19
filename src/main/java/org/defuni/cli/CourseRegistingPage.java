@@ -34,7 +34,7 @@ public class CourseRegistingPage {
             clearScreen();
             System.out.println("Course Registration Page");
 
-            // Pop up available Courses
+            Manager.displayDocs("course");
 
             System.out.println("\nEnter courseID exactly:");
             String courseID = scanner.nextLine();
@@ -63,6 +63,9 @@ public class CourseRegistingPage {
                 if (input == 1) {
                     // Content here
                     List<String> studentIds = (List<String>) documentData.get("studentRegisters");
+
+                    String studentID = student.getUserName();
+
                     studentIds.add(student.getUserName());
                     manager.updateDocument("course",
                             (String) documentData.get("courseID"),

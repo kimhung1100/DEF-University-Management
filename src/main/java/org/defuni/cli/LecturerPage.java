@@ -8,6 +8,7 @@ import java.util.*;
 
 import org.defuni.course.ScheduledClass;
 import org.defuni.repository.ScheduledClassRepositoryFirebase;
+
 public class LecturerPage {
     Lecturer lecturer;
 
@@ -57,18 +58,14 @@ public class LecturerPage {
 
             else if (choice == 4) {
                 UpdateCoursePage updateCoursePage = new UpdateCoursePage(lecturer);
-            }
-            else if (choice == 5) {
+            } else if (choice == 5) {
 
-            }
-            else if (choice == 6) {
-                //tạo 1 clone mới, chưa tìm ra cách xóa cái cũ....
+            } else if (choice == 6) {
+                // tạo 1 clone mới, chưa tìm ra cách xóa cái cũ....
                 UpdateScheduledClass UpdateScheduledClass = new UpdateScheduledClass(lecturer);
-            }
-            else if (choice == 7) {
+            } else if (choice == 7) {
                 DisplayScheduledClassPage();
-            }
-            else if (choice == 111) {
+            } else if (choice == 111) {
 
             }
 
@@ -93,26 +90,26 @@ public class LecturerPage {
         ScheduledClassRepositoryFirebase scheRepository = new ScheduledClassRepositoryFirebase();
         ScheduledClass sClasss = scheRepository.findScheduledClassByID(schelleID);
         System.out.println(sClasss);
-        //sClasss.printList();
-        while (true){
+        // sClasss.printList();
+        while (true) {
             clearScreen();
-           // System.out.println("______________________________________________________");
+            // System.out.println("______________________________________________________");
             System.out.println("Update choice:");
             System.out.println("1. Class Score ");
             System.out.println("2. Student Score ");
             System.out.println("3. Class Info");
             System.out.println("7. Exit: ");
-            //System.out.println("______________________________________________________");
+            // System.out.println("______________________________________________________");
             System.out.println("Enter choice:");
             int choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    //sClasss.printList();
+                    // sClasss.printList();
                     printSocre(sClasss);
                     break;
-                case 2:                    
-                    
+                case 2:
+
                     printScoreStudent(sClasss);
                     break;
                 case 3:
@@ -120,47 +117,46 @@ public class LecturerPage {
                     break;
                 case 7:
                     return;
-                    
+
                 default:
                     System.out.println("Invalid choice");
-                
+
             }
-            
-        
+
         }
-        
+
     }
 
-    void printSocre(ScheduledClass sClasss){
+    void printSocre(ScheduledClass sClasss) {
         sClasss.printList();
         System.out.println("*Enter to continue:");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
-        //scanner.close();
+        // scanner.close();
         clearScreen();
-                    //Lsleep(1500);
+        // Lsleep(1500);
     }
 
-    void printScoreStudent(ScheduledClass sClasss){
+    void printScoreStudent(ScheduledClass sClasss) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter StudentID:");
         String StudentID = scanner.nextLine();
         sClasss.printScoreStudent(StudentID);
         System.out.println("*Enter to continue:");
-        
+
         scanner.nextLine();
-        //scanner.close();
+        // scanner.close();
         clearScreen();
     }
 
-    void printInfoClass(ScheduledClass sClasss){
+    void printInfoClass(ScheduledClass sClasss) {
         System.out.println("Class time: " + sClasss.getTime());
         System.out.println("Class room: " + sClasss.getRoom());
         Scanner scanner = new Scanner(System.in);
         System.out.println("*Enter to continue:");
-        
+
         scanner.nextLine();
-        //scanner.close();
+        // scanner.close();
         clearScreen();
     }
 
@@ -171,9 +167,4 @@ public class LecturerPage {
             e.printStackTrace();
         }
     }
-
-
-
-
-
 }
