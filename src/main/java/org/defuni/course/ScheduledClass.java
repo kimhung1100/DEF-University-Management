@@ -50,6 +50,10 @@ public class ScheduledClass extends Course implements Publisher {
         }
     }
 
+    public String getCourseName() {
+        return course.getCourseTitle();
+    }
+
     public void addObserver(StudentObserver o) {
         studentObservers.add(o);
     }

@@ -45,10 +45,13 @@ public abstract class UserAccount {
         this.password = password;
 
         schedule = new ArrayList<>();
+        notifications = new ArrayList<>();
     }
 
     public UserAccount() {
 
+        schedule = new ArrayList<>();
+        notifications = new ArrayList<>();
     }
 
     public List<String> getSchedule() {

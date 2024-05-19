@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import com.googlecode.objectify.annotation.Id;
+import java.util.Random;
 
 @Entity
 public class Student extends UserAccount implements StudentObserver {
@@ -37,7 +38,7 @@ public class Student extends UserAccount implements StudentObserver {
     public Student() {
         setAccType(UserAccountType.STUDENT);
         courseClass = new ArrayList<ScheduledClass>();
-        notifications = new ArrayList<String>();
+        // notifications = new ArrayList<String>();
         grades = new ArrayList<>();
     }
 
@@ -50,7 +51,7 @@ public class Student extends UserAccount implements StudentObserver {
     public Student(String userName, String email, String password) {
         super(userName, email, password);
         courseClass = new ArrayList<ScheduledClass>();
-        notifications = new ArrayList<String>();
+        // notifications = new ArrayList<String>();
         // grades = new HashMap<>();
 
     }
@@ -61,12 +62,51 @@ public class Student extends UserAccount implements StudentObserver {
 
         Map<String, Object> stu = Manager.findDocument(db, "students", getUserName());
         Student student = Manager.convStudent(stu);
+
         List<String> noti = student.getNotifications();
+        List<String> sched = student.getSchedule();
+
         noti.add(message);
+        String TKB = cookTKB(message);
+        sched.add(TKB);
 
         manager.updateDocument("students", getUserName(), "notifications", noti);
+        manager.updateDocument("students", getUserName(), "schedule", sched);
 
         this.notifications.add(message);
+        this.setSchedule(sched);
+        // this.schedule.add(courseID + " - " + courseName);
+    }
+
+    public String cookTKB(String message) {
+        /// LET MASTER CHEF KENNY V COOK THIS UP!/////
+        String[] parts = message.split(": ", 2);
+        String somethingAhead = parts[0];
+        String rest = parts[1];
+        parts = rest.split(" - ", 2);
+        String courseID = parts[0];
+        String courseName = parts[1];
+
+        String scheduleString = getRandomDay() + " " + courseID + " " + courseName + " " + getRandomTime();
+        return scheduleString;
+    }
+
+    public String getRandomDay() {
+        String[] days = { "MON", "TUE", "WED", "THU", "FRI", "SAT" };
+        Random random = new Random();
+        int index = random.nextInt(days.length);
+        return days[index];
+    }
+
+    public String getRandomTime() {
+        Random random = new Random();
+        int startHour;
+        do {
+            startHour = 7 + random.nextInt(8); // Random number from 7 to 14
+        } while (startHour == 10 || startHour == 11); // Exclude 10 and 11
+
+        int endHour = startHour + 2;
+        return startHour + "h-" + endHour + "h";
     }
 
     public void addClass(ScheduledClass scheduledClass) {

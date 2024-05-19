@@ -63,7 +63,9 @@ public class ManagerPage {
                 scheduledClassRepositoryFirebase.createScheduledClass(scheduledClass);
 
                 String message = "You have been added to class " + scheduledClass.getSemester()
-                        + scheduledClass.getCourseID() + scheduledClass.getClassID();
+                        + scheduledClass.getCourseID() + scheduledClass.getClassID() + " of course: "
+                        + scheduledClass.getCourseID()
+                        + " - " + scheduledClass.getCourseName();
                 scheduledClass.notifyStudents(message);
             }
 
