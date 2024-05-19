@@ -17,6 +17,10 @@ public class StudentPage {
         this.student = student;
     }
 
+    // public StudentPage(Student student) {
+    // this.student = student;
+    // }
+
     private void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -65,11 +69,9 @@ public class StudentPage {
                     student.displaySchedule();
                 } else if (choice == 6) {
                     student.displayTranscript();
-                }
-                // else if (choice == 7) {
-                // MailBoxPage mailBoxPage = new MailBoxPage(student);
-                // }
-                else if (choice == 999) {
+                } else if (choice == 7) {
+                    MailBoxPage mailBoxPage = new MailBoxPage(student);
+                } else if (choice == 999) {
                     return; // Log out
                 } else {
                     System.out.println("Invalid option. Please try again.");

@@ -60,6 +60,7 @@ public class ManagerPage {
             ScheduledClassRepositoryFirebase scheduledClassRepositoryFirebase = new ScheduledClassRepositoryFirebase();
             for (ScheduledClass scheduledClass : scheduledClassList) {
                 scheduledClassRepositoryFirebase.createScheduledClass(scheduledClass);
+                scheduledClass.notifyStudents("You have been added to class " + scheduledClass.getClassID());
             }
 
             courseRepository.saveCourse(course);

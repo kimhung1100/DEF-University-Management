@@ -24,6 +24,15 @@ public abstract class UserAccount {
     private UserAccountType accType;
 
     private List<String> schedule;
+    protected List<String> notifications;
+
+    public void setNotitications(List<String> noti) {
+        this.notifications = noti;
+    }
+
+    public List<String> getNotifications() {
+        return this.notifications;
+    }
 
     public UserAccount login(String username, String password) {
         Manager loginManager = Manager.getInstance();

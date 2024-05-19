@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.LinkedList;
 
-public class ScheduledClass extends Course {
+public class ScheduledClass extends Course implements Publisher {
     private List<StudentObserver> studentObservers;
 
     private List<LecturerObserver> lecturerObservers;
@@ -36,15 +36,26 @@ public class ScheduledClass extends Course {
     private LocalTime time;
     private Room room;
 
-    //Database không thể nhận  Map<List<String>, List<Double>> không thể lập bảng điểm
+    // Database không thể nhận Map<List<String>, List<Double>> không thể lập bảng
+    // điểm
     private Map<String, List<Double>> listScore = new HashMap<>();
 
     List<String> studentList = new ArrayList<String>();
 
-    // score list
-    
+    // Observer related, notice that is has nothing to do with the lecturerObservers
+    public void notifyObservers(String message) {
+        for (StudentObserver stu : studentObservers) {
+            stu.update(message);
+        }
+    }
 
-    
+    public void addObserver(StudentObserver o) {
+        studentObservers.add(o);
+    }
+
+    public void removeObserver(StudentObserver o) {
+        studentObservers.add(o);
+    }
 
     public void setTime(LocalTime time) {
         this.time = time;
@@ -66,7 +77,6 @@ public class ScheduledClass extends Course {
         this.classID = ID;
     }
 
-
     public void GradeChanged(StudentObserver o, int index, Double grade) {
         int position = studentObservers.indexOf(o);
         for (int i = 0; i < studentObservers.size(); i++) {
@@ -77,6 +87,7 @@ public class ScheduledClass extends Course {
         }
         componentGradesList.get(position).set(index, grade);
     }
+
     public ScheduledClass() {
 
     }
@@ -137,14 +148,14 @@ public class ScheduledClass extends Course {
     public ScheduledClass(Course course) {
         this.course = course;
         this.content = course.getCourseContent();
-//        int n = course.getComponentGrades().size();
-//
-//        List<List<Double>> componentGradesList = new ArrayList<>();
-//        for (int i = 0; i < studentObservers.size(); i++) {
-//            for (int j = 0; j < n; j++) {
-//                componentGradesList.add(getComponentGrades());
-//            }
-//        }
+        // int n = course.getComponentGrades().size();
+        //
+        // List<List<Double>> componentGradesList = new ArrayList<>();
+        // for (int i = 0; i < studentObservers.size(); i++) {
+        // for (int j = 0; j < n; j++) {
+        // componentGradesList.add(getComponentGrades());
+        // }
+        // }
     }
 
     public void registerObserver(LecturerObserver lecture) {
@@ -178,25 +189,12 @@ public class ScheduledClass extends Course {
         lecturerObservers.remove(lecture);
     }
 
-    public void removeObserver(StudentObserver student) {
-        studentObservers.remove(student);
-    }
-
-    public void notifyObserver() {
-        if (studentObservers == null || studentObservers.isEmpty())
-        {
-            return;}
-        for (StudentObserver student : studentObservers) {
-            student.update(this);
-        }
-    }
-
     public void contentChanged() {
-        notifyStudents();
+        notifyStudents("The content of " + this.getClassID() + " has been changed");
     }
 
-    public void notifyStudents() {
-        this.notifyObserver();
+    public void notifyStudents(String message) {
+        this.notifyObservers(message);
     }
 
     public String getContent() {
@@ -211,46 +209,49 @@ public class ScheduledClass extends Course {
         return this.course;
     }
 
-   /*   ~~~~~~~~~~~~~~~~~~~~~~~~
-    public void setScore(int MSSV, double[] data) {
-        listScore.add(MSSV, data);
-    }
-
-    public void sortListScore() {
-        listScore.sortListByMSSV();
-    }
-
-    public SinglyLinkedList getListScore() {
-        return listScore;
-    }
-
-    public double[] getScoreStudent(int MSSV) {
-        return listScore.Score(MSSV);
-    }
-
-    public void printListScore() {
-        listScore.printList();
-    }
-
-    public void printScoreStudent(int MSSV) {
-        listScore.printStudent(MSSV);
-    }
-
-    public boolean findStudent(int MSSV) {
-        return listScore.findMSSV(MSSV);
-    }
-
-    public void updateScore(int MSSV, double[] data) {
-        listScore.updateScore(MSSV, data);
-    }
-
-   
-
-    // ~~~~~~~~~~~~~~~~~~~~~~~~*/
+    /*
+     * ~~~~~~~~~~~~~~~~~~~~~~~~
+     * public void setScore(int MSSV, double[] data) {
+     * listScore.add(MSSV, data);
+     * }
+     * 
+     * public void sortListScore() {
+     * listScore.sortListByMSSV();
+     * }
+     * 
+     * public SinglyLinkedList getListScore() {
+     * return listScore;
+     * }
+     * 
+     * public double[] getScoreStudent(int MSSV) {
+     * return listScore.Score(MSSV);
+     * }
+     * 
+     * public void printListScore() {
+     * listScore.printList();
+     * }
+     * 
+     * public void printScoreStudent(int MSSV) {
+     * listScore.printStudent(MSSV);
+     * }
+     * 
+     * public boolean findStudent(int MSSV) {
+     * return listScore.findMSSV(MSSV);
+     * }
+     * 
+     * public void updateScore(int MSSV, double[] data) {
+     * listScore.updateScore(MSSV, data);
+     * }
+     * 
+     * 
+     * 
+     * // ~~~~~~~~~~~~~~~~~~~~~~~~
+     */
 
     public void registerStudent(String studentID) {
         studentList.add(studentID);
     }
+
     public List<String> getStudentList() {
         return studentList;
     }
@@ -281,55 +282,51 @@ public class ScheduledClass extends Course {
     // // }
     // }
 
-
-
-
-    //scorelist//
-    public  Map<String, List<Double>> getListScore() {
+    // scorelist//
+    public Map<String, List<Double>> getListScore() {
         return this.listScore;
     }
 
     public void addScore(String MSSV, double[] data) {
 
-        if(this.listScore.containsKey(MSSV)){
+        if (this.listScore.containsKey(MSSV)) {
             return;
-        } 
-
+        }
 
         List<Double> newScore = new ArrayList<>();
         for (double value : data) {
-            newScore.add( Math.round(value * 100.0) / 100.0);
+            newScore.add(Math.round(value * 100.0) / 100.0);
         }
-        
+
         this.listScore.put(MSSV, newScore);
     }
 
     // tìm
     public boolean findMSSV(String MSSV) {
         for (Map.Entry<String, List<Double>> entry : listScore.entrySet()) {
-            if(entry.getKey() == MSSV) return true;
+            if (entry.getKey() == MSSV)
+                return true;
         }
         return false; // Không tìm thấy MSSV
     }
 
-    //in MSSV + điểm
-    public void printList(){
+    // in MSSV + điểm
+    public void printList() {
         for (Map.Entry<String, List<Double>> entry : listScore.entrySet()) {
 
             String[] formattedFractions = entry.getValue().stream()
-            .map(f -> String.format("%.2f", f))
-            .toArray(String[]::new);
+                    .map(f -> String.format("%.2f", f))
+                    .toArray(String[]::new);
 
             System.out.println("StudentID: " + entry.getKey() + "    Score: " + String.join(", ", formattedFractions));
         }
     }
 
-
     // cập nhật MSSV có sẵn, thất bại, trả false
-    public boolean updateScore(String MSSV, double[] newData){
+    public boolean updateScore(String MSSV, double[] newData) {
 
-        if( !this.listScore.containsKey(MSSV)) return false;
-        
+        if (!this.listScore.containsKey(MSSV))
+            return false;
 
         // Xóa tất cả giá trị cũ trong List
         this.listScore.get(MSSV).clear();
@@ -341,25 +338,23 @@ public class ScheduledClass extends Course {
         return true;
     }
 
-    public void printScoreStudent(String MSSV){
-        if( !this.listScore.containsKey(MSSV)){
+    public void printScoreStudent(String MSSV) {
+        if (!this.listScore.containsKey(MSSV)) {
             System.out.println("Not Found");
             return;
-        } 
+        }
         String[] formattedFractions = listScore.get(MSSV).stream()
-            .map(f -> String.format("%.2f", f))
-            .toArray(String[]::new);
+                .map(f -> String.format("%.2f", f))
+                .toArray(String[]::new);
 
-            System.out.println("StudentID: "+ MSSV + "   Score: " + String.join(", ", formattedFractions));
+        System.out.println("StudentID: " + MSSV + "   Score: " + String.join(", ", formattedFractions));
     }
 
-    public List<Double> getScoreStudent(String MSSV){
+    public List<Double> getScoreStudent(String MSSV) {
         List<Double> StudentScore = listScore.get(MSSV);
         List<Double> StudentScoreCopy = new ArrayList<>(StudentScore);
         return StudentScoreCopy;
     }
 
-
-
-    //scorelist//
+    // scorelist//
 }
