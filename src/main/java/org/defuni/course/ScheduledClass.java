@@ -1,6 +1,7 @@
 package org.defuni.course;
 
 import org.defuni.account.*;
+import org.defuni.cli.StudentPage;
 import org.defuni.infrastructure.Room;
 
 import com.google.api.core.ApiFuture;
@@ -89,7 +90,9 @@ public class ScheduledClass extends Course implements Publisher {
     }
 
     public ScheduledClass() {
-
+        studentObservers = new ArrayList<>();
+        // lecturerObservers = new ArrayList<LecturerObserver>();
+        // componentGradesList = new ArrayList<List<Double>>();
     }
 
     public void setSemester(String semester) {
@@ -111,7 +114,7 @@ public class ScheduledClass extends Course implements Publisher {
     public ScheduledClass(String classID) {
         this.classID = classID;
         studentObservers = new ArrayList<StudentObserver>();
-        lecturerObservers = new ArrayList<LecturerObserver>();
+        // lecturerObservers = new ArrayList<LecturerObserver>();
         // save();
     }
 
@@ -127,6 +130,7 @@ public class ScheduledClass extends Course implements Publisher {
     }
 
     public ScheduledClass(String classID, Course course) {
+        this.studentObservers = new ArrayList<>();
         this.setClassID(classID);
         this.setCourse(course);
         save();
@@ -148,6 +152,7 @@ public class ScheduledClass extends Course implements Publisher {
     public ScheduledClass(Course course) {
         this.course = course;
         this.content = course.getCourseContent();
+        this.studentObservers = new ArrayList<>();
         // int n = course.getComponentGrades().size();
         //
         // List<List<Double>> componentGradesList = new ArrayList<>();
@@ -173,7 +178,7 @@ public class ScheduledClass extends Course implements Publisher {
 
     public void setContent(String courseContent) {
         this.content = courseContent;
-        contentChanged();
+        // contentChanged();
     }
 
     // public Lecturer getLecturer() {
@@ -250,6 +255,14 @@ public class ScheduledClass extends Course implements Publisher {
 
     public void registerStudent(String studentID) {
         studentList.add(studentID);
+
+        Manager manager = Manager.getInstance();
+        Firestore db = manager.retriveDB();
+
+        Map<String, Object> stu = Manager.findDocument(db, "students", studentID);
+        Student student = Manager.convStudent(stu);
+
+        addObserver(student);
     }
 
     public List<String> getStudentList() {

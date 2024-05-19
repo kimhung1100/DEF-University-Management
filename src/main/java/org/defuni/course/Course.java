@@ -119,6 +119,7 @@ public class Course {
         Manager manager = Manager.getInstance();
 
         List<ScheduledClass> scheduledClasses = new ArrayList<>();
+
         int numsClass = (int) Math.ceil(studentRegisters.size() / studentEachClass);
 
         for (int i = 0; i < numsClass; i++) {

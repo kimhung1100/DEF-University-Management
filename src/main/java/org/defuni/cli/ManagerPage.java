@@ -53,6 +53,7 @@ public class ManagerPage {
             System.out.println(course.getStudentRegisters());
 
             System.out.println("Enter number of students per class:");
+
             int num = scanner1.nextInt();
 
             List<ScheduledClass> scheduledClassList = course.createScheduledClass(num);
@@ -60,7 +61,10 @@ public class ManagerPage {
             ScheduledClassRepositoryFirebase scheduledClassRepositoryFirebase = new ScheduledClassRepositoryFirebase();
             for (ScheduledClass scheduledClass : scheduledClassList) {
                 scheduledClassRepositoryFirebase.createScheduledClass(scheduledClass);
-                scheduledClass.notifyStudents("You have been added to class " + scheduledClass.getClassID());
+
+                String message = "You have been added to class " + scheduledClass.getSemester()
+                        + scheduledClass.getCourseID() + scheduledClass.getClassID();
+                scheduledClass.notifyStudents(message);
             }
 
             courseRepository.saveCourse(course);

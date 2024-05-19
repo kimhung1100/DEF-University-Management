@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static org.defuni.Main.clearScreen;
+import static org.defuni.Main.sleep;
 
 public class UpdateCoursePage {
     public UpdateCoursePage(Lecturer lecturer) {
@@ -79,7 +80,20 @@ public class UpdateCoursePage {
                     System.out.println("Invalid choice");
             }
 
+            // if (choice == 1) {
+            // System.out.println("Enter new Course ID:");
+            // String newCourseID = scanner.nextLine();
+            // course.setCourseID(newCourseID);
+            // }
+
+            // else if (choice == 2) {
+            // System.out.println("Enter new Course Title:");
+            // String newTitle = scanner.nextLine();
+            // course.setCourseTitle(newTitle);
+            // }
+
             courseRepository.saveCourse(course);
+            sleep(1000);
             System.out.println("Course Update Successful!");
 
             Course courseSaved = courseRepository.findCourseById(courseID);

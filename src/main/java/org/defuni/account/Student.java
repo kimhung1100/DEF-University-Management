@@ -1,5 +1,6 @@
 package org.defuni.account;
 
+import com.google.cloud.firestore.Firestore;
 import com.googlecode.objectify.annotation.Entity;
 import org.defuni.account.UserAccount;
 import org.defuni.account.UserAccountType;
@@ -55,6 +56,16 @@ public class Student extends UserAccount implements StudentObserver {
     }
 
     public void update(String message) {
+        Manager manager = Manager.getInstance();
+        Firestore db = manager.retriveDB();
+
+        Map<String, Object> stu = Manager.findDocument(db, "students", getUserName());
+        Student student = Manager.convStudent(stu);
+        List<String> noti = student.getNotifications();
+        noti.add(message);
+
+        manager.updateDocument("students", getUserName(), "notifications", noti);
+
         this.notifications.add(message);
     }
 
