@@ -92,7 +92,7 @@ public class Student extends UserAccount implements StudentObserver {
     }
 
     public String getRandomDay() {
-        String[] days = { "MON", "TUE", "WED", "THU", "FRI", "SAT" };
+        String[] days = { "T2", "T3", "T4", "T5", "T6", "T7" };
         Random random = new Random();
         int index = random.nextInt(days.length);
         return days[index];
