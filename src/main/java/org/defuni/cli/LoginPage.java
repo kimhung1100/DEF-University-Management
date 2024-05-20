@@ -259,8 +259,8 @@ public class LoginPage {
             }
             else {
                 System.out.println("Invalid choice, choose again!");
-//                sleep(1500);
-//                continue;
+                sleep(1500);
+                continue;
 
             }
             clearScreen();
