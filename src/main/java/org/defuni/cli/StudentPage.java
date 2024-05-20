@@ -48,7 +48,7 @@ public class StudentPage {
             System.out.println("3. Register course");
             System.out.println("4. Cancel course");
             System.out.println("5. Schedule");
-            System.out.println("6. Transcript");
+//            System.out.println("6. Transcript");
             System.out.println("7. Mail box");
             System.out.println("999. Log out");
 
@@ -67,8 +67,8 @@ public class StudentPage {
                     CourseRemovingPage courseRemovePage = new CourseRemovingPage(student);
                 } else if (choice == 5) {
                     student.displaySchedule();
-                } else if (choice == 6) {
-                    student.displayTranscript();
+//                } else if (choice == 6) {
+//                    student.displayTranscript();
                 } else if (choice == 7) {
                     MailBoxPage mailBoxPage = new MailBoxPage(student);
                 } else if (choice == 999) {

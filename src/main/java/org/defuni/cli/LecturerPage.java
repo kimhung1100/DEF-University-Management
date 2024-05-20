@@ -33,8 +33,8 @@ public class LecturerPage {
             System.out.println("2. Update info");
             System.out.println("3. Create a course");
             System.out.println("4. Update Course");
-            System.out.println("5. Update student's grade (abandoned)");
-            System.out.println("6. Update Class (abandoned)");
+//            System.out.println("5. Update student's grade (abandoned)");
+//            System.out.println("6. Update Class (abandoned)");
             System.out.println("7. Display Class");
             System.out.println("999. Log out");
 
@@ -58,14 +58,14 @@ public class LecturerPage {
 
             else if (choice.equals("4")) {
                 UpdateCoursePage updateCoursePage = new UpdateCoursePage(lecturer);
-            } else if (choice.equals("5")) {
-                // Abandoned
-                // UpdateStudentGradePage updateStudentGradePage = new UpdateStudentGradePage();
-
-            } else if (choice.equals("6")) {
-                // tạo 1 clone mới, chưa tìm ra cách xóa cái cũ....
-                // UpdateScheduledClass UpdateScheduledClass = new
-                // UpdateScheduledClass(lecturer);
+//            } else if (choice.equals("5")) {
+//                // Abandoned
+//                // UpdateStudentGradePage updateStudentGradePage = new UpdateStudentGradePage();
+//
+//            } else if (choice.equals("6")) {
+//                // tạo 1 clone mới, chưa tìm ra cách xóa cái cũ....
+//                // UpdateScheduledClass UpdateScheduledClass = new
+//                // UpdateScheduledClass(lecturer);
             } else if (choice.equals("7")) {
                 DisplayScheduledClassPage();
             }
