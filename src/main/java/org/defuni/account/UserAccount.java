@@ -67,7 +67,7 @@ public abstract class UserAccount {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(String.format("Updating info. If you dont want to change any field, just Enter"));
-        System.out.println(String.format("Your ID: %s", getUserID()));
+//        System.out.println(String.format("Your ID: %s", getUserID()));
 
         System.out.println(String.format("Last name: %s", getLastName()));
         String input = scanner.nextLine();

@@ -34,7 +34,7 @@ public class LecturerPage {
             System.out.println("3. Create a course");
             System.out.println("4. Update Course");
             System.out.println("5. Update student's grade (abandoned)");
-            System.out.println("6. Update Class (abanoned)");
+            System.out.println("6. Update Class (abandoned)");
             System.out.println("7. Display Class");
             System.out.println("999. Log out");
 

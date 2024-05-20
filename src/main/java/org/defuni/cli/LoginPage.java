@@ -50,6 +50,7 @@ public class LoginPage {
     }
 
     public void signup() {
+        clearScreen();
         Scanner scanner = new Scanner(System.in);
         Firestore db = Manager.getDB();
 
@@ -164,6 +165,7 @@ public class LoginPage {
     }
 
     public void login() {
+        clearScreen();
         Scanner scanner = new Scanner(System.in);
         Firestore db = Manager.getDB();
 
@@ -176,30 +178,24 @@ public class LoginPage {
             System.out.println("3. Education Manager");
             System.out.println("0. EXIT");
 
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
+            String choice = scanner.nextLine();
 
-            if (choice == 0)
-                break;
-
-            clearScreen();
-
-            System.out.println("LOGIN PAGE");
-            System.out.print("Enter username: ");
-            String username = scanner.nextLine();
-            System.out.print("Enter password: ");
-            String password = scanner.nextLine();
-            switch (choice) {
-                case 0:
-                    break;
-
-                case 1:
+            if (choice.equals("0"))
+                return;
+            else if (choice.equals("1")||choice.equals("2")||choice.equals("3")) {
+                clearScreen();
+                System.out.println("LOGIN PAGE");
+                System.out.print("Enter username: ");
+                String username = scanner.nextLine();
+                System.out.print("Enter password: ");
+                String password = scanner.nextLine();
+                if (choice.equals("1")) {
 
                     try {
                         boolean loginSuccess = Firebase.isValidLogin(db, "students", username, password);
                         if (loginSuccess) {
                             // Momoi là gì? Momoi là tên của 1 đứa hs. vậy thôi
-                            System.out.println("Grabbed Momoi!");
+//                            System.out.println("Grabbed Momoi!");
 
                             // Rút & convert student ToT
                             Map<String, Object> stu = Manager.findDocument(db, "students", username);
@@ -212,15 +208,15 @@ public class LoginPage {
                         }
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
-                        System.out.println("Error, idk, ask GPT");
+                        System.out.println("Error");
                         continue;
                     }
-
-                case 2:
+                    break;
+                } else if (choice.equals("2")) {
                     try {
                         boolean loginSuccess = Firebase.isValidLogin(db, "lecturers", username, password);
                         if (loginSuccess) {
-                            System.out.println("Grabbed Sensei!");
+//                            System.out.println("Grabbed Sensei!");
 
                             // Rút & convert sensei <(")
                             Map<String, Object> data = Manager.findDocument(db, "lecturers", username);
@@ -233,15 +229,15 @@ public class LoginPage {
                         }
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
-                        System.out.println("Error, idk, ask GPT");
+                        System.out.println("Error");
                         continue;
                     }
                     break;
-                case 3:
+                } else if (choice.equals("3")) {
                     try {
                         boolean loginSuccess = Firebase.isValidLogin(db, "educationManagers", username, password);
                         if (loginSuccess) {
-                            System.out.println("Grabbed Manager!");
+//                            System.out.println("Grabbed Manager!");
 
                             // Rút & convert manager <(")
                             Map<String, Object> data = Manager.findDocument(db, "educationManagers", username);
@@ -255,14 +251,19 @@ public class LoginPage {
                         }
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
-                        System.out.println("Error, idk, ask GPT");
+                        System.out.println("Error");
                         continue;
                     }
                     break;
-
-                default:
-                    System.out.println("Invalid choice. Please choose again.");
+                }
             }
+            else {
+                System.out.println("Invalid choice, choose again!");
+//                sleep(1500);
+//                continue;
+
+            }
+            clearScreen();
         }
 
     }
