@@ -9,6 +9,8 @@ Use Repository to integrate with Firebase (pass Class to them).
 
 ...
 
+Có một file DEF-University-Management.JAR trong project, thầy có thể lấy file đó rồi convert thành .exe để chạy thử chương trình.
+
 
 ## Some Example Crud code:
 - Create: test/java/.../StudentFireStoreTest.java
