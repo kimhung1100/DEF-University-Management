@@ -1,5 +1,6 @@
 package org.defuni.cli;
 
+import org.defuni.cli.*;
 import java.util.Scanner;
 
 import org.defuni.account.*;
@@ -32,95 +33,92 @@ public class LecturerPage {
             System.out.println("2. Update info");
             System.out.println("3. Create a course");
             System.out.println("4. Update Course");
-            System.out.println("5. Register class");
-            System.out.println("6. Update Class");
+            System.out.println("5. Update student's grade (abandoned)");
+            System.out.println("6. Update Class (abanoned)");
             System.out.println("7. Display Class");
-            System.out.println("111. Test ground!");
             System.out.println("999. Log out");
 
-            int choice = Integer.parseInt(scanner.nextLine());
+            String choice = scanner.nextLine();
 
-            if (choice == 0) {
-                break;
+            if (choice.equals("0")) {
+                return;
             }
 
-            else if (choice == 1) {
+            else if (choice.equals("1")) {
                 lecturer.displayInfo();
             }
 
-            else if (choice == 2) {
+            else if (choice.equals("2")) {
                 lecturer.updateProfile();
             }
 
-            else if (choice == 3) {
+            else if (choice.equals("3")) {
                 CourseCreatePage courseCreatePage = new CourseCreatePage(lecturer);
             }
 
-            else if (choice == 4) {
+            else if (choice.equals("4")) {
                 UpdateCoursePage updateCoursePage = new UpdateCoursePage(lecturer);
-            } else if (choice == 5) {
+            } else if (choice.equals("5")) {
+                // Abandoned
+                // UpdateStudentGradePage updateStudentGradePage = new UpdateStudentGradePage();
 
-            } else if (choice == 6) {
+            } else if (choice.equals("6")) {
                 // tạo 1 clone mới, chưa tìm ra cách xóa cái cũ....
-                UpdateScheduledClass UpdateScheduledClass = new UpdateScheduledClass(lecturer);
-            } else if (choice == 7) {
+                // UpdateScheduledClass UpdateScheduledClass = new
+                // UpdateScheduledClass(lecturer);
+            } else if (choice.equals("7")) {
                 DisplayScheduledClassPage();
-            } else if (choice == 111) {
-
             }
 
-            else if (choice == 999) {
+            else if (choice.equals("999")) {
                 return;
             }
 
             else {
-                System.out.println("Uwwooooooh ToT");
+                System.out.println("Invalid choice");
             }
             clearScreen();
         }
 
-        scanner.close();
+        // scanner.close();
     }
 
     public void DisplayScheduledClassPage() {
         clearScreen();
         Scanner scanner = new Scanner(System.in);
+
+        Manager.displayDocs("scheduledClass");
         System.out.println("Enter Class ID:");
         String schelleID = scanner.nextLine();
+
         ScheduledClassRepositoryFirebase scheRepository = new ScheduledClassRepositoryFirebase();
         ScheduledClass sClasss = scheRepository.findScheduledClassByID(schelleID);
-        System.out.println(sClasss);
+        System.out.println(sClasss); // ?
         // sClasss.printList();
         while (true) {
             clearScreen();
             // System.out.println("______________________________________________________");
-            System.out.println("Update choice:");
+            System.out.println("What do you want to see?");
             System.out.println("1. Class Score ");
             System.out.println("2. Student Score ");
             System.out.println("3. Class Info");
             System.out.println("7. Exit: ");
             // System.out.println("______________________________________________________");
             System.out.println("Enter choice:");
-            int choice = scanner.nextInt();
 
-            switch (choice) {
-                case 1:
-                    // sClasss.printList();
-                    printSocre(sClasss);
-                    break;
-                case 2:
+            String choice = scanner.nextLine();
 
-                    printScoreStudent(sClasss);
-                    break;
-                case 3:
-                    printInfoClass(sClasss);
-                    break;
-                case 7:
-                    return;
-
-                default:
-                    System.out.println("Invalid choice");
-
+            if (choice.equals("1")) {
+                // sClasss.printList();
+                printSocre(sClasss);
+            } else if (choice.equals("2")) {
+                printScoreStudent(sClasss);
+            } else if (choice.equals("3")) {
+                printInfoClass(sClasss);
+            } else if (choice.equals("7")) {
+                return;
+            } else {
+                System.out.println("Invalid choice");
             }
 
         }

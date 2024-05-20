@@ -120,7 +120,7 @@ public class Course {
 
         List<ScheduledClass> scheduledClasses = new ArrayList<>();
 
-        int numsClass = (int) Math.ceil(studentRegisters.size() / studentEachClass);
+        int numsClass = (int) Math.ceil((double) studentRegisters.size() / (double) studentEachClass);
 
         for (int i = 0; i < numsClass; i++) {
             ScheduledClass scheduledClass = new ScheduledClass(this);
@@ -132,8 +132,14 @@ public class Course {
             scheduledClass.setSemester(manager.getCurrentSemester());
             scheduledClass.setSchoolYear(manager.getCurrentSchoolYear());
 
+            int size = studentRegisters.size();
             double[] data = { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
             for (int j = 0; j < studentEachClass; j++) {
+                int index = i * studentEachClass + j;
+                if (index >= size) {
+                    break;
+                }
+
                 scheduledClass.registerStudent(studentRegisters.get(i * studentEachClass + j));
                 scheduledClass.addScore(studentRegisters.get(i * studentEachClass + j), data);
             }

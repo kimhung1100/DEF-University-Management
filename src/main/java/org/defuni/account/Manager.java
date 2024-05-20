@@ -103,6 +103,28 @@ public class Manager {
         }
     }
 
+    public String getFieldString(Firestore db, String collection, String document, String field) {
+        DocumentReference docRef = db.collection(collection).document(document);
+        try {
+            DocumentSnapshot documentSnapshot = docRef.get().get();
+            return documentSnapshot.getString(field);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<String> getFieldList(Firestore db, String collection, String document, String field) {
+        DocumentReference docRef = db.collection(collection).document(document);
+        try {
+            DocumentSnapshot documentSnapshot = docRef.get().get();
+            return (List<String>) documentSnapshot.get(field);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static Map<String, Object> findDocument(String collection, String documentId) {
 
         DocumentReference docRef = db.collection(collection).document(documentId);

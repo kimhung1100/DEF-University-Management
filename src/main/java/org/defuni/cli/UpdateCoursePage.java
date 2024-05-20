@@ -1,6 +1,7 @@
 package org.defuni.cli;
 
 import org.defuni.account.Lecturer;
+import org.defuni.account.Manager;
 import org.defuni.course.Course;
 import org.defuni.repository.CourseRepositoryFirebase;
 
@@ -14,13 +15,21 @@ import static org.defuni.Main.sleep;
 
 public class UpdateCoursePage {
     public UpdateCoursePage(Lecturer lecturer) {
-        clearScreen();
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+            clearScreen();
+
             System.out.println("Course Updating:");
+            Manager.displayDocs("course");
             System.out.println("Enter Course ID:");
             String courseID = scanner.nextLine();
+
+            if (courseID.isEmpty()) {
+                System.out.println("Invalid Course ID");
+                sleep(1000);
+                continue;
+            }
 
             CourseRepositoryFirebase courseRepository = new CourseRepositoryFirebase();
             Course course = courseRepository.findCourseById(courseID);
@@ -32,65 +41,39 @@ public class UpdateCoursePage {
             System.out.println("3. Update course credit");
             System.out.println("4. Update course content");
             System.out.println("5. Update course materials");
-            System.out.println("6. Update course components grades:");
-            System.out.println("7. Exit: ");
+            System.out.println("6. Exit: ");
             System.out.println("\n______________________________________________________\n");
             System.out.println("Enter choice:");
-            int choice = scanner.nextInt();
 
-            switch (choice) {
-                case 1:
-                    System.out.println("Enter new Course ID:");
-                    String newCourseID = scanner.nextLine();
-                    course.setCourseID(newCourseID);
-                    break;
-                case 2:
-                    System.out.println("Enter new Course Title:");
-                    String newTitle = scanner.nextLine();
-                    course.setCourseTitle(newTitle);
-                    break;
-                case 3:
-                    System.out.println("Enter new Course Credit:");
-                    int newCredit = scanner.nextInt();
-                    course.setCredits(newCredit);
-                    break;
-                case 4:
-                    System.out.println("Enter new Course Content:");
-                    String newContent = scanner.nextLine();
-                    course.setCourseContent(newContent);
-                    break;
-                case 5:
-                    System.out.println("Enter new Course Materials:");
-                    String newMaterials = scanner.nextLine();
-                    course.setCourseMaterials(newMaterials);
-                    break;
-                case 6:
-                    System.out.println("Enter number of components:");
-                    int num = scanner.nextInt();
-                    List<String> components = new ArrayList<>();
-                    for (int i = 0; i < num; i++) {
-                        System.out.println("Enter component " + i + " grade:");
-                        components.add(scanner.nextLine());
-                    }
-                    course.setComponentGrades(components);
-                    break;
-                case 7:
-                    break;
-                default:
-                    System.out.println("Invalid choice");
+            String choice = scanner.nextLine();
+
+            if (choice.equals("1")) {
+                System.out.println("Enter new Course ID:");
+                String newCourseID = scanner.nextLine();
+                course.setCourseID(newCourseID);
+            } else if (choice.equals("2")) {
+                System.out.println("Enter new Course Title:");
+                String newTitle = scanner.nextLine();
+                course.setCourseTitle(newTitle);
+            } else if (choice.equals("3")) {
+                System.out.println("Enter new Course Credit:");
+                int newCredit = Integer.parseInt(scanner.nextLine());
+                course.setCredits(newCredit);
+            } else if (choice.equals("4")) {
+                System.out.println("Enter new Course Content:");
+                String newContent = scanner.nextLine();
+                course.setCourseContent(newContent);
+            } else if (choice.equals("5")) {
+                System.out.println("Enter new Course Materials:");
+                String newMaterials = scanner.nextLine();
+                course.setCourseMaterials(newMaterials);
+            } else if (choice.equals("6")) {
+                break;
+            } else {
+                System.out.println("Invalid choice");
+                sleep(1000);
+                continue;
             }
-
-            // if (choice == 1) {
-            // System.out.println("Enter new Course ID:");
-            // String newCourseID = scanner.nextLine();
-            // course.setCourseID(newCourseID);
-            // }
-
-            // else if (choice == 2) {
-            // System.out.println("Enter new Course Title:");
-            // String newTitle = scanner.nextLine();
-            // course.setCourseTitle(newTitle);
-            // }
 
             courseRepository.saveCourse(course);
             sleep(1000);

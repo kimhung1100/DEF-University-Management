@@ -36,8 +36,17 @@ public class CourseRegistingPage {
 
             Manager.displayDocs("course");
 
-            System.out.println("\nEnter courseID exactly:");
+            System.out.println("\nEnter courseID exactly or EXIT to cancel:");
             String courseID = scanner.nextLine();
+
+            if (courseID.equalsIgnoreCase("exit")) {
+                break;
+            }
+            if (courseID.isEmpty()) {
+                System.out.println("Invalid input");
+                sleep(1500);
+                continue;
+            }
 
             Map<String, Object> documentData = Manager.findDocument("course", courseID);
             if (documentData != null) {
@@ -75,6 +84,12 @@ public class CourseRegistingPage {
                     System.out.println("You have been added to course: " + (String) documentData.get("courseID"));
                     sleep(1500);
 
+                } else if (input == 0) {
+                    System.out.println("Course registration cancelled.");
+                    sleep(1500);
+                    scanner.nextLine();
+
+                    continue;
                 } else {
                     System.out.println("invalid input");
                     scanner.nextLine();

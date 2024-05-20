@@ -24,7 +24,7 @@ public class LoginPage {
             clearScreen();
 
             System.out.println("DEF University account gateway");
-            System.out.println("You want to LOGIN or you want to SIGNUP for a new account?");
+            System.out.println("You want to LOGIN or you want to SIGNUP for a new account? Or EXIT to quit?");
 
             String input = scanner.nextLine().toLowerCase();
 
@@ -253,13 +253,12 @@ public class LoginPage {
                             System.out.println("Wrong username or password");
                             continue;
                         }
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                        System.out.println("Error, idk, ask GPT");
+                        continue;
                     }
-                        catch (InterruptedException | ExecutionException e) {
-                            e.printStackTrace();
-                            System.out.println("Error, idk, ask GPT");
-                            continue;
-                        }
-                        break;
+                    break;
 
                 default:
                     System.out.println("Invalid choice. Please choose again.");
@@ -300,4 +299,3 @@ public class LoginPage {
         }
     }
 }
-

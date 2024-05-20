@@ -1,6 +1,7 @@
 package org.defuni.cli;
 
 import org.defuni.account.Lecturer;
+import org.defuni.account.Manager;
 import org.defuni.course.Course;
 import org.defuni.course.ScheduledClass;
 import org.defuni.repository.CourseRepositoryFirebase;
@@ -19,16 +20,18 @@ public class UpdateScheduledClass {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+            System.err.println("Available Classes:");
+            Manager.displayDocs("scheduledClass");
+
             System.out.println("Scheduled Class Updating:");
             System.out.println("Enter Class ID:");
             String schelleID = scanner.nextLine();
 
-            //String schelleID = "HK2aL0";
+            // String schelleID = "HK2aL0";
             ScheduledClassRepositoryFirebase scheRepository = new ScheduledClassRepositoryFirebase();
 
-
             ScheduledClass sClasss = scheRepository.findScheduledClassByID(schelleID);
-            //System.out.println(sClasss.toString());
+            // System.out.println(sClasss.toString());
             System.out.println("\n______________________________________________________\n");
             System.out.println("Update choice:");
             System.out.println("1. Update class ID");
@@ -37,9 +40,9 @@ public class UpdateScheduledClass {
             System.out.println("10. Exit: ");
             System.out.println("\n______________________________________________________\n");
             System.out.println("Enter choice:");
+
             int choice = scanner.nextInt();
             scanner.nextLine(); // Thêm dòng này để tránh lỗi Enter?
-
 
             switch (choice) {
                 case 1:
@@ -47,7 +50,7 @@ public class UpdateScheduledClass {
                     String newClassID = scanner.nextLine();
                     sClasss.setClassID(newClassID);
                     break;
-                
+
                 case 7:
                     break;
                 default:

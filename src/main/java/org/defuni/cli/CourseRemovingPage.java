@@ -25,8 +25,20 @@ public class CourseRemovingPage {
         while (true) {
             clearScreen();
             System.out.println("Course Remove Page");
-            System.out.println("Enter courseID exactly:");
+
+            Manager.displayDocs("course");
+
+            System.out.println("Enter courseID exactly or EXIT to cancel:");
             String courseID = scanner.nextLine();
+
+            if (courseID.equalsIgnoreCase("exit")) {
+                break;
+            }
+            if (courseID.isEmpty()) {
+                System.out.println("Invalid input");
+                sleep(1500);
+                continue;
+            }
 
             Map<String, Object> documentData = manager.findDocument("course", courseID);
             if (documentData != null) {
@@ -50,13 +62,27 @@ public class CourseRemovingPage {
                 if (input == 1) {
                     // Content here
                     List<String> studentIds = (List<String>) documentData.get("studentRegisters");
-                    studentIds.remove(student.getUserName());
-                    manager.updateDocument("course", (String) documentData.get("courseID"), "studentRegisters",
-                            studentIds);
 
-                    System.out.println("You have been removed from the course.");
+                    if (studentIds.contains(student.getUserName())) { // Student is in this course
+                        studentIds.remove(student.getUserName());
+                        manager.updateDocument("course", (String) documentData.get("courseID"), "studentRegisters",
+                                studentIds);
+
+                        System.out.println("You have been removed from the course.");
+                        sleep(1500);
+
+                    } else { // Student is not in this course
+                        System.out.println("You are not registed this course.");
+                        sleep(1500);
+                        break;
+                    }
+
+                } else if (input == 0) {
+                    System.out.println("Course registration cancelled.");
                     sleep(1500);
+                    scanner.nextLine();
 
+                    continue;
                 } else {
                     System.out.println("invalid input");
                     scanner.nextLine();
